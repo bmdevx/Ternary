@@ -100,9 +100,14 @@ namespace Ternary.Components.Chips
         protected virtual void OnPin8Triggerd(object sender, Trit trit) { }
 
 
-        public void Trigger(int pin, Trit trit)
+        public void Input(int pin, Trit trit, object sender = null)
         {
-            Inputs[pin]?.Invoke(this, trit);
+            Inputs[pin]?.Invoke(sender ?? this, trit);
+        }
+
+        protected void Output(int pin, Trit trit, object sender = null)
+        {
+            Outputs[pin]?.Invoke(sender ?? this, trit);
         }
 
         public ComponentTriggeredEvent this[int pin]

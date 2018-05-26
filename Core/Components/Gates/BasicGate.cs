@@ -59,12 +59,12 @@ namespace Ternary.Components.Gates
         }
 
 
-        public void Trigger(Trit input1State, Trit input2State)
+        public void Input(Trit input1State, Trit input2State, object sender = null)
         {
             Input1State = input1State;
             Input2State = input2State;
 
-            Output?.Invoke(this, Execute(input1State, input2State));
+            Output?.Invoke(sender ?? this, Execute(input1State, input2State));
         }
 
         protected abstract Trit Execute(Trit input1State, Trit input2State);
