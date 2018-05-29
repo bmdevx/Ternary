@@ -38,66 +38,66 @@ namespace Ternary.Components.Chips
         private void Pin1Triggered(object sender, Trit trit)
         {
             PinStates[0] = trit;
-            OnPin1Triggerd(sender, trit);
+            OnPin1Triggered(sender, trit);
         }
 
-        protected virtual void OnPin1Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin1Triggered(object sender, Trit trit) { }
 
         protected void Pin2Triggered(object sender, Trit trit)
         {
             PinStates[1] = trit;
-            OnPin2Triggerd(sender, trit);
+            OnPin2Triggered(sender, trit);
         }
 
-        protected virtual void OnPin2Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin2Triggered(object sender, Trit trit) { }
 
         protected void Pin3Triggered(object sender, Trit trit)
         {
             PinStates[2] = trit;
-            OnPin3Triggerd(sender, trit);
+            OnPin3Triggered(sender, trit);
         }
 
-        protected virtual void OnPin3Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin3Triggered(object sender, Trit trit) { }
 
         protected void Pin4Triggered(object sender, Trit trit)
         {
             PinStates[3] = trit;
-            OnPin4Triggerd(sender, trit);
+            OnPin4Triggered(sender, trit);
         }
 
-        protected virtual void OnPin4Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin4Triggered(object sender, Trit trit) { }
 
         protected void Pin5Triggered(object sender, Trit trit)
         {
             PinStates[4] = trit;
-            OnPin5Triggerd(sender, trit);
+            OnPin5Triggered(sender, trit);
         }
 
-        protected virtual void OnPin5Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin5Triggered(object sender, Trit trit) { }
 
         protected void Pin6Triggered(object sender, Trit trit)
         {
             PinStates[5] = trit;
-            OnPin6Triggerd(sender, trit);
+            OnPin6Triggered(sender, trit);
         }
 
-        protected virtual void OnPin6Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin6Triggered(object sender, Trit trit) { }
 
         protected void Pin7Triggered(object sender, Trit trit)
         {
             PinStates[6] = trit;
-            OnPin7Triggerd(sender, trit);
+            OnPin7Triggered(sender, trit);
         }
 
-        protected virtual void OnPin7Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin7Triggered(object sender, Trit trit) { }
 
         protected void Pin8Triggered(object sender, Trit trit)
         {
             PinStates[7] = trit;
-            OnPin8Triggerd(sender, trit);
+            OnPin8Triggered(sender, trit);
         }
 
-        protected virtual void OnPin8Triggerd(object sender, Trit trit) { }
+        protected virtual void OnPin8Triggered(object sender, Trit trit) { }
 
 
         public void Input(int pin, Trit trit, object sender = null)

@@ -27,15 +27,15 @@ namespace Ternary.Components
         }
 
         /// <summary>
-        /// Attaches a wire to a component
+        /// Attaches a wire to a component event
         /// </summary>
-        /// <param name="input">Component event that the wire listens to</param>
+        /// <param name="output">Component event that the wire listens to</param>
         /// <param name="wire">Wire that will listen to a component event</param>
         /// <returns></returns>
-        public static ComponentTriggeredEvent operator +(ComponentTriggeredEvent input, Wire wire)
+        public static ComponentTriggeredEvent operator +(ComponentTriggeredEvent output, Wire wire)
         {
-            input += wire.Input;
-            return input;
+            output += wire.Input;
+            return output;
         }
 
         /// <summary>
