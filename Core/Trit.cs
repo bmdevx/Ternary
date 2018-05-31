@@ -67,5 +67,23 @@ namespace Ternary
 
             return true;
         }
+
+        public static int Value(this Trit trit)
+        {
+            if (trit == Trit.Neg)
+                return -1;
+            else if (trit == Trit.Pos)
+                return 1;
+            return 0;
+        }
+
+        public static char ToSymbol(this Trit trit)
+        {
+            if (trit == Trit.Neg)
+                return '-';
+            else if (trit == Trit.Pos)
+                return '+';
+            return '0';
+        }
     }
 }

@@ -12,8 +12,7 @@ namespace Ternary.Components
         {
             Output?.Invoke(sender, trit);
         }
-
-
+        
 
         /// <summary>
         /// Attaches a component event to listen a wire
