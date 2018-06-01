@@ -47,6 +47,19 @@ namespace Ternary
             throw new Exception("Invalid Input");
         }
 
+        public static Trit Parse(char input)
+        {
+            switch (input)
+            {
+                case '-': return Trit.Neg;
+                case '0': return Trit.Neu;
+                case '+':
+                case '1': return Trit.Pos;
+            }
+
+            throw new Exception("Invalid Input");
+        }
+
         public static bool TryParse(string input, out Trit trit)
         {
             switch (input.ToLower())
@@ -68,7 +81,21 @@ namespace Ternary
             return true;
         }
 
-        public static int Value(this Trit trit)
+        public static bool TryParse(char input, out Trit trit)
+        {
+            switch (input)
+            {
+                case '-': trit = Trit.Neg; break;
+                case '0': trit = Trit.Neu; break;
+                case '+':
+                case '1': trit = Trit.Pos; break;
+                default: trit = Trit.Neu; return false;
+            }
+
+            return true;
+        }
+
+        public static sbyte Value(this Trit trit)
         {
             if (trit == Trit.Neg)
                 return -1;

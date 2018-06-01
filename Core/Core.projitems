@@ -10,12 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Components\Basic2In1OutComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\IChip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip4Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip8Pin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\MultiIn1OutComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\MultiWireMerge.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\WireMerge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\IChip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\AntiMaxGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\AntiMinGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\BasicGate.cs" />
@@ -31,8 +28,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\XnorGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\XorGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\IComponent.cs" />
-    <None Include="$(MSBuildThisFileDirectory)Components\old\LM393.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\MultiIn1OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\MultiWireMerge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Wire.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\WireMerge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tryte.cs" />
   </ItemGroup>

@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Ternary
 {
-    public struct Tryte : IEnumerable<Trit>, IComparable, IComparable<Tryte>, IEquatable<Tryte>, IFormattable//, IConvertible
+    public class Tryte : IEnumerable<Trit>, IComparable, IComparable<Tryte>, IEquatable<Tryte>, IFormattable//, IConvertible
     {
         public const int NUMBER_OF_TRITS = 6;
 
-        private readonly Trit[] _Trits;
+        private readonly Trit[] _Trits = new Trit[NUMBER_OF_TRITS];
 
         public Trit[] Trits => _Trits.Clone() as Trit[];
         
@@ -21,12 +21,10 @@ namespace Ternary
         public Trit T4 { get { return _Trits[4]; } set { _Trits[4] = value; } }
         public Trit T5 { get { return _Trits[5]; } set { _Trits[5] = value; } }
 
-        
+
         public Tryte(Trit t0 = Trit.Neu, Trit t1 = Trit.Neu, Trit t2 = Trit.Neu,
             Trit t3 = Trit.Neu, Trit t4 = Trit.Neu, Trit t5 = Trit.Neu)
         {
-            _Trits = new Trit[NUMBER_OF_TRITS];
-
             _Trits[0] = t0;
             _Trits[1] = t1;
             _Trits[2] = t2;
@@ -35,6 +33,19 @@ namespace Ternary
             _Trits[5] = t5;
         }
 
+        public Tryte(IEnumerable<Trit> trits)
+        {
+            int i = 0;
+            foreach (Trit t in trits)
+            {
+                _Trits[i] = t;
+
+                if (i == NUMBER_OF_TRITS - 1)
+                    break;
+
+                i++;
+            }
+        }
 
         public IEnumerator<Trit> GetEnumerator()
         {
@@ -118,8 +129,76 @@ namespace Ternary
         }
 
 
+        public int ToInt()
+        {
+            int s = 0;
+
+            int m = 1;
+            foreach (Trit t in _Trits)
+            {
+                s += m * t.Value();
+                m *= 3;
+            }
+
+            return s;
+        }
+
+
+        public Tryte Invert()
+        {
+            return new Tryte(
+                T0.Invert(),
+                T1.Invert(),
+                T2.Invert(),
+                T3.Invert(),
+                T4.Invert(),
+                T5.Invert());
+        }
+
+        public static Tryte Parse(string value)
+        {
+            if (value == null)
+                throw new ArgumentNullException();
+
+            Trit[] trits = new Trit[Tryte.NUMBER_OF_TRITS];
+
+            for (int i = 0; i < Tryte.NUMBER_OF_TRITS && i < value.Length; i++)
+            {
+                if (TritTools.TryParse(value[i], out Trit trit))
+                    trits[i] = trit;
+                else
+                    throw new FormatException();
+            }
+
+            return new Tryte(trits);
+        }
+
+        public static bool TryParse(string value, out Tryte tryte)
+        {
+            tryte = new Tryte();
+
+            if (value == null)
+                return false;
+
+            for (int i = 0; i < Tryte.NUMBER_OF_TRITS && i < value.Length; i++)
+            {
+                if (TritTools.TryParse(value[i], out Trit trit))
+                    tryte[i] = trit;
+                else
+                    return false;
+            }
+
+            return true;
+        }
+
+
         #region Overloads
         public static implicit operator Tryte(byte value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static implicit operator Tryte(short value)
         {
             throw new NotImplementedException();
         }
@@ -128,6 +207,7 @@ namespace Ternary
         {
             throw new NotImplementedException();
         }
+
 
         public static Tryte operator +(Tryte t1, Tryte t2)
         {
@@ -207,30 +287,5 @@ namespace Ternary
             throw new NotImplementedException();
         }
         #endregion
-    }
-
-
-    public static class TryteTools
-    {
-        public static Tryte Invert(this Tryte tryte)
-        {
-            return new Tryte(
-                tryte.T0.Invert(),
-                tryte.T1.Invert(),
-                tryte.T2.Invert(),
-                tryte.T3.Invert(),
-                tryte.T4.Invert(),
-                tryte.T5.Invert());
-        }
-
-        public static Tryte Parse(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool TryParse(string value, out Tryte tryte)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
