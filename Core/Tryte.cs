@@ -12,11 +12,13 @@ namespace Ternary
     {
         public const int NUMBER_OF_TRITS = 6;
 
-        public const short MAX_INT_VALUE = 364;
-        public const short MIN_INT_VALUE = -364;
+        public const int MAX_INT_VALUE = 364;
+        public const int MIN_INT_VALUE = -364;
 
         public static readonly Tryte MAX_VALUE = new Tryte(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
         public static readonly Tryte MIN_VALUE = new Tryte(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);
+        
+        private string DebuggerInfo => $"{ToString()} ({ToString("s")})";
 
 
         private readonly Trit[] _Trits = new Trit[NUMBER_OF_TRITS];
@@ -77,7 +79,7 @@ namespace Ternary
 
         public int CompareTo(Tryte other)
         {
-            for (int i = 0; i < NUMBER_OF_TRITS; i++)
+            for (int i = NUMBER_OF_TRITS - 1; i > -1; i--)
             {
                 if (this[i] != other[i])
                     return this[i].Value();
@@ -130,14 +132,11 @@ namespace Ternary
         }
 
 
-        private string DebuggerInfo => $"{ToString()} ({ToString("s")})";
-
-
         public Trit this[int index]
         {
-            get { return index > -1 && index < 6 ? _Trits[index] : throw new IndexOutOfRangeException(); }
+            get { return index > -1 && index < NUMBER_OF_TRITS ? _Trits[index] : throw new IndexOutOfRangeException(); }
 
-            set { if (index > -1 && index < 6) _Trits[index] = value; else throw new IndexOutOfRangeException(); }
+            set { if (index > -1 && index < NUMBER_OF_TRITS) _Trits[index] = value; else throw new IndexOutOfRangeException(); }
         }
 
 
@@ -166,6 +165,7 @@ namespace Ternary
                 T4.Invert(),
                 T5.Invert());
         }
+
 
         public static Tryte Parse(string value)
         {
