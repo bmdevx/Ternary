@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
 namespace Ternary
 {
+    [DebuggerDisplay("{DebuggerInfo}")]
     public class Tryte : IEnumerable<Trit>, IComparable, IComparable<Tryte>, IEquatable<Tryte>, IFormattable//, IConvertible
     {
         public const int NUMBER_OF_TRITS = 6;
+
+        public const short MAX_INT_VALUE = 364;
+        public const short MIN_INT_VALUE = -364;
+
+        public static readonly Tryte MAX_VALUE = new Tryte(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
+        public static readonly Tryte MIN_VALUE = new Tryte(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);
+
 
         private readonly Trit[] _Trits = new Trit[NUMBER_OF_TRITS];
 
@@ -117,9 +126,12 @@ namespace Ternary
 
         public override string ToString()
         {
-            //TODO as number
-            return base.ToString();
+            return ToInt().ToString();
         }
+
+
+        private string DebuggerInfo => $"{ToString()} ({ToString("s")})";
+
 
         public Trit this[int index]
         {
@@ -144,7 +156,7 @@ namespace Ternary
         }
 
 
-        public Tryte Invert()
+        private Tryte Invert()
         {
             return new Tryte(
                 T0.Invert(),
@@ -193,35 +205,75 @@ namespace Ternary
 
 
         #region Overloads
-        public static implicit operator Tryte(byte value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static implicit operator Tryte(short value)
-        {
-            throw new NotImplementedException();
-        }
 
         public static implicit operator Tryte(int value)
         {
-            throw new NotImplementedException();
+            if (value >= MAX_INT_VALUE)
+                return MAX_VALUE;
+            else if (value <= MIN_INT_VALUE)
+                return MIN_VALUE;
+
+            Tryte tryte = new Tryte();
+            for (int i = 0; value != 0 && i < NUMBER_OF_TRITS; i++)
+            {
+                switch (value % 3)
+                {
+                    case -1:
+                    case 2: tryte[i] = Trit.Neg; break;
+                    case -2:
+                    case 1: tryte[i] = Trit.Pos; break;
+                    default: tryte[i] = Trit.Neu; break;
+                }
+
+                value = (value < 0 ? (value - 1) : (value + 1)) / 3;
+            }
+
+            return tryte;
         }
 
 
         public static Tryte operator +(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            Tryte tryte = new Tryte();
+            Trit carry = Trit.Neu;
+            for (int i = 0; i < NUMBER_OF_TRITS; i++)
+            {
+                tryte[i] = t1[i].Add(t2[i], ref carry);
+
+                while (carry != Trit.Neu)
+                {
+                    if (++i == NUMBER_OF_TRITS)
+                        break;
+
+                    Trit tc = Trit.Neu;
+                    tryte[i] = carry.Add(t1[i], ref tc).Add(t2[i], ref carry);
+
+                    if (carry == Trit.Neu)
+                        carry = tc;
+                    else if (tc != Trit.Neu)
+                        carry = carry.Add(tc, ref tc);
+                }
+            }
+
+            return tryte;
         }
 
         public static Tryte operator -(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            return t1 + t2.Invert();
         }
 
         public static Tryte operator *(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            Tryte tryte = new Tryte();
+
+            int stop = t2.ToInt();
+            for (int i = 0; i < stop; i++)
+            {
+                tryte += t1;
+            }
+
+            return tryte;
         }
 
         public static Tryte operator /(Tryte t1, Tryte t2)
@@ -237,23 +289,22 @@ namespace Ternary
 
         public static Tryte operator ++(Tryte tryte)
         {
-            throw new NotImplementedException();
+            return tryte + new Tryte(Trit.Pos);
         }
 
         public static Tryte operator --(Tryte tryte)
         {
-            throw new NotImplementedException();
+            return tryte + new Tryte(Trit.Neg);
         }
 
         public static Tryte operator -(Tryte tryte)
         {
-            //inverts value not trits
-            throw new NotImplementedException();
+            return tryte.Invert();
         }
 
         public static Tryte operator ~(Tryte tryte)
         {
-            return tryte.Invert();
+            throw new NotImplementedException();
         }
 
 
@@ -279,12 +330,12 @@ namespace Ternary
 
         public static bool operator >=(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            return t1 == t2 || t1 > t2;
         }
 
         public static bool operator <=(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            return t1 == t2 || t1 < t2;
         }
         #endregion
     }
