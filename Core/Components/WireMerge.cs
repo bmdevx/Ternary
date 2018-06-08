@@ -19,14 +19,14 @@ namespace Ternary.Components
 
         private void InvokeOutput()
         {
-            InvokeOutput(this, Execute(Input1State, Input2State));
+            InvokeOutput(this, Execute(InputStateA, InputStateB));
             is1Set = is2Set = false;
         }
 
 
         protected override void OnInput1Invoked(object sender, Trit trit)
         {
-            Input1State = trit;
+            InputStateA = trit;
 
             is1Set = true;
 
@@ -36,7 +36,7 @@ namespace Ternary.Components
 
         protected override void OnInput2Invoked(object sender, Trit trit)
         {
-            Input2State = trit;
+            InputStateB = trit;
 
             is2Set = true;
 

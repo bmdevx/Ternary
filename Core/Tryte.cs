@@ -268,22 +268,54 @@ namespace Ternary
             Tryte tryte = new Tryte();
 
             int stop = t2.ToInt();
+            bool neg = false;
+
+            if (stop < 0)
+            {
+                stop = -stop;
+                neg = true;
+            }
+
             for (int i = 0; i < stop; i++)
             {
                 tryte += t1;
             }
 
-            return tryte;
+            return neg ? -tryte : tryte;
         }
 
         public static Tryte operator /(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            Tryte tmp = t1, val = new Tryte();
+            
+            if (t1 < 0)
+            {
+                while ((tmp += t2) <= 0)
+                    val--;
+            }
+            else
+            {
+                while ((tmp -= t2) >= 0)
+                    val++;
+            }
+
+            return val;
         }
 
         public static Tryte operator %(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            Tryte tmp = t1;
+
+            if (t1 < 0)
+            {
+                while ((tmp += t2) <= t2) ;
+            }
+            else
+            {
+                while ((tmp -= t2) >= t2) ;
+            }
+
+            return tmp;
         }
 
 
@@ -304,7 +336,7 @@ namespace Ternary
 
         public static Tryte operator ~(Tryte tryte)
         {
-            throw new NotImplementedException();
+            return tryte.Invert();
         }
 
 
@@ -320,12 +352,28 @@ namespace Ternary
 
         public static bool operator >(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            for (int i = 5; i > -1; i--)
+            {
+                if (t1[i] > t2[i])
+                    return true;
+                else if (t1[i] < t2[i])
+                    return false;
+            }
+
+            return false;
         }
 
         public static bool operator <(Tryte t1, Tryte t2)
         {
-            throw new NotImplementedException();
+            for (int i = 5; i > -1; i--)
+            {
+                if (t1[i] < t2[i])
+                    return true;
+                else if (t1[i] > t2[i])
+                    return false;
+            }
+
+            return false;
         }
 
         public static bool operator >=(Tryte t1, Tryte t2)

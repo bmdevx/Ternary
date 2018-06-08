@@ -8,28 +8,28 @@ namespace Ternary.Components
     {
         public event ComponentTriggeredEvent Output;
 
-        public Trit Input1State { get; protected set; }
-        public Trit Input2State { get; protected set; }
+        public Trit InputStateA { get; protected set; }
+        public Trit InputStateB { get; protected set; }
 
 
-        public Basic2In1OutComponent(IComponent component1, IComponent component2, Trit input1State = Trit.Neu, Trit input2State = Trit.Neu)
+        public Basic2In1OutComponent(IComponent componentA, IComponent componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu)
         {
-            if (component1 != null)
-                component1.Output += Input1;
+            if (componentA != null)
+                componentA.Output += Input1;
 
-            if (component2 != null)
-                component2.Output += Input2;
+            if (componentB != null)
+                componentB.Output += Input2;
 
-            Input1State = input1State;
-            Input2State = input2State;
+            InputStateA = inputStateA;
+            InputStateB = inputStateB;
         }
 
-        public Basic2In1OutComponent(ComponentTriggeredEvent input1 = null, ComponentTriggeredEvent input2 = null, Trit input1State = Trit.Neu, Trit input2State = Trit.Neu)
+        public Basic2In1OutComponent(ComponentTriggeredEvent inputA = null, ComponentTriggeredEvent inputB = null, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu)
         {
-            input1 += Input1;
-            input2 += Input2;
-            Input1State = input1State;
-            Input2State = input2State;
+            inputA += Input1;
+            inputB += Input2;
+            InputStateA = inputStateA;
+            InputStateB = inputStateB;
         }
 
 
@@ -46,25 +46,25 @@ namespace Ternary.Components
 
         protected virtual void OnInput1Invoked(object sender, Trit trit)
         {
-            Input1State = trit;
+            InputStateA = trit;
 
-            InvokeOutput(this, Execute(Input1State, Input2State));
+            InvokeOutput(this, Execute(InputStateA, InputStateB));
         }
 
         protected virtual void OnInput2Invoked(object sender, Trit trit)
         {
-            Input2State = trit;
+            InputStateB = trit;
 
-            InvokeOutput(this, Execute(Input1State, Input2State));
+            InvokeOutput(this, Execute(InputStateA, InputStateB));
         }
 
 
-        public virtual void Input(Trit input1State, Trit input2State, object sender = null)
+        public virtual void Input(Trit inputStateA, Trit inputStateB, object sender = null)
         {
-            Input1State = input1State;
-            Input2State = input2State;
+            InputStateA = inputStateA;
+            InputStateB = inputStateB;
 
-            InvokeOutput(sender ?? this, Execute(input1State, input2State));
+            InvokeOutput(sender ?? this, Execute(inputStateA, inputStateB));
         }
 
         protected void InvokeOutput(object sender, Trit trit)
@@ -72,6 +72,6 @@ namespace Ternary.Components
             Output?.Invoke(sender, trit);
         }
 
-        protected abstract Trit Execute(Trit input1State, Trit input2State);
+        protected abstract Trit Execute(Trit inputStateA, Trit inputStateB);
     }
 }
