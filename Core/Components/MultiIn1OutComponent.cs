@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ternary.Components
 {
-    public abstract class MultiIn1OutComponent : IComponent
+    public abstract class MultiIn1OutComponent : IComponentOutput
     {
         public event ComponentTriggeredEvent Output;
         public ComponentTriggeredEvent[] Inputs { get; }

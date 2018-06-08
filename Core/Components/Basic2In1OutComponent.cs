@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ternary.Components
+﻿namespace Ternary.Components
 {
-    public abstract class Basic2In1OutComponent : IComponent
+    public abstract class Basic2In1OutComponent : IComponentOutput
     {
         public event ComponentTriggeredEvent Output;
 
@@ -12,7 +8,7 @@ namespace Ternary.Components
         public Trit InputStateB { get; protected set; }
 
 
-        public Basic2In1OutComponent(IComponent componentA, IComponent componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu)
+        public Basic2In1OutComponent(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu)
         {
             if (componentA != null)
                 componentA.Output += Input1;

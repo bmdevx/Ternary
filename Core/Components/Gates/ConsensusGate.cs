@@ -5,9 +5,9 @@ using System.Text;
 namespace Ternary.Components.Gates
 {
     //Consensus
-    public class ConsensusGate : BasicGate
+    public class ConsensusGate : GateBase
     {
-        public ConsensusGate(IComponent componentA, IComponent componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
+        public ConsensusGate(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
             base(componentA, componentB, inputStateA, inputStateB) { }
 
         public ConsensusGate(ComponentTriggeredEvent input1 = null, ComponentTriggeredEvent input2 = null, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
@@ -16,14 +16,7 @@ namespace Ternary.Components.Gates
 
         protected override Trit Execute(Trit inputStateA, Trit inputStateB)
         {
-            switch (inputStateA)
-            {
-                case Trit.Neg: return inputStateB == Trit.Neg ? Trit.Neg : Trit.Neu;
-                case Trit.Neu: return Trit.Neu;
-                case Trit.Pos: return inputStateB == Trit.Pos ? Trit.Pos : Trit.Neu;
-            }
-
-            return Trit.Neu;
+            return TritLogic.Consensus(inputStateA, inputStateB);
         }
     }
 }

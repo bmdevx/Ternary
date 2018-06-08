@@ -15,7 +15,7 @@ namespace Ternary
         Pos = 1
     }
 
-    public static class TritTools
+    public static class TritEx
     {
         public static Trit Invert(this Trit trit)
         {
@@ -155,6 +155,183 @@ namespace Ternary
             }
 
             return trit;
+        }
+    }
+    
+    public static class TritLogic
+    {
+        public static Trit Sum(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg:
+                    {
+                        switch (t2)
+                        {
+                            case Trit.Neg: return Trit.Pos;
+                            case Trit.Neu: return Trit.Neg;
+                            case Trit.Pos: return Trit.Neu;
+                        }
+                        break;
+                    }
+                case Trit.Neu: return t2;
+                case Trit.Pos:
+                    {
+                        switch (t2)
+                        {
+                            case Trit.Neg: return Trit.Neu;
+                            case Trit.Neu: return Trit.Pos;
+                            case Trit.Pos: return Trit.Neg;
+                        }
+                        break;
+                    }
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Min(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return Trit.Neg;
+                case Trit.Neu: return t2 == Trit.Neg ? Trit.Neg : Trit.Neu;
+                case Trit.Pos: return t2;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Max(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2;
+                case Trit.Neu: return t2 == Trit.Pos ? Trit.Pos : Trit.Neu;
+                case Trit.Pos: return Trit.Pos;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit AntiMin(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return Trit.Pos;
+                case Trit.Neu: return t2 == Trit.Neg ? Trit.Pos : Trit.Neu;
+                case Trit.Pos: return t2.Invert();
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit AntiMax(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2.Invert();
+                case Trit.Neu: return t2 == Trit.Pos ? Trit.Neg : Trit.Neu;
+                case Trit.Pos: return Trit.Neg;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Consensus(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2 == Trit.Neg ? Trit.Neg : Trit.Neu;
+                case Trit.Neu: return Trit.Neu;
+                case Trit.Pos: return t2 == Trit.Pos ? Trit.Pos : Trit.Neu;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit ConverseImplication(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2.Invert();
+                case Trit.Neu: return t2 == Trit.Neg ? Trit.Pos : Trit.Neu;
+                case Trit.Pos: return Trit.Pos;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit ConverseNonimplication(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2.Invert();
+                case Trit.Neu: return t2 == Trit.Neg ? Trit.Pos : Trit.Neu;
+                case Trit.Pos: return Trit.Pos;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Equality(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2 == Trit.Neg ? Trit.Pos : Trit.Neg;
+                case Trit.Neu: return t2 == Trit.Neu ? Trit.Pos : Trit.Neg;
+                case Trit.Pos: return t2 == Trit.Pos ? Trit.Pos : Trit.Neg;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Implication(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return Trit.Pos;
+                case Trit.Neu: return t2 == Trit.Pos ? Trit.Pos : Trit.Neu;
+                case Trit.Pos: return t2;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Nonimplication(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return Trit.Neu;
+                case Trit.Neu: return t2 == Trit.Pos ? Trit.Neg : Trit.Neu;
+                case Trit.Pos: return t2.Invert();
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Xnor(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2.Invert();
+                case Trit.Neu: return Trit.Neu;
+                case Trit.Pos: return t2;
+            }
+
+            return Trit.Neu;
+        }
+
+        public static Trit Xor(Trit t1, Trit t2)
+        {
+            switch (t1)
+            {
+                case Trit.Neg: return t2;
+                case Trit.Neu: return Trit.Neu;
+                case Trit.Pos: return t2.Invert();
+            }
+
+            return Trit.Neu;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Ternary.Components
         private bool is1Set = false, is2Set = false;
 
 
-        public WireMerge(IComponent component1, IComponent component2, Trit input1State = Trit.Neu, Trit input2State = Trit.Neu) :
+        public WireMerge(IComponentOutput component1, IComponentOutput component2, Trit input1State = Trit.Neu, Trit input2State = Trit.Neu) :
             base(component1, component2, input1State, input2State) { }
 
         public WireMerge(ComponentTriggeredEvent input1 = null, ComponentTriggeredEvent input2 = null, Trit input1State = Trit.Neu, Trit input2State = Trit.Neu) :

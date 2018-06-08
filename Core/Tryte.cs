@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace Ternary
 {
@@ -176,7 +175,7 @@ namespace Ternary
 
             for (int i = 0; i < Tryte.NUMBER_OF_TRITS && i < value.Length; i++)
             {
-                if (TritTools.TryParse(value[i], out Trit trit))
+                if (TritEx.TryParse(value[i], out Trit trit))
                     trits[i] = trit;
                 else
                     throw new FormatException();
@@ -194,7 +193,7 @@ namespace Ternary
 
             for (int i = 0; i < Tryte.NUMBER_OF_TRITS && i < value.Length; i++)
             {
-                if (TritTools.TryParse(value[i], out Trit trit))
+                if (TritEx.TryParse(value[i], out Trit trit))
                     tryte[i] = trit;
                 else
                     return false;

@@ -28,7 +28,7 @@ namespace Simulator
             while (true)
             {
                 Console.Write("Wire1: ");
-                if (TritTools.TryParse(Console.ReadLine(), out Trit trit))
+                if (TritEx.TryParse(Console.ReadLine(), out Trit trit))
                 {
                     wire1.Input(wire1, trit);
                 }
@@ -36,7 +36,7 @@ namespace Simulator
                     break;
 
                 Console.Write("Wire2: ");
-                if (TritTools.TryParse(Console.ReadLine(), out trit))
+                if (TritEx.TryParse(Console.ReadLine(), out trit))
                 {
                     wire2.Input(wire2, trit);
                 }

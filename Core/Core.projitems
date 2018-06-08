@@ -10,13 +10,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Components\Basic2In1OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\BusBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip4Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip6Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip8Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\IChip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\AntiMaxGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\AntiMinGate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\BasicGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\GateBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\ConsensusGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\ConverseImplicationGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\ConverseNonimplicationGate.cs" />
@@ -31,13 +32,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\IComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\MultiIn1OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\MultiWireMerge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\DeMuxer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\Muxer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\MuxerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Wire.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\WireMerge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tryte.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Components\Buses\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Components\Muxers\" />
   </ItemGroup>
 </Project>

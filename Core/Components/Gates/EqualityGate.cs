@@ -5,9 +5,9 @@ using System.Text;
 namespace Ternary.Components.Gates
 {
     //Consensus
-    public class EqualityGate : BasicGate
+    public class EqualityGate : GateBase
     {
-        public EqualityGate(IComponent componentA, IComponent componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
+        public EqualityGate(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
             base(componentA, componentB, inputStateA, inputStateB) { }
 
         public EqualityGate(ComponentTriggeredEvent input1 = null, ComponentTriggeredEvent input2 = null, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
@@ -16,14 +16,7 @@ namespace Ternary.Components.Gates
 
         protected override Trit Execute(Trit inputStateA, Trit inputStateB)
         {
-            switch (InputStateA)
-            {
-                case Trit.Neg: return inputStateB == Trit.Neg ? Trit.Pos : Trit.Neg;
-                case Trit.Neu: return inputStateB == Trit.Neu ? Trit.Pos : Trit.Neg;
-                case Trit.Pos: return inputStateB == Trit.Pos ? Trit.Pos : Trit.Neg;
-            }
-
-            return Trit.Neu;
+            return TritLogic.Equality(inputStateA, inputStateB);
         }
     }
 }

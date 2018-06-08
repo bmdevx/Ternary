@@ -5,9 +5,9 @@ using System.Text;
 namespace Ternary.Components.Gates
 {
     //XOR
-    public class XorGate : BasicGate
+    public class XorGate : GateBase
     {
-        public XorGate(IComponent componentA, IComponent componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
+        public XorGate(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
             base(componentA, componentB, inputStateA, inputStateB) { }
 
         public XorGate(ComponentTriggeredEvent input1 = null, ComponentTriggeredEvent input2 = null, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
@@ -16,14 +16,7 @@ namespace Ternary.Components.Gates
 
         protected override Trit Execute(Trit inputStateA, Trit inputStateB)
         {
-            switch (inputStateA)
-            {
-                case Trit.Neg: return inputStateB;
-                case Trit.Neu: return Trit.Neu;
-                case Trit.Pos: return inputStateB.Invert();
-            }
-
-            return Trit.Neu;
+            return TritLogic.Xnor(inputStateA, inputStateB);
         }
     }
 }

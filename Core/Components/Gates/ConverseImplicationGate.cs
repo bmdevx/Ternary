@@ -5,9 +5,9 @@ using System.Text;
 namespace Ternary.Components.Gates
 {
     //Converse Implication
-    public class ConverseImplicationGate : BasicGate
+    public class ConverseImplicationGate : GateBase
     {
-        public ConverseImplicationGate(IComponent componentA, IComponent componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
+        public ConverseImplicationGate(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
             base(componentA, componentB, inputStateA, inputStateB) { }
 
         public ConverseImplicationGate(ComponentTriggeredEvent input1 = null, ComponentTriggeredEvent input2 = null, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
@@ -16,14 +16,7 @@ namespace Ternary.Components.Gates
 
         protected override Trit Execute(Trit inputStateA, Trit inputStateB)
         {
-            switch (inputStateA)
-            {
-                case Trit.Neg: return inputStateB.Invert();
-                case Trit.Neu: return inputStateB == Trit.Neg ? Trit.Pos : Trit.Neu;
-                case Trit.Pos: return Trit.Pos;
-            }
-
-            return Trit.Neu;
+            return TritLogic.ConverseImplication(inputStateA, inputStateB);
         }
     }
 }

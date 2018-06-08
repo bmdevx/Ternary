@@ -6,14 +6,25 @@ namespace Ternary.Components
 {
     public delegate void ComponentTriggeredEvent(object sender, Trit trit);
 
-    public interface IComponent
+    public interface IComponentInput
+    {
+        void Input(object sender, Trit trit);
+    }
+
+    public interface IComponentOutput
     {
         event ComponentTriggeredEvent Output;
     }
 
-    public interface IMultiIOComponent
+    public interface IMultiInComponent
     {
-        ComponentTriggeredEvent[] Outputs { get; }
         ComponentTriggeredEvent[] Inputs { get; }
     }
+
+    public interface IMultiOutComponent
+    {
+        ComponentTriggeredEvent[] Outputs { get; }
+    }
+
+    public interface IMultiIOComponent : IMultiInComponent, IMultiOutComponent { }
 }

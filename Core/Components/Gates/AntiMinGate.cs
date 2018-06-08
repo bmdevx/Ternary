@@ -5,9 +5,9 @@ using System.Text;
 namespace Ternary.Components.Gates
 {
     //AntiMin (NAND)
-    public class AntiMinGate : BasicGate
+    public class AntiMinGate : GateBase
     {
-        public AntiMinGate(IComponent componentA, IComponent componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
+        public AntiMinGate(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
             base(componentA, componentB, inputStateA, inputStateB) { }
 
         public AntiMinGate(ComponentTriggeredEvent input1 = null, ComponentTriggeredEvent input2 = null, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :
@@ -16,14 +16,7 @@ namespace Ternary.Components.Gates
 
         protected override Trit Execute(Trit inputStateA, Trit inputStateB)
         {
-            switch (inputStateA)
-            {
-                case Trit.Neg: return Trit.Pos;
-                case Trit.Neu: return inputStateB == Trit.Neg ? Trit.Pos : Trit.Neu;
-                case Trit.Pos: return inputStateB.Invert();
-            }
-
-            return Trit.Neu;
+            return TritLogic.AntiMin(inputStateA, inputStateB);
         }
     }
 }

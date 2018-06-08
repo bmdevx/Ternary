@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ternary.Components
 {
-    public class Wire : IComponent
+    public class Wire : IComponentInput, IComponentOutput
     {
         public event ComponentTriggeredEvent Output;
 
@@ -70,7 +70,7 @@ namespace Ternary.Components
         /// <param name="component">Component that the wire listens to</param>
         /// <param name="wire">Wire that will listen to a component</param>
         /// <returns></returns>
-        public static IComponent operator +(IComponent component, Wire wire)
+        public static IComponentOutput operator +(IComponentOutput component, Wire wire)
         {
             component.Output += wire.Input;
             return component;
@@ -82,7 +82,7 @@ namespace Ternary.Components
         /// <param name="component">Component that the wire will no longer listen to</param>
         /// <param name="wire">Wire that will no longer listen to the component</param>
         /// <returns></returns>
-        public static IComponent operator -(IComponent component, Wire wire)
+        public static IComponentOutput operator -(IComponentOutput component, Wire wire)
         {
             component.Output += wire.Input;
             return component;
