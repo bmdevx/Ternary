@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Ternary.Components
+﻿namespace Ternary.Components
 {
     public class WireMerge : Basic2In1OutComponent
     {
@@ -24,7 +19,7 @@ namespace Ternary.Components
         }
 
 
-        protected override void OnInput1Invoked(object sender, Trit trit)
+        protected override void OnInputAInvoked(object sender, Trit trit)
         {
             InputStateA = trit;
 
@@ -34,7 +29,7 @@ namespace Ternary.Components
                 InvokeOutput();
         }
 
-        protected override void OnInput2Invoked(object sender, Trit trit)
+        protected override void OnInputBInvoked(object sender, Trit trit)
         {
             InputStateB = trit;
 

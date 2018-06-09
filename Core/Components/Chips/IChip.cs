@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ternary;
-using Ternary.Components;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Ternary.Components.Chips
 {
+    [DebuggerDisplay("{DebuggerInfo}")]
     public abstract class IChip : IMultiIOComponent
     {
         public abstract int NUMBER_OF_PINS { get; }
@@ -16,6 +15,7 @@ namespace Ternary.Components.Chips
         protected Trit[] PinStates { get; }
 
         protected string PinOutOfRange => $"Pin must be in range of 0 to {NUMBER_OF_PINS - 1}";
+        internal string DebuggerInfo => ToString();
 
 
         public IChip()
@@ -52,7 +52,7 @@ namespace Ternary.Components.Chips
             Outputs[pin]?.Invoke(sender ?? this, trit);
         }
 
-
+        
         public ComponentTriggeredEvent this[int pin]
         {
             get {
@@ -63,6 +63,13 @@ namespace Ternary.Components.Chips
                 if (NUMBER_OF_PINS > pin && pin > -1) Outputs[pin] += value;
                     else throw new IndexOutOfRangeException(PinOutOfRange);
             }
+        }
+
+
+        public override string ToString()
+        {
+            return String.Join(" | ", Enumerable.Range(0, NUMBER_OF_PINS)
+                .Select(i => $"{i}: {PinStates[i].ToSymbol()}"));
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ternary.Components.Gates
+﻿namespace Ternary.Components.Gates
 {
     //AntiMax (NOR)
     public class AntiMaxGate : GateBase

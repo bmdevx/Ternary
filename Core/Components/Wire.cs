@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ternary.Components
+﻿namespace Ternary.Components
 {
-    public class Wire : IComponentInput, IComponentOutput
+    public class Wire : IComponent
     {
         public event ComponentTriggeredEvent Output;
 

@@ -1,5 +1,8 @@
-﻿namespace Ternary.Components.Muxers
+﻿using System.Diagnostics;
+
+namespace Ternary.Components.Muxers
 {
+    [DebuggerDisplay("{DebuggerInfo}")]
     public class Muxer : MuxerBase, IComponentOutput
     {
         public event ComponentTriggeredEvent Output;
@@ -8,9 +11,13 @@
         public event ComponentTriggeredEvent BInput;
         public event ComponentTriggeredEvent CInput;
 
+        public Trit OutputState { get; protected set; }
+
         public Trit InputStateA { get; protected set; }
         public Trit InputStateB { get; protected set; }
         public Trit InputStateC { get; protected set; }
+
+        internal string DebuggerInfo => ToString();
 
 
         public Muxer(Trit selectState = Trit.Neu, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu, Trit inputStateC = Trit.Neu) : base(selectState)
@@ -78,7 +85,14 @@
         
         protected void InvokeOutput(object sender, Trit trit)
         {
+            OutputState = trit;
             Output?.Invoke(sender, trit);
+        }
+
+
+        public override string ToString()
+        {
+            return $"[{SelectState.ToSymbol()}] {InputStateA.ToSymbol()}:{InputStateB.ToSymbol()}:{InputStateC.ToSymbol()}>{OutputState.ToSymbol()}";
         }
     }
 }

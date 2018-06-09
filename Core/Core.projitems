@@ -10,7 +10,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Components\Basic2In1OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\AntiMaxBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\AntiMinBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\BusBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\ConsensusBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\ConverseImplicationBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\ConverseNonimplicationBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\EqualityBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\ImplicationBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\MaxBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\MinBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\NonimplicationBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\SumBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\XnorBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\XorBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip4Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip6Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip8Pin.cs" />

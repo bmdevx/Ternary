@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Ternary;
-using Ternary.Components;
+using Ternary.Components.Buses;
 using Ternary.Components.Chips;
 using Ternary.Components.Gates;
+using Ternary.Components.Muxers;
 
 namespace Test
 {
@@ -18,6 +12,12 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            SumBus sumBus = new SumBus();
+            SumGate sumGate = new SumGate();
+            Chip8Pin chip8Pin = new Chip8Pin();
+            Muxer muxer = new Muxer();
+            DeMuxer demuxer = new DeMuxer();
+
             while (true)
             {
                 Console.Write("Tryte 1: ");

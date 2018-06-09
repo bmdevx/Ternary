@@ -17,7 +17,7 @@ namespace Ternary
         public static readonly Tryte MAX_VALUE = new Tryte(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
         public static readonly Tryte MIN_VALUE = new Tryte(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);
         
-        private string DebuggerInfo => $"{ToString()} ({ToString("s")})";
+        internal string DebuggerInfo => $"{ToString()} ({ToString("s")})";
 
 
         private readonly Trit[] _Trits = new Trit[NUMBER_OF_TRITS];

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ternary.Components
+﻿namespace Ternary.Components
 {
     public delegate void ComponentTriggeredEvent(object sender, Trit trit);
 
@@ -15,6 +11,9 @@ namespace Ternary.Components
     {
         event ComponentTriggeredEvent Output;
     }
+
+    public interface IComponent : IComponentInput, IComponentOutput { }
+
 
     public interface IMultiInComponent
     {

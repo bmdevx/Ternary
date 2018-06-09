@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ternary.Components
 {
-    public abstract class MultiIn1OutComponent : IComponentOutput
+    public abstract class MultiIn1OutComponent : IComponentOutput, IMultiInComponent
     {
         public event ComponentTriggeredEvent Output;
         public ComponentTriggeredEvent[] Inputs { get; }
@@ -68,6 +66,7 @@ namespace Ternary.Components
         {
             Output?.Invoke(sender, trit);
         }
+
 
         protected abstract Trit Execute();
 

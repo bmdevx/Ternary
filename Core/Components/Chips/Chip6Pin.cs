@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ternary.Components.Chips
+﻿namespace Ternary.Components.Chips
 {
     public class Chip6Pin : IChip
     {

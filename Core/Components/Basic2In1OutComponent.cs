@@ -1,20 +1,26 @@
-﻿namespace Ternary.Components
+﻿using System.Diagnostics;
+
+namespace Ternary.Components
 {
+    [DebuggerDisplay("{DebuggerInfo}")]
     public abstract class Basic2In1OutComponent : IComponentOutput
     {
         public event ComponentTriggeredEvent Output;
 
         public Trit InputStateA { get; protected set; }
         public Trit InputStateB { get; protected set; }
+        public Trit OutputState { get; protected set; }
+
+        internal string DebuggerInfo => ToString();
 
 
         public Basic2In1OutComponent(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu)
         {
             if (componentA != null)
-                componentA.Output += Input1;
+                componentA.Output += InputA;
 
             if (componentB != null)
-                componentB.Output += Input2;
+                componentB.Output += InputB;
 
             InputStateA = inputStateA;
             InputStateB = inputStateB;
@@ -22,32 +28,32 @@
 
         public Basic2In1OutComponent(ComponentTriggeredEvent inputA = null, ComponentTriggeredEvent inputB = null, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu)
         {
-            inputA += Input1;
-            inputB += Input2;
+            inputA += InputA;
+            inputB += InputB;
             InputStateA = inputStateA;
             InputStateB = inputStateB;
         }
 
 
-        public void Input1(object sender, Trit trit)
+        public void InputA(object sender, Trit trit)
         {
-            OnInput1Invoked(sender, trit);
+            OnInputAInvoked(sender, trit);
         }
 
-        public void Input2(object sender, Trit trit)
+        public void InputB(object sender, Trit trit)
         {
-            OnInput2Invoked(sender, trit);
+            OnInputBInvoked(sender, trit);
         }
 
 
-        protected virtual void OnInput1Invoked(object sender, Trit trit)
+        protected virtual void OnInputAInvoked(object sender, Trit trit)
         {
             InputStateA = trit;
 
             InvokeOutput(this, Execute(InputStateA, InputStateB));
         }
 
-        protected virtual void OnInput2Invoked(object sender, Trit trit)
+        protected virtual void OnInputBInvoked(object sender, Trit trit)
         {
             InputStateB = trit;
 
@@ -65,9 +71,17 @@
 
         protected void InvokeOutput(object sender, Trit trit)
         {
+            OutputState = trit;
             Output?.Invoke(sender, trit);
         }
 
+
         protected abstract Trit Execute(Trit inputStateA, Trit inputStateB);
+
+
+        public override string ToString()
+        {
+            return $"{InputStateA.ToSymbol()}:{InputStateB.ToSymbol()}>{OutputState.ToSymbol()}";
+        }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
 
 namespace Ternary.Components.Buses
 {
+    [DebuggerDisplay("{DebuggerInfo}")]
     public abstract class BusBase : IMultiOutComponent
     {
         public ComponentTriggeredEvent[] Outputs { get; }
@@ -10,10 +14,15 @@ namespace Ternary.Components.Buses
         public ComponentTriggeredEvent[] AInputs { get; }
         public ComponentTriggeredEvent[] BInputs { get; }
 
+        protected Trit[] OutputStates { get; }
+
         protected Trit[] APinStates { get; }
         protected Trit[] BPinStates { get; }
 
+        public Tryte BusValue => new Tryte(OutputStates);
+        
         protected string PinOutOfRange => $"Pin must be in range of 0 to {Tryte.NUMBER_OF_TRITS - 1}";
+        internal string DebuggerInfo => $"{BusValue.DebuggerInfo} - {ToString()}";
 
 
         public BusBase(IEnumerable<Trit> aPinStates = null, IEnumerable<Trit> bPinStates = null)
@@ -24,6 +33,7 @@ namespace Ternary.Components.Buses
 
             APinStates = new Trit[Tryte.NUMBER_OF_TRITS];
             BPinStates = new Trit[Tryte.NUMBER_OF_TRITS];
+            OutputStates = new Trit[Tryte.NUMBER_OF_TRITS];
 
             if (aPinStates != null)
             {
@@ -110,12 +120,14 @@ namespace Ternary.Components.Buses
             if (pin >= Tryte.NUMBER_OF_TRITS || pin < 0)
                 throw new IndexOutOfRangeException(PinOutOfRange);
 
+            OutputStates[pin] = trit;
+
             Outputs[pin]?.Invoke(sender ?? this, trit);
         }
 
 
         protected abstract Trit Execute(Trit inputStateA, Trit inputStateB);
-        
+
 
         public ComponentTriggeredEvent this[int pin]
         {
@@ -124,6 +136,13 @@ namespace Ternary.Components.Buses
                 if (Tryte.NUMBER_OF_TRITS > pin && pin > -1) Outputs[pin] += value;
                 else throw new IndexOutOfRangeException(PinOutOfRange);
             }
+        }
+
+
+        public override string ToString()
+        {
+            return String.Join(" | ", Enumerable.Range(0, Tryte.NUMBER_OF_TRITS)
+                .Select(i => $"{i} {APinStates[i].ToSymbol()}:{BPinStates[i].ToSymbol()}>{OutputStates[i].ToSymbol()}"));
         }
     }
 }
