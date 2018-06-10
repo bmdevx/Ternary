@@ -153,6 +153,12 @@ namespace Ternary
             return s;
         }
 
+        public char ToChar()
+        {
+            int val = ToInt();
+            return (char)(val < 0 ? val + MAX_INT_VALUE : val);
+        }
+
 
         private Tryte Invert()
         {
