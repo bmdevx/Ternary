@@ -1,9 +1,5 @@
 ﻿using System;
 using Ternary;
-using Ternary.Components.Buses;
-using Ternary.Components.Chips;
-using Ternary.Components.Gates;
-using Ternary.Components.Muxers;
 
 namespace Test
 {
@@ -12,12 +8,6 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            SumBus sumBus = new SumBus();
-            SumGate sumGate = new SumGate();
-            Chip8Pin chip8Pin = new Chip8Pin();
-            Muxer muxer = new Muxer();
-            DeMuxer demuxer = new DeMuxer();
-
             while (true)
             {
                 Console.Write("Tryte 1: ");
