@@ -392,4 +392,12 @@ namespace Ternary
         }
         #endregion
     }
+
+    public static class TryteEx
+    {
+        public static Tryte ToTryte(this IEnumerable<Trit> trits)
+        {
+            return new Tryte(trits);
+        }
+    }
 }

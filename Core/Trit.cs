@@ -102,7 +102,7 @@ namespace Ternary
             return true;
         }
 
-        public static sbyte Value(this Trit trit)
+        public static int Value(this Trit trit)
         {
             if (trit == Trit.Neg)
                 return -1;
@@ -158,6 +158,7 @@ namespace Ternary
     
     public static class TritLogic
     {
+        #region Dyadic
         public static Trit Sum(Trit t1, Trit t2)
         {
             switch (t1)
@@ -331,5 +332,54 @@ namespace Ternary
 
             return Trit.Neu;
         }
+        #endregion
+
+        #region Monadic
+        public static Trit CycleDown(Trit trit)
+        {
+            if (trit == Trit.Neg)
+                return Trit.Pos;
+            else if (trit == Trit.Neu)
+                return Trit.Neg;
+            else
+                return Trit.Neu;
+        }
+
+        public static Trit CycleUp(Trit trit)
+        {
+            if (trit == Trit.Neg)
+                return Trit.Neu;
+            else if (trit == Trit.Neu)
+                return Trit.Pos;
+            else
+                return Trit.Neg;
+        }
+
+        public static Trit Forward(Trit trit)
+        {
+            return trit == Trit.Pos ? Trit.Pos : Trit.Neu;
+        }
+
+        public static Trit Reverse(Trit trit)
+        {
+            return trit == Trit.Neg ? Trit.Neg : Trit.Neu;
+        }
+
+        public static Trit ShiftDown(Trit trit)
+        {
+            if (trit == Trit.Pos)
+                return Trit.Neu;
+            else
+                return Trit.Neg;
+        }
+
+        public static Trit ShiftUp(Trit trit)
+        {
+            if (trit == Trit.Neg)
+                return Trit.Neu;
+            else
+                return Trit.Pos;
+        }
+        #endregion
     }
 }

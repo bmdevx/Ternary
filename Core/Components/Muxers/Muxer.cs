@@ -7,10 +7,6 @@ namespace Ternary.Components.Muxers
     {
         public event ComponentTriggeredEvent Output;
 
-        public event ComponentTriggeredEvent AInput;
-        public event ComponentTriggeredEvent BInput;
-        public event ComponentTriggeredEvent CInput;
-
         public Trit OutputState { get; protected set; }
 
         public Trit InputStateA { get; protected set; }
@@ -25,30 +21,10 @@ namespace Ternary.Components.Muxers
             InputStateA = inputStateA;
             InputStateB = inputStateB;
             InputStateC = inputStateC;
-
-            AInput += AInvoked;
-            BInput += BInvoked;
-            CInput += CInvoked;
         }
+       
 
-
-        private void AInvoked(object sender, Trit trit)
-        {
-            InputA(trit);
-        }
-
-        private void BInvoked(object sender, Trit trit)
-        {
-            InputB(trit);
-        }
-
-        private void CInvoked(object sender, Trit trit)
-        {
-            InputC(trit);
-        }
-
-
-        public void InputA(Trit trit, object sender = null)
+        public void InputA(object sender, Trit trit)
         {
             InputStateA = trit;
 
@@ -56,7 +32,7 @@ namespace Ternary.Components.Muxers
                 InvokeOutput(sender ?? this, trit);
         }
 
-        public void InputB(Trit trit, object sender = null)
+        public void InputB(object sender, Trit trit)
         {
             InputStateB = trit;
 
@@ -64,7 +40,7 @@ namespace Ternary.Components.Muxers
                 InvokeOutput(sender ?? this, trit);
         }
 
-        public void InputC(Trit trit, object sender = null)
+        public void InputC(object sender, Trit trit)
         {
             InputStateC = trit;
 

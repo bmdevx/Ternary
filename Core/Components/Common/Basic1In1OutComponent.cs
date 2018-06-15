@@ -1,0 +1,66 @@
+﻿using System.Diagnostics;
+
+namespace Ternary.Components
+{
+    [DebuggerDisplay("{DebuggerInfo}")]
+    public abstract class Basic1In1OutComponent : IComponent
+    {
+        public event ComponentTriggeredEvent Output;
+
+        public Trit InputState { get; protected set; }
+        public Trit OutputState { get; protected set; }
+
+        internal string DebuggerInfo => ToString();
+
+
+        public Basic1In1OutComponent(IComponentOutput component, Trit inputState = Trit.Neu)
+        {
+            if (component != null)
+                component.Output += Input;
+
+            InputState = inputState;
+        }
+
+        public Basic1In1OutComponent(ComponentTriggeredEvent input = null, Trit inputState = Trit.Neu)
+        {
+            input += Input;
+            InputState = inputState;
+        }
+
+
+        public void Input(object sender, Trit trit)
+        {
+            OnInputInvoked(sender, trit);
+        }
+
+
+        protected virtual void OnInputInvoked(object sender, Trit trit)
+        {
+            InputState = trit;
+
+            InvokeOutput(this, Execute(sender, InputState));
+        }
+
+        public virtual void Input(Trit inputState, object sender = null)
+        {
+            InputState = inputState;
+
+            InvokeOutput(sender ?? this, Execute(sender, inputState));
+        }
+
+        protected void InvokeOutput(object sender, Trit trit)
+        {
+            OutputState = trit;
+            Output?.Invoke(sender, trit);
+        }
+
+
+        protected abstract Trit Execute(object sender, Trit inputState);
+
+
+        public override string ToString()
+        {
+            return $"{InputState.ToSymbol()}>{OutputState.ToSymbol()}";
+        }
+    }
+}

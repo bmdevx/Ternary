@@ -1,5 +1,6 @@
 ﻿namespace Ternary.Components
 {
+    #region Trit
     public delegate void ComponentTriggeredEvent(object sender, Trit trit);
 
     public interface IComponentInput
@@ -26,4 +27,34 @@
     }
 
     public interface IMultiIOComponent : IMultiInComponent, IMultiOutComponent { }
+    #endregion
+
+    #region Tryte
+    public delegate void ComponentBusTriggeredEvent(object sender, Tryte tryte);
+
+    public interface IBusComponentInput
+    {
+        void Input(object sender, Tryte tryte);
+    }
+
+    public interface IBusComponentOutput
+    {
+        event ComponentBusTriggeredEvent Output;
+    }
+
+    public interface IBusComponent : IBusComponentInput, IBusComponentOutput { }
+
+
+    public interface IMultiBusInComponent
+    {
+        ComponentBusTriggeredEvent[] Inputs { get; }
+    }
+
+    public interface IMultiBusOutComponent
+    {
+        ComponentBusTriggeredEvent[] Outputs { get; }
+    }
+
+    public interface IMultiBusIOComponent : IMultiBusInComponent, IMultiBusOutComponent { }
+    #endregion
 }
