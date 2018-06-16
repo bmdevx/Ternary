@@ -30,32 +30,19 @@ namespace Ternary.Components
 
         public void Input(object sender, Trit trit)
         {
+            InputState = trit;
             OnInputInvoked(sender, trit);
         }
 
 
-        protected virtual void OnInputInvoked(object sender, Trit trit)
-        {
-            InputState = trit;
+        protected virtual void OnInputInvoked(object sender, Trit trit) { }
 
-            InvokeOutput(this, Execute(sender, InputState));
-        }
-
-        public virtual void Input(Trit inputState, object sender = null)
-        {
-            InputState = inputState;
-
-            InvokeOutput(sender ?? this, Execute(sender, inputState));
-        }
 
         protected void InvokeOutput(object sender, Trit trit)
         {
             OutputState = trit;
             Output?.Invoke(sender, trit);
         }
-
-
-        protected abstract Trit Execute(object sender, Trit inputState);
 
 
         public override string ToString()

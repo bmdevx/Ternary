@@ -28,15 +28,13 @@ namespace Ternary.Components.Adders.Simulated
         }
 
         
-        protected override void AInputInvoked(object sender, Trit trit, int pin)
+        protected override void OnAInputInvoked(object sender, Trit trit, int pin)
         {
-            AInputStates[pin] = trit;
             Output(pin, AInputStates[pin], BInputStates[pin], Trit.Neu, this);
         }
 
-        protected override void BInputInvoked(object sender, Trit trit, int pin)
+        protected override void OnBInputInvoked(object sender, Trit trit, int pin)
         {
-            BInputStates[pin] = trit;
             Output(pin, AInputStates[pin], BInputStates[pin], Trit.Neu, this);
         }
 
@@ -44,16 +42,9 @@ namespace Ternary.Components.Adders.Simulated
         protected void Output(int pin, Trit inputStateA, Trit inputStateB, Trit inputStateCarry, object sender = null)
         {
             Trit sum = inputStateA.Add(inputStateB, ref inputStateCarry);
-            Output(pin, sum, sender ?? this);
+            InvokeOutput(pin, sum, sender ?? this);
             CarryOuts[pin]?.Invoke(sender ?? this, inputStateCarry);
         }
-
-
-        protected override Trit Execute(Trit inputStateA, Trit inputStateB)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public override string ToString()
         {

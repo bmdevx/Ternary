@@ -62,8 +62,8 @@ namespace Ternary.Components
 
             for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
             {
-                AInputs[i] += (s, t) => AInputInvoked(s, t, i);
-                BInputs[i] += (s, t) => BInputInvoked(s, t, i);
+                AInputs[i] += (s, t) => { AInputStates[i] = t; OnAInputInvoked(s, t, i); };
+                BInputs[i] += (s, t) => { BInputStates[i] = t; OnBInputInvoked(s, t, i); };
             }
         }
 
@@ -93,19 +93,6 @@ namespace Ternary.Components
         }
 
 
-        protected virtual void AInputInvoked(object sender, Trit trit, int pin)
-        {
-            AInputStates[pin] = trit;
-            Output(pin, Execute(AInputStates[pin], BInputStates[pin]), this);
-        }
-
-        protected virtual void BInputInvoked(object sender, Trit trit, int pin)
-        {
-            BInputStates[pin] = trit;
-            Output(pin, Execute(AInputStates[pin], BInputStates[pin]), this);
-        }
-
-
         public void AInput(int pin, Trit trit, object sender = null)
         {
             if (pin >= Tryte.NUMBER_OF_TRITS || pin < 0)
@@ -122,7 +109,13 @@ namespace Ternary.Components
             BInputs[pin]?.Invoke(sender ?? this, trit);
         }
 
-        protected void Output(int pin, Trit trit, object sender = null)
+
+        protected virtual void OnAInputInvoked(object sender, Trit trit, int pin) { }
+
+        protected virtual void OnBInputInvoked(object sender, Trit trit, int pin) { }
+
+
+        protected void InvokeOutput(int pin, Trit trit, object sender = null)
         {
             if (pin >= Tryte.NUMBER_OF_TRITS || pin < 0)
                 throw new IndexOutOfRangeException(PinOutOfRange);
@@ -131,9 +124,6 @@ namespace Ternary.Components
 
             Outputs[pin]?.Invoke(sender ?? this, trit);
         }
-
-
-        protected abstract Trit Execute(Trit inputStateA, Trit inputStateB);
 
 
         public ComponentTriggeredEvent this[int pin]

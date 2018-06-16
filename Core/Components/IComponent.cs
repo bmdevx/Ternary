@@ -34,12 +34,12 @@
 
     public interface IBusComponentInput
     {
-        void Input(object sender, Tryte tryte);
+        void BusInput(object sender, Tryte tryte);
     }
 
     public interface IBusComponentOutput
     {
-        event ComponentBusTriggeredEvent Output;
+        event ComponentBusTriggeredEvent BusOutput;
     }
 
     public interface IBusComponent : IBusComponentInput, IBusComponentOutput { }
@@ -47,12 +47,12 @@
 
     public interface IMultiBusInComponent
     {
-        ComponentBusTriggeredEvent[] Inputs { get; }
+        ComponentBusTriggeredEvent[] BusInputs { get; }
     }
 
     public interface IMultiBusOutComponent
     {
-        ComponentBusTriggeredEvent[] Outputs { get; }
+        ComponentBusTriggeredEvent[] BusOutputs { get; }
     }
 
     public interface IMultiBusIOComponent : IMultiBusInComponent, IMultiBusOutComponent { }

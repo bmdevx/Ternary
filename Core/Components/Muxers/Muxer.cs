@@ -9,40 +9,40 @@ namespace Ternary.Components.Muxers
 
         public Trit OutputState { get; protected set; }
 
-        public Trit InputStateA { get; protected set; }
-        public Trit InputStateB { get; protected set; }
-        public Trit InputStateC { get; protected set; }
+        public Trit AInputState { get; protected set; }
+        public Trit BInputState { get; protected set; }
+        public Trit CInputState { get; protected set; }
 
         internal string DebuggerInfo => ToString();
 
 
         public Muxer(Trit selectState = Trit.Neu, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu, Trit inputStateC = Trit.Neu) : base(selectState)
         {
-            InputStateA = inputStateA;
-            InputStateB = inputStateB;
-            InputStateC = inputStateC;
+            AInputState = inputStateA;
+            BInputState = inputStateB;
+            CInputState = inputStateC;
         }
        
 
-        public void InputA(object sender, Trit trit)
+        public void AInput(object sender, Trit trit)
         {
-            InputStateA = trit;
+            AInputState = trit;
 
             if (SelectState == Trit.Neg)
                 InvokeOutput(sender ?? this, trit);
         }
 
-        public void InputB(object sender, Trit trit)
+        public void BInput(object sender, Trit trit)
         {
-            InputStateB = trit;
+            BInputState = trit;
 
             if (SelectState == Trit.Neu)
                 InvokeOutput(sender ?? this, trit);
         }
 
-        public void InputC(object sender, Trit trit)
+        public void CInput(object sender, Trit trit)
         {
-            InputStateC = trit;
+            CInputState = trit;
 
             if (SelectState == Trit.Pos)
                 InvokeOutput(sender ?? this, trit);
@@ -53,9 +53,9 @@ namespace Ternary.Components.Muxers
         {
             switch (SelectState)
             {
-                case Trit.Neg: InvokeOutput(this, InputStateA); break;
-                case Trit.Neu: InvokeOutput(this, InputStateB); break;
-                case Trit.Pos: InvokeOutput(this, InputStateC); break;
+                case Trit.Neg: InvokeOutput(this, AInputState); break;
+                case Trit.Neu: InvokeOutput(this, BInputState); break;
+                case Trit.Pos: InvokeOutput(this, CInputState); break;
             }
         }
         
@@ -68,7 +68,7 @@ namespace Ternary.Components.Muxers
 
         public override string ToString()
         {
-            return $"[{SelectState.ToSymbol()}] {InputStateA.ToSymbol()}:{InputStateB.ToSymbol()}:{InputStateC.ToSymbol()}>{OutputState.ToSymbol()}";
+            return $"[{SelectState.ToSymbol()}] {AInputState.ToSymbol()}:{BInputState.ToSymbol()}:{CInputState.ToSymbol()}>{OutputState.ToSymbol()}";
         }
     }
 }

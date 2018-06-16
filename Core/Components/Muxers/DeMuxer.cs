@@ -10,9 +10,9 @@ namespace Ternary.Components.Muxers
         public event ComponentTriggeredEvent COutput;
 
         public Trit InputState { get; protected set; }
-        public Trit OutputStateA { get; protected set; }
-        public Trit OutputStateB { get; protected set; }
-        public Trit OutputStateC { get; protected set; }
+        public Trit AOutputState { get; protected set; }
+        public Trit BOutputState { get; protected set; }
+        public Trit COutputState { get; protected set; }
 
         internal string DebuggerInfo => ToString();
 
@@ -32,16 +32,16 @@ namespace Ternary.Components.Muxers
         {
             switch (SelectState)
             {
-                case Trit.Neg: AOutput?.Invoke(this, OutputStateA = trit); break;
-                case Trit.Neu: BOutput?.Invoke(this, OutputStateB = trit); break;
-                case Trit.Pos: COutput?.Invoke(this, OutputStateC = trit); break;
+                case Trit.Neg: AOutput?.Invoke(this, AOutputState = trit); break;
+                case Trit.Neu: BOutput?.Invoke(this, BOutputState = trit); break;
+                case Trit.Pos: COutput?.Invoke(this, COutputState = trit); break;
             }
         }
 
 
         public override string ToString()
         {
-            return $"[{SelectState.ToSymbol()}] {InputState.ToSymbol()}>{OutputStateA.ToSymbol()}:{OutputStateB.ToSymbol()}:{OutputStateC.ToSymbol()}";
+            return $"[{SelectState.ToSymbol()}] {InputState.ToSymbol()}>{AOutputState.ToSymbol()}:{BOutputState.ToSymbol()}:{COutputState.ToSymbol()}";
         }
     }
 }

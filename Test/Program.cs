@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using Ternary;
 
 namespace Test
 {
-
     class Program
     {
         static void Main(string[] args)

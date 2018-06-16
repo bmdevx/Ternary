@@ -11,5 +11,13 @@ namespace Ternary.Components.Gates
 
         public MonadicBaseGate(ComponentTriggeredEvent input = null, Trit inputState = Trit.Neu) :
             base(input, inputState) { }
+
+
+        protected override void OnInputInvoked(object sender, Trit trit)
+        {
+            InvokeOutput(this, Execute(sender, InputState));
+        }
+
+        protected abstract Trit Execute(object sender, Trit inputState);
     }
 }

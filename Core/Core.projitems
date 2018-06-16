@@ -69,14 +69,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Monadic\ShiftUpGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\IComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\MultiIn1OutComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\MultiWireMerge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\DeMuxer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\Muxer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\MuxerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Wire.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\WireMerge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tryte.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TryteClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\" />

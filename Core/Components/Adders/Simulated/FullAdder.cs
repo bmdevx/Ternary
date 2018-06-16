@@ -34,13 +34,13 @@ namespace Ternary.Components.Adders.Simulated
         }
 
 
-        protected override void AInputInvoked(object sender, Trit trit, int pin)
+        protected override void OnAInputInvoked(object sender, Trit trit, int pin)
         {
             AInputStates[pin] = trit;
             Output(pin, AInputStates[pin], BInputStates[pin], CarryInputStates[pin], this);
         }
 
-        protected override void BInputInvoked(object sender, Trit trit, int pin)
+        protected override void OnBInputInvoked(object sender, Trit trit, int pin)
         {
             BInputStates[pin] = trit;
             Output(pin, AInputStates[pin], BInputStates[pin], CarryInputStates[pin], this);

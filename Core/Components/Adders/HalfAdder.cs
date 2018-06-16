@@ -24,16 +24,16 @@ namespace Ternary.Components.Adders
             cycleDownGate = new CycleDownGate(_WireInA);
             cycleUpGate = new CycleUpGate(_WireInA);
 
-            _WireInA.Output += sumMuxer.InputB;
+            _WireInA.Output += sumMuxer.BInput;
 
             _WireInB.Output += sumMuxer.InputSelect;
             _WireInB.Output += carryMuxer.InputSelect;
             
-            reverseDiode.Output += carryMuxer.InputA;
-            forwardDiode.Output += carryMuxer.InputC;
+            reverseDiode.Output += carryMuxer.AInput;
+            forwardDiode.Output += carryMuxer.CInput;
 
-            cycleDownGate.Output += sumMuxer.InputA;
-            cycleUpGate.Output += sumMuxer.InputC;
+            cycleDownGate.Output += sumMuxer.AInput;
+            cycleUpGate.Output += sumMuxer.CInput;
 
             sumMuxer.Output += InvokeSumOutput;
             carryMuxer.Output += InvokeCarryOutput;

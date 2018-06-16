@@ -16,12 +16,12 @@ namespace Ternary.Components.Adders
         protected Wire _WireInB = new Wire();
 
 
-        public void InputA(object sender, Trit trit)
+        public void AInput(object sender, Trit trit)
         {
             _WireInA.Input(sender, trit);
         }
 
-        public void InputB(object sender, Trit trit)
+        public void BInput(object sender, Trit trit)
         {
             _WireInB.Input(sender, trit);
         }

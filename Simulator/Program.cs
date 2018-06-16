@@ -33,7 +33,7 @@ namespace Simulator
                 Console.Write("Input A: ");
                 if (TritEx.TryParse(Console.ReadLine(), out Trit trit))
                 {
-                    halfAdder.InputA(null, trit);
+                    halfAdder.AInput(null, trit);
                 }
                 else
                     break;
@@ -41,7 +41,7 @@ namespace Simulator
                 Console.Write("Input B: ");
                 if (TritEx.TryParse(Console.ReadLine(), out trit))
                 {
-                    halfAdder.InputB(null, trit);
+                    halfAdder.BInput(null, trit);
                     Console.WriteLine();
                 }
                 else
