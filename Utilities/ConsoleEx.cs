@@ -44,19 +44,6 @@ namespace Utilities
         }
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct COORD
-    {
-        public short X;
-        public short Y;
-
-        public COORD(short X, short Y)
-        {
-            this.X = X;
-            this.Y = Y;
-        }
-    };
-
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public class CONSOLE_FONT_INFO_EX
     {

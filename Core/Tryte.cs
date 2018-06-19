@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Ternary
 {
     [DebuggerDisplay("{DebuggerInfo}")]
+    [StructLayout(LayoutKind.Sequential)]
     public struct Tryte : IEnumerable<Trit>, IComparable, IComparable<Tryte>, IEquatable<Tryte>, IFormattable//, IConvertible
     {
         public const int NUMBER_OF_TRITS = 6;
@@ -56,9 +58,6 @@ namespace Ternary
                     case 4: T4 = t; break;
                     case 5: T5 = t; break;
                 }
-
-                if (i == NUMBER_OF_TRITS - 1)
-                    break;
 
                 i++;
             }
@@ -164,15 +163,14 @@ namespace Ternary
             {
                 switch (index)
                 {
-                    case 0: T0 = value; return;
-                    case 1: T1 = value; return;
-                    case 2: T2 = value; return;
-                    case 3: T3 = value; return;
-                    case 4: T4 = value; return;
-                    case 5: T5 = value; return;
+                    case 0: T0 = value; break;
+                    case 1: T1 = value; break;
+                    case 2: T2 = value; break;
+                    case 3: T3 = value; break;
+                    case 4: T4 = value; break;
+                    case 5: T5 = value; break;
+                    default: throw new IndexOutOfRangeException();
                 }
-
-                throw new IndexOutOfRangeException();
             }
         }
 

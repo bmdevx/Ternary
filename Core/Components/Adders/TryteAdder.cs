@@ -26,11 +26,10 @@ namespace Ternary.Components.Adders
                 _Adders[i].SumOutput += (s, t) => _Trits[i] = t;
             }
 
-            _Adders[Tryte.NUMBER_OF_TRITS - 1].CarryOutput += (s, carry) =>
-            {
-                CarryOut?.Invoke(this, carry);
-                BusOutput?.Invoke(this, BusValue);
-            };
+            FullAdder fullAdder = _Adders[Tryte.NUMBER_OF_TRITS - 1];
+
+            fullAdder.CarryOutput += (s, carry) => CarryOut?.Invoke(this, carry);
+            fullAdder.SumOutput += (s, sum) => BusOutput?.Invoke(this, BusValue);
         }
 
 
