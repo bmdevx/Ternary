@@ -11,18 +11,23 @@ namespace Ternary.Components.Adders
 
         public Trit SumValue { get; protected set; }
         public Trit CarryValue { get; protected set; }
-        
+
+        public Trit AInputState { get; protected set; }
+        public Trit BInputState { get; protected set; }
+
         protected Wire _WireInA = new Wire();
         protected Wire _WireInB = new Wire();
 
 
         public void AInput(object sender, Trit trit)
         {
+            AInputState = trit;
             _WireInA.Input(sender, trit);
         }
 
         public void BInput(object sender, Trit trit)
         {
+            BInputState = trit;
             _WireInB.Input(sender, trit);
         }
 

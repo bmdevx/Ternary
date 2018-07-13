@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Ternary.Components.Buses.Dyadic;
+﻿using System.Linq;
 
 namespace Ternary.Components.Adders
 {
@@ -15,21 +11,51 @@ namespace Ternary.Components.Adders
 
         private Trit[] _Trits = new Trit[Tryte.NUMBER_OF_TRITS];
 
+
         public Tryte BusValue => new Tryte(_Trits);
+
+        public Trit CarryOutState { get; protected set; }
+
+
+        private bool locker = true; 
 
 
         public TryteAdder()
         {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS - 1; i++)
+            _Adders[0].CarryOutput += _Adders[1].InputCarry;
+            _Adders[0].SumOutput += (s, t) => { _Trits[0] = t; };
+
+            _Adders[1].CarryOutput += _Adders[2].InputCarry;
+            _Adders[1].SumOutput += (s, t) => { _Trits[1] = t; };
+
+            _Adders[2].CarryOutput += _Adders[3].InputCarry;
+            _Adders[2].SumOutput += (s, t) => { _Trits[2] = t; };
+
+            _Adders[3].CarryOutput += _Adders[4].InputCarry;
+            _Adders[3].SumOutput += (s, t) => { _Trits[3] = t; };
+
+            _Adders[4].CarryOutput += _Adders[5].InputCarry;
+            _Adders[4].SumOutput += (s, t) => { _Trits[4] = t; };
+            
+            _Adders[5].CarryOutput += (s, carry) =>
             {
-                _Adders[i].CarryOutput += _Adders[i + 1].InputCarry;
-                _Adders[i].SumOutput += (s, t) => _Trits[i] = t;
-            }
+                CarryOutState = carry;
 
-            FullAdder fullAdder = _Adders[Tryte.NUMBER_OF_TRITS - 1];
+                if (!locker)
+                {
+                    CarryOut?.Invoke(this, carry);
+                }
+            };
 
-            fullAdder.CarryOutput += (s, carry) => CarryOut?.Invoke(this, carry);
-            fullAdder.SumOutput += (s, sum) => BusOutput?.Invoke(this, BusValue);
+            _Adders[5].SumOutput += (s, sum) =>
+            {
+                _Trits[5] = sum;
+
+                if (!locker)
+                {
+                    BusOutput?.Invoke(this, BusValue);
+                }
+            };
         }
 
 
@@ -43,10 +69,14 @@ namespace Ternary.Components.Adders
 
         public void BBusInput(object sender, Tryte tryte)
         {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
+            for (int i = 0; i < Tryte.NUMBER_OF_TRITS - 1; i++)
             {
                 _Adders[i].BInput(sender, tryte[i]);
             }
+
+            locker = false;
+            _Adders[5].BInput(sender, tryte.T5);
+            locker = true;
         }
 
         public void CarryInput(object sender, Trit trit)

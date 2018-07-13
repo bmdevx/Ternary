@@ -1,13 +1,24 @@
 ﻿using System;
 using System.Diagnostics;
 using Ternary;
+using Ternary.Components.Adders;
 
 namespace Test
 {
     class Program
     {
+        static TryteAdder tryteAdder = new TryteAdder();
+
         static void Main(string[] args)
         {
+            tryteAdder.BusOutput += (s, sum) => {
+                Console.WriteLine($"Sum: [{sum.ToString("s")}] {sum}");
+            };
+
+            tryteAdder.CarryOut += (s, carry) => {
+                Console.WriteLine($"Carry: {carry.ToSymbol()}");
+            };
+
             while (true)
             {
                 Console.Write("Tryte 1: ");
@@ -25,12 +36,12 @@ namespace Test
                 Console.WriteLine();
 
                 Sum(t1, t2);
-                Diff(t1, t2);
-                Multi(t1, t2);
-                Div(t1, t2);
-                Mod(t1, t2);
-                Greater(t1, t2);
-                Lesser(t1, t2);
+                //Diff(t1, t2);
+                //Multi(t1, t2);
+                //Div(t1, t2);
+                //Mod(t1, t2);
+                //Greater(t1, t2);
+                //Lesser(t1, t2);
 
                 Console.WriteLine();
             }
@@ -47,8 +58,11 @@ namespace Test
 
         static void Sum(Tryte t1, Tryte t2)
         {
-            Tryte sum = t1 + t2;
-            Console.WriteLine($"Sum: [{sum.ToString("s")}] {sum}");
+            tryteAdder.ABusInput(null, t1);
+            tryteAdder.BBusInput(null, t2);
+
+            //Tryte sum = t1 + t2;
+            //Console.WriteLine($"Sum: [{sum.ToString("s")}] {sum}");
         }
 
         static void Diff(Tryte t1, Tryte t2)
