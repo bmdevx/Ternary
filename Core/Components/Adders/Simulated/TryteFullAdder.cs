@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Ternary.Components.Adders.Simulated
 {
-    public class FullAdder : HalfAdder
+    public class TryteFullAdder : TryteHalfAdder
     {
         public ComponentTriggeredEvent[] CarryInputs { get; }
 
         protected Trit[] CarryInputStates { get; }
 
 
-        public FullAdder(IEnumerable<Trit> aInputStates = null, IEnumerable<Trit> bInputStates = null, IEnumerable<Trit> carryInputStates = null) :
+        public TryteFullAdder(IEnumerable<Trit> aInputStates = null, IEnumerable<Trit> bInputStates = null, IEnumerable<Trit> carryInputStates = null) :
             base(aInputStates, bInputStates)
         {
             CarryInputs = new ComponentTriggeredEvent[Tryte.NUMBER_OF_TRITS];

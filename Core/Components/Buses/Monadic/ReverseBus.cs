@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ternary.Components.Buses.Monadic
 {
-    public class ReverseDiode : MonadicBaseBus
+    public class ReverseBus : MonadicBaseBus
     {
         protected override Trit Execute(object sender, Trit trit)
         {

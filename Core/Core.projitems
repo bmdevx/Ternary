@@ -12,8 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\FullAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\HalfAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\IAdder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\FullAdder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\HalfAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\TryteFullAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\TryteHalfAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TryteAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleDownBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleUpBus.cs" />
@@ -75,7 +75,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Wire.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tryte.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TryteClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\" />

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ternary.Components.Buses.Monadic
 {
-    public class CycleDownGate : MonadicBaseBus
+    public class CycleDownBus : MonadicBaseBus
     {
         protected override Trit Execute(object sender, Trit trit)
         {

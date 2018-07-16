@@ -36,7 +36,8 @@ namespace Ternary.Components.Adders
 
 
         public Trit CarryInState { get; protected set; }
-        private Wire _WireCarryIn = new Wire();
+        private Wire _WireInCarry = new Wire();
+
 
         public FullAdder()
         {
@@ -52,7 +53,7 @@ namespace Ternary.Components.Adders
 
             foreach (Muxer mux in cMuxers)
             {
-                _WireCarryIn += mux.InputSelect;
+                _WireInCarry += mux.InputSelect;
             }
 
             Muxer m = bMuxers[0];
@@ -100,7 +101,7 @@ namespace Ternary.Components.Adders
         public void InputCarry(object sender, Trit trit)
         {
             CarryInState = trit;
-            _WireCarryIn.Input(sender, trit);
+            _WireInCarry.Input(sender, trit);
         }
     }
 }

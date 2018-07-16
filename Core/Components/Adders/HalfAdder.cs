@@ -8,7 +8,7 @@ namespace Ternary.Components.Adders
 {
     public class HalfAdder : IAdder
     {
-        private Muxer carryMuxer = new Muxer(inputStateB: Trit.Neu);
+        private Muxer carryMuxer = new Muxer();
         private Muxer sumMuxer = new Muxer();
 
         private ForwardDiode forwardDiode;
