@@ -82,9 +82,7 @@ namespace Ternary
 
         public int CompareTo(object obj)
         {
-            if (obj is Tryte TryteMk1)
-                return CompareTo(TryteMk1);
-            return -1;
+            return (obj is Tryte tryte) ? CompareTo(tryte) : -1;
         }
 
         public int CompareTo(Tryte other)
@@ -101,9 +99,7 @@ namespace Ternary
 
         public override bool Equals(object obj)
         {
-            if (obj is Tryte TryteMk1)
-                return this.Equals(TryteMk1);
-            return false;
+            return (obj is Tryte tryte) ? Equals(tryte) : false;
         }
 
         public bool Equals(Tryte other)
@@ -226,9 +222,9 @@ namespace Ternary
             return new Tryte(trits);
         }
 
-        public static bool TryParse(string value, out Tryte TryteMk1)
+        public static bool TryParse(string value, out Tryte tryte)
         {
-            TryteMk1 = new Tryte();
+            tryte = new Tryte();
 
             if (value == null)
                 return false;
@@ -236,7 +232,7 @@ namespace Ternary
             for (int i = 0; i < NUMBER_OF_TRITS && i < value.Length; i++)
             {
                 if (TritEx.TryParse(value[i], out Trit trit))
-                    TryteMk1[i] = trit;
+                    tryte[i] = trit;
                 else
                     return false;
             }
@@ -254,32 +250,32 @@ namespace Ternary
             else if (value <= MIN_INT_VALUE)
                 return MIN_VALUE;
 
-            Tryte TryteMk1 = new Tryte();
+            Tryte tryte = new Tryte();
             for (int i = 0; value != 0 && i < NUMBER_OF_TRITS; i++)
             {
                 switch (value % 3)
                 {
                     case -1:
-                    case 2: TryteMk1[i] = Trit.Neg; break;
+                    case 2: tryte[i] = Trit.Neg; break;
                     case -2:
-                    case 1: TryteMk1[i] = Trit.Pos; break;
-                    default: TryteMk1[i] = Trit.Neu; break;
+                    case 1: tryte[i] = Trit.Pos; break;
+                    default: tryte[i] = Trit.Neu; break;
                 }
 
                 value = (value < 0 ? (value - 1) : (value + 1)) / 3;
             }
 
-            return TryteMk1;
+            return tryte;
         }
 
 
         public static Tryte operator +(Tryte t1, Tryte t2)
         {
-            Tryte TryteMk1 = new Tryte();
+            Tryte tryte = new Tryte();
             Trit carry = Trit.Neu;
             for (int i = 0; i < NUMBER_OF_TRITS; i++)
             {
-                TryteMk1[i] = t1[i].Add(t2[i], ref carry);
+                tryte[i] = t1[i].Add(t2[i], ref carry);
 
                 while (carry != Trit.Neu)
                 {
@@ -287,7 +283,7 @@ namespace Ternary
                         break;
 
                     Trit tc = Trit.Neu;
-                    TryteMk1[i] = carry.Add(t1[i], ref tc).Add(t2[i], ref carry);
+                    tryte[i] = carry.Add(t1[i], ref tc).Add(t2[i], ref carry);
 
                     if (carry == Trit.Neu)
                         carry = tc;
@@ -296,7 +292,7 @@ namespace Ternary
                 }
             }
 
-            return TryteMk1;
+            return tryte;
         }
 
         public static Tryte operator -(Tryte t1, Tryte t2)
@@ -306,7 +302,7 @@ namespace Ternary
 
         public static Tryte operator *(Tryte t1, Tryte t2)
         {
-            Tryte TryteMk1 = new Tryte();
+            Tryte tryte = new Tryte();
 
             int stop = t2.ToInt();
             bool neg = false;
@@ -319,10 +315,10 @@ namespace Ternary
 
             for (int i = 0; i < stop; i++)
             {
-                TryteMk1 += t1;
+                tryte += t1;
             }
 
-            return neg ? -TryteMk1 : TryteMk1;
+            return neg ? -tryte : tryte;
         }
 
         public static Tryte operator /(Tryte t1, Tryte t2)
@@ -360,24 +356,24 @@ namespace Ternary
         }
 
 
-        public static Tryte operator ++(Tryte TryteMk1)
+        public static Tryte operator ++(Tryte tryte)
         {
-            return TryteMk1 + new Tryte(Trit.Pos);
+            return tryte + new Tryte(Trit.Pos);
         }
 
-        public static Tryte operator --(Tryte TryteMk1)
+        public static Tryte operator --(Tryte tryte)
         {
-            return TryteMk1 + new Tryte(Trit.Neg);
+            return tryte + new Tryte(Trit.Neg);
         }
 
-        public static Tryte operator -(Tryte TryteMk1)
+        public static Tryte operator -(Tryte tryte)
         {
-            return TryteMk1.Invert();
+            return tryte.Invert();
         }
 
-        public static Tryte operator ~(Tryte TryteMk1)
+        public static Tryte operator ~(Tryte tryte)
         {
-            return TryteMk1.Invert();
+            return tryte.Invert();
         }
 
 

@@ -15,38 +15,41 @@ namespace Simulator
     {
         static void Main(string[] args)
         {
-            HalfAdder halfAdder = new HalfAdder();
-
-            halfAdder.CarryOutput += (s, t) =>
-            {
-                Console.WriteLine($"  Carry: {t.ToSymbol()}");
-            };
-
-            halfAdder.SumOutput += (s, t) =>
-            {
-                Console.WriteLine($"  Sum: {t.ToSymbol()}");
-            };
-            
-
             while (true)
             {
-                Console.Write("Input A: ");
-                if (TritEx.TryParse(Console.ReadLine(), out Trit trit))
+                Action<Tryte> DisplayPrev = (t) =>
                 {
-                    halfAdder.AInput(null, trit);
-                }
-                else
+                    Console.SetCursorPosition(15, Console.CursorTop - 1);
+                    Console.WriteLine($" {t}");
+                };
+
+
+                Console.Write("Tryte S: ");
+                if (!Tryte.TryParse(Console.ReadLine(), out Tryte to))
                     break;
 
-                Console.Write("Input B: ");
-                if (TritEx.TryParse(Console.ReadLine(), out trit))
-                {
-                    halfAdder.BInput(null, trit);
-                    Console.WriteLine();
-                }
-                else
+                DisplayPrev(to);
+                
+                Console.Write("Tryte A: ");
+                if (!Tryte.TryParse(Console.ReadLine(), out Tryte ta))
                     break;
+
+                DisplayPrev(ta);
+
+                Console.Write("Tryte B: ");
+                if (!Tryte.TryParse(Console.ReadLine(), out Tryte tb))
+                    break;
+
+                DisplayPrev(tb);
+
+
+                Console.WriteLine();
+
+                //
+
+                Console.WriteLine();
             }
+
 
             Console.WriteLine("\nPress any key to continue.");
             Console.ReadKey();
