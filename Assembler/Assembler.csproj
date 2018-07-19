@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{53CAC5B2-BC60-4E82-A461-27F20AACA844}</ProjectGuid>
+    <ProjectGuid>{9405ABD3-4C4E-46F2-BDC0-64C074E5ED83}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Test</RootNamespace>
-    <AssemblyName>Test</AssemblyName>
+    <RootNamespace>Assembler</RootNamespace>
+    <AssemblyName>Assembler</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,6 +49,5 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="..\Core\Core.projitems" Label="Shared" />
-  <Import Project="..\Utilities\Utilities.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
