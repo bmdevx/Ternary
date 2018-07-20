@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\TryteFullAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\TryteHalfAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TryteAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\ALU.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleDownBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleUpBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\ForwardBus.cs" />
@@ -22,6 +23,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\ReverseBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\ShiftDownBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\ShiftUpBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\DeMuxerBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\MuxerBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\MuxerBusBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic12In6OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic1In1OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic2In1OutComponent.cs" />

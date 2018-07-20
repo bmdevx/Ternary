@@ -49,9 +49,9 @@ namespace Ternary.Components.Muxers
         }
 
 
-        protected override void OnSelectInvoked(object sender, Trit trit)
+        protected override void OnSelectInvoked(object sender, Trit select)
         {
-            switch (SelectState)
+            switch (select)
             {
                 case Trit.Neg: InvokeOutput(this, AInputState); break;
                 case Trit.Neu: InvokeOutput(this, BInputState); break;
@@ -59,10 +59,10 @@ namespace Ternary.Components.Muxers
             }
         }
         
-        protected void InvokeOutput(object sender, Trit trit)
+        protected void InvokeOutput(object sender, Trit output)
         {
-            OutputState = trit;
-            Output?.Invoke(sender, trit);
+            OutputState = output;
+            Output?.Invoke(sender, output);
         }
 
 

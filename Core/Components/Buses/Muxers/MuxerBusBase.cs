@@ -1,16 +1,20 @@
-﻿namespace Ternary.Components.Muxers
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Ternary.Components.Buses.Muxers
 {
-    public abstract class MuxerBase
+    public abstract class MuxerBusBase
     {
         public Trit SelectState { get; protected set; }
 
 
-        public MuxerBase(Trit selectState = Trit.Neu)
+        public MuxerBusBase(Trit selectState = Trit.Neu)
         {
             SelectState = selectState;
         }
 
-        
+
         public void InputSelect(object sender, Trit select)
         {
             SelectState = select;
