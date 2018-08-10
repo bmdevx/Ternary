@@ -15,6 +15,18 @@ namespace Simulator
     {
         static void Main(string[] args)
         {
+            ALU alu = new ALU();
+            alu.BusOutput += (s, t) =>
+            {
+                Console.WriteLine($"{t.ToString()}");
+            };
+
+            alu.AInversionInput(null, Trit.Neg);
+            alu.BInversionInput(null, Trit.Neg);
+
+            alu.ANegationInput(null, Trit.Neg);
+            alu.BNegationInput(null, Trit.Neg);
+
             while (true)
             {
                 Action<Tryte> DisplayPrev = (t) =>
@@ -24,11 +36,11 @@ namespace Simulator
                 };
 
 
-                Console.Write("Tryte S: ");
-                if (!Tryte.TryParse(Console.ReadLine(), out Tryte to))
+                Console.Write("Trit S: ");
+                if (!TritEx.TryParse(Console.ReadLine(), out Trit to))
                     break;
 
-                DisplayPrev(to);
+
                 
                 Console.Write("Tryte A: ");
                 if (!Tryte.TryParse(Console.ReadLine(), out Tryte ta))
@@ -45,7 +57,10 @@ namespace Simulator
 
                 Console.WriteLine();
 
-                //
+                alu.ABusInput(null, ta);
+                alu.BBusInput(null, tb);
+                alu.FowleanControlInput(null, to);
+
 
                 Console.WriteLine();
             }
@@ -53,6 +68,11 @@ namespace Simulator
 
             Console.WriteLine("\nPress any key to continue.");
             Console.ReadKey();
+        }
+
+        private static void Alu_BusOutput(object sender, Tryte tryte)
+        {
+            throw new NotImplementedException();
         }
     }
 }
