@@ -2,6 +2,8 @@
 {
     public class Wire : IComponent
     {
+        public string ComponentName { get; internal set; }
+
         public event ComponentTriggeredEvent Output;
 
         public void Input(object sender, Trit trit)

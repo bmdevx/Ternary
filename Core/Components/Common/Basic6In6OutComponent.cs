@@ -17,7 +17,7 @@ namespace Ternary.Components
 
         protected string PinOutOfRange => $"Pin must be in range of 0 to {Tryte.NUMBER_OF_TRITS - 1}";
         internal virtual string DebuggerInfo => $"{BusValue.DebuggerInfo} - {ToString()}";
-
+        public string ComponentName { get; internal set; }
 
         public Basic6In6OutComponent(IEnumerable<Trit> inputStates = null)
         {
@@ -44,6 +44,8 @@ namespace Ternary.Components
             {
                 Inputs[i] += (s, t) => { InputStates[i] = t; OnInputInvoked(s, t, i); };
             }
+
+            ComponentName = GetType().Name;
         }
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Ternary.Reflection;
 
 namespace Ternary.Components
 {
@@ -22,7 +23,7 @@ namespace Ternary.Components
 
         protected string PinOutOfRange => $"Pin must be in range of 0 to {Tryte.NUMBER_OF_TRITS - 1}";
         internal virtual string DebuggerInfo => $"{BusValue.DebuggerInfo} - {ToString()}";
-
+        public string ComponentName { get; internal set; }
 
         public Basic12In6OutComponent(IEnumerable<Trit> aInputStates = null, IEnumerable<Trit> bInputStates = null)
         {

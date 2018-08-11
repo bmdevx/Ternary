@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 
 namespace Ternary.Components.Adders
 {
+    [DebuggerDisplay("{BusValue}")]
     public class TryteAdder : IBusComponentOutput
     {
+        public string ComponentName { get; internal set; }
+
         public event ComponentTriggeredEvent CarryOut;
         public event ComponentBusTriggeredEvent BusOutput;
 
@@ -63,7 +67,7 @@ namespace Ternary.Components.Adders
         {
             for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
             {
-                _Adders[i].AInput(sender, tryte[i]);
+                _Adders[i].AInput(this, tryte[i]);
             }
         }
 
@@ -71,11 +75,11 @@ namespace Ternary.Components.Adders
         {
             for (int i = 0; i < Tryte.NUMBER_OF_TRITS - 1; i++)
             {
-                _Adders[i].BInput(sender, tryte[i]);
+                _Adders[i].BInput(this, tryte[i]);
             }
 
             locker = false;
-            _Adders[5].BInput(sender, tryte.T5);
+            _Adders[5].BInput(this, tryte.T5);
             locker = true;
         }
 

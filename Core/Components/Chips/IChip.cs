@@ -16,6 +16,7 @@ namespace Ternary.Components.Chips
 
         protected string PinOutOfRange => $"Pin must be in range of 0 to {NUMBER_OF_PINS - 1}";
         internal string DebuggerInfo => ToString();
+        public string ComponentName { get; internal set; }
 
 
         public IChip()

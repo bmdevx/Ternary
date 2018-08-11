@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Ternary.Components.Buses.Muxers
 {
-    [DebuggerDisplay("{DebuggerInfo}")]
     public class MuxerBus : MuxerBusBase, IBusComponentOutput
     {
         public event ComponentBusTriggeredEvent BusOutput;
@@ -16,7 +15,7 @@ namespace Ternary.Components.Buses.Muxers
         public Tryte BInputState { get; protected set; }
         public Tryte CInputState { get; protected set; }
 
-        internal string DebuggerInfo => ToString();
+        public string ComponentName { get; internal set; }
 
 
         public MuxerBus(Trit selectState = Trit.Neu, Tryte inputStateA = new Tryte(),

@@ -15,6 +15,7 @@ namespace Ternary.Components.Muxers
         public Trit COutputState { get; protected set; }
 
         internal string DebuggerInfo => ToString();
+        internal string ComponentName { get; set; }
 
 
         public DeMuxer(Trit selectState = Trit.Neu, Trit inputState = Trit.Neu) : base(selectState)

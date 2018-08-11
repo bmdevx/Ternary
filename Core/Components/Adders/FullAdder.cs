@@ -101,7 +101,7 @@ namespace Ternary.Components.Adders
         public void InputCarry(object sender, Trit trit)
         {
             CarryInState = trit;
-            _WireInCarry.Input(sender, trit);
+            _WireInCarry.Input(this, trit);
         }
     }
 }

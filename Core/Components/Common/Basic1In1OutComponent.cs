@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Ternary.Reflection;
 
 namespace Ternary.Components
 {
@@ -11,6 +12,7 @@ namespace Ternary.Components
         public Trit OutputState { get; protected set; }
 
         internal string DebuggerInfo => ToString();
+        public string ComponentName { get; internal set; }
 
 
         public Basic1In1OutComponent(IComponentOutput component, Trit inputState = Trit.Neu)

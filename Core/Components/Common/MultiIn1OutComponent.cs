@@ -12,6 +12,7 @@ namespace Ternary.Components
         protected Trit[] InputStates { get; }
 
         protected string PinOutOfRange => $"Input must be in range of 0 to {NUMBER_OF_INPUTS - 1}";
+        public string ComponentName { get; internal set; }
 
 
         public MultiIn1OutComponent(int numberOfInputs)

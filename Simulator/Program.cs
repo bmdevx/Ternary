@@ -21,12 +21,6 @@ namespace Simulator
                 Console.WriteLine($"{t.ToString()}");
             };
 
-            alu.AInversionInput(null, Trit.Neg);
-            alu.BInversionInput(null, Trit.Neg);
-
-            alu.ANegationInput(null, Trit.Neg);
-            alu.BNegationInput(null, Trit.Neg);
-
             while (true)
             {
                 Action<Tryte> DisplayPrev = (t) =>
@@ -68,11 +62,6 @@ namespace Simulator
 
             Console.WriteLine("\nPress any key to continue.");
             Console.ReadKey();
-        }
-
-        private static void Alu_BusOutput(object sender, Tryte tryte)
-        {
-            throw new NotImplementedException();
         }
     }
 }

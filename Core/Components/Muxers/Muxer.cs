@@ -14,6 +14,7 @@ namespace Ternary.Components.Muxers
         public Trit CInputState { get; protected set; }
 
         internal string DebuggerInfo => ToString();
+        public string ComponentName { get; internal set; }
 
 
         public Muxer(Trit selectState = Trit.Neu, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu, Trit inputStateC = Trit.Neu) : base(selectState)

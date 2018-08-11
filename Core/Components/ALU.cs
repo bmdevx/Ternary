@@ -7,6 +7,7 @@ using Ternary.Components.Buses.Monadic;
 using Ternary.Components.Buses.Muxers;
 using Ternary.Components.Gates.Dyadic;
 using Ternary.Components.Gates.Monadic;
+using Ternary.Reflection;
 
 namespace Ternary.Components
 {
@@ -20,6 +21,7 @@ namespace Ternary.Components
         public event ComponentTriggeredEvent SignedOutput;
 
         public Tryte BusValue { get; private set; }
+        public string ComponentName { get; internal set; }
 
         /// <summary>
         /// + = Positive Overflow, 0 = No Overflow, - = Negative Overflow
@@ -56,10 +58,10 @@ namespace Ternary.Components
         private MaxBus maxBus = new MaxBus();
         private MinBus minBus = new MinBus();
         
-        private MuxerBus muxerBusA = new MuxerBus();
-        private MuxerBus muxerBusB = new MuxerBus();
-        private MuxerBus muxerBus2 = new MuxerBus();
-        private MuxerBus muxerBusF = new MuxerBus();
+        private MuxerBus muxerBusA = new MuxerBus(Trit.Neg);
+        private MuxerBus muxerBusB = new MuxerBus(Trit.Neg);
+        private MuxerBus muxerBus2 = new MuxerBus(Trit.Neg);
+        private MuxerBus muxerBusF = new MuxerBus(Trit.Neg);
 
         private InverterBus inverterBusA = new InverterBus();
         private InverterBus inverterBusB = new InverterBus();
@@ -105,52 +107,56 @@ namespace Ternary.Components
             inverterBusOutput.BusOutput += muxerBusF.CInput;
 
             muxerBusF.BusOutput += InvokeOutput;
+
+#if DEBUG
+            ComponentTools.SetComponentNames(this);
+#endif
         }
 
 
         public void AInversionInput(object sender, Trit trit)
         {
             AInversionControlState = trit;
-            shiftDownGateA.Input(sender, trit);
+            shiftDownGateA.Input(this, trit);
         }
 
         public void BInversionInput(object sender, Trit trit)
         {
             BInversionControlState = trit;
-            shiftDownGateB.Input(sender, trit);
+            shiftDownGateB.Input(this, trit);
         }
 
 
         public void ANegationInput(object sender, Trit trit)
         {
             ANegationControlState = trit;
-            maxGateA.AInput(sender, trit);
+            maxGateA.AInput(this, trit);
         }
 
         public void BNegationInput(object sender, Trit trit)
         {
             BNegationControlState = trit;
-            maxGateB.AInput(sender, trit);
+            maxGateB.AInput(this, trit);
         }
 
 
         public void FowleanControlInput(object sender, Trit trit)
         {
             FowleanControlState = trit;
-            muxerBus2.InputSelect(sender, trit);
+            muxerBus2.InputSelect(this, trit);
         }
 
 
         public void ABusInput(object sender, Tryte tryte)
         {
-            muxerBusA.AInput(sender, tryte);
-            inverterBusA.BusInput(sender, tryte);
+            muxerBusA.AInput(this, tryte);
+            inverterBusA.BusInput(this, tryte);
         }
 
         public void BBusInput(object sender, Tryte tryte)
         {
-            muxerBusB.AInput(sender, tryte);
-            inverterBusB.BusInput(sender, tryte);
+            muxerBusB.AInput(this, tryte);
+            inverterBusB.BusInput(this, tryte);
         }
 
 

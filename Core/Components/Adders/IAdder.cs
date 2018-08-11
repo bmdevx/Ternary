@@ -22,13 +22,13 @@ namespace Ternary.Components.Adders
         public void AInput(object sender, Trit trit)
         {
             AInputState = trit;
-            _WireInA.Input(sender, trit);
+            _WireInA.Input(this, trit);
         }
 
         public void BInput(object sender, Trit trit)
         {
             BInputState = trit;
-            _WireInB.Input(sender, trit);
+            _WireInB.Input(this, trit);
         }
 
 

@@ -10,6 +10,7 @@
 
     public interface IComponentOutput
     {
+        string ComponentName { get; }
         event ComponentTriggeredEvent Output;
     }
 
@@ -23,6 +24,7 @@
 
     public interface IMultiOutComponent
     {
+        string ComponentName { get; }
         ComponentTriggeredEvent[] Outputs { get; }
     }
 
@@ -39,6 +41,7 @@
 
     public interface IBusComponentOutput
     {
+        string ComponentName { get; }
         event ComponentBusTriggeredEvent BusOutput;
     }
 
@@ -52,6 +55,7 @@
 
     public interface IMultiBusOutComponent
     {
+        string ComponentName { get; }
         ComponentBusTriggeredEvent[] BusOutputs { get; }
     }
 
