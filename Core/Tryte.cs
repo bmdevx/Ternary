@@ -63,6 +63,38 @@ namespace Ternary
             }
         }
 
+        public Tryte(int value)
+        {
+            if (value >= MAX_INT_VALUE)
+                this = MAX_VALUE;
+            else if (value <= MIN_INT_VALUE)
+                this = MIN_VALUE;
+            else
+            {
+                Trit[] trits = new Trit[6];
+                for (int i = 0; value != 0 && i < NUMBER_OF_TRITS; i++)
+                {
+                    switch (value % 3)
+                    {
+                        case -1:
+                        case 2: trits[i] = Trit.Neg; break;
+                        case -2:
+                        case 1: trits[i] = Trit.Pos; break;
+                        default: trits[i] = Trit.Neu; break;
+                    }
+
+                    value = (value < 0 ? (value - 1) : (value + 1)) / 3;
+                }
+
+                T0 = trits[0];
+                T1 = trits[1];
+                T2 = trits[2];
+                T3 = trits[3];
+                T4 = trits[4];
+                T5 = trits[5]; 
+            }
+        }
+
 
         public IEnumerator<Trit> GetEnumerator()
         {
@@ -229,12 +261,22 @@ namespace Ternary
             if (value == null)
                 return false;
 
-            for (int i = 0; i < NUMBER_OF_TRITS && i < value.Length; i++)
+            if (Int32.TryParse(value, out Int32 s))
             {
-                if (TritEx.TryParse(value[i], out Trit trit))
-                    tryte[i] = trit;
-                else
+                if (s < MIN_INT_VALUE || s > MAX_INT_VALUE)
                     return false;
+
+                tryte = new Tryte(s);
+            }
+            else
+            {
+                for (int i = 0; i < NUMBER_OF_TRITS && i < value.Length; i++)
+                {
+                    if (TritEx.TryParse(value[i], out Trit trit))
+                        tryte[i] = trit;
+                    else
+                        return false;
+                } 
             }
 
             return true;
@@ -245,27 +287,7 @@ namespace Ternary
 
         public static implicit operator Tryte(int value)
         {
-            if (value >= MAX_INT_VALUE)
-                return MAX_VALUE;
-            else if (value <= MIN_INT_VALUE)
-                return MIN_VALUE;
-
-            Tryte tryte = new Tryte();
-            for (int i = 0; value != 0 && i < NUMBER_OF_TRITS; i++)
-            {
-                switch (value % 3)
-                {
-                    case -1:
-                    case 2: tryte[i] = Trit.Neg; break;
-                    case -2:
-                    case 1: tryte[i] = Trit.Pos; break;
-                    default: tryte[i] = Trit.Neu; break;
-                }
-
-                value = (value < 0 ? (value - 1) : (value + 1)) / 3;
-            }
-
-            return tryte;
+            return new Tryte(value);
         }
 
 

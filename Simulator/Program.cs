@@ -34,8 +34,6 @@ namespace Simulator
                 if (!TritEx.TryParse(Console.ReadLine(), out Trit to))
                     break;
 
-
-                
                 Console.Write("Tryte A: ");
                 if (!Tryte.TryParse(Console.ReadLine(), out Tryte ta))
                     break;
