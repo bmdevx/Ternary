@@ -23,6 +23,13 @@ namespace Ternary
 
         public Trit[] Trits => new Trit[] { T0, T1, T2, T3, T4, T5 };
 
+        public Trit[] LowerTribble => new Trit[] { T0, T1, T2 };
+        public Trit[] UpperTribble => new Trit[] { T3, T4, T5 };
+
+        public int LowerTribbleValue => ToInt(new Trit[] { T0, T1, T2 });
+        public int UpperTribbleValue => ToInt(new Trit[] { T3, T4, T5 });
+
+
         public Trit T0;
         public Trit T1;
         public Trit T2;
@@ -205,10 +212,15 @@ namespace Ternary
 
         public int ToInt()
         {
+            return ToInt(this);
+        }
+
+        public static int ToInt(IEnumerable<Trit> trits)
+        {
             int s = 0;
 
             int m = 1;
-            foreach (Trit t in this)
+            foreach (Trit t in trits)
             {
                 s += m * t.Value();
                 m *= 3;
@@ -317,10 +329,32 @@ namespace Ternary
             return tryte;
         }
 
+        public static Tryte operator +(Tryte tryte, int val)
+        {
+            return tryte.ToInt() + new Tryte(val);
+        }
+
+        public static int operator +(int val, Tryte tryte)
+        {
+            return val + tryte.ToInt();
+        }
+
+
         public static Tryte operator -(Tryte t1, Tryte t2)
         {
             return t1 + t2.Invert();
         }
+
+        public static Tryte operator -(Tryte tryte, int val)
+        {
+            return tryte - new Tryte(val);
+        }
+
+        public static int operator -(int val, Tryte tryte)
+        {
+            return val - tryte.ToInt();
+        }
+
 
         public static Tryte operator *(Tryte t1, Tryte t2)
         {

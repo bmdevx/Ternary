@@ -49,6 +49,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip8Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\IChip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic6In6OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteRegister.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TernaryLatchGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\AntiMaxGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\AntiMinGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\DyadicBaseGate.cs" />
