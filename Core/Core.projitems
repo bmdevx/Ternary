@@ -26,7 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\DeMuxerBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\MuxerBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\MuxerBusBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic12In6OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic18In9OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic1In1OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic2In1OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\AntiMaxBus.cs" />
@@ -48,7 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip6Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip8Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\IChip.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic6In6OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic9In9OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteMemory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteRegister.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TernaryLatchGate.cs" />

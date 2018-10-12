@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Ternary.Reflection;
 
 namespace Ternary.Components
 {
     [DebuggerDisplay("{DebuggerInfo}")]
-    public abstract class Basic12In6OutComponent : IMultiOutComponent
+    public abstract class Basic18In9OutComponent : IMultiOutComponent
     {
         public ComponentTriggeredEvent[] Outputs { get; }
 
@@ -25,7 +24,7 @@ namespace Ternary.Components
         internal virtual string DebuggerInfo => $"{BusValue.DebuggerInfo} - {ToString()}";
         public string ComponentName { get; internal set; }
 
-        public Basic12In6OutComponent(IEnumerable<Trit> aInputStates = null, IEnumerable<Trit> bInputStates = null)
+        public Basic18In9OutComponent(IEnumerable<Trit> aInputStates = null, IEnumerable<Trit> bInputStates = null)
         {
             Outputs = new ComponentTriggeredEvent[Tryte.NUMBER_OF_TRITS];
             AInputs = new ComponentTriggeredEvent[Tryte.NUMBER_OF_TRITS];

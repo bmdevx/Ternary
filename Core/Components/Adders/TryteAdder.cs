@@ -40,8 +40,17 @@ namespace Ternary.Components.Adders
 
             _Adders[4].CarryOutput += _Adders[5].InputCarry;
             _Adders[4].SumOutput += (s, t) => { _Trits[4] = t; };
-            
-            _Adders[5].CarryOutput += (s, carry) =>
+
+            _Adders[5].CarryOutput += _Adders[6].InputCarry;
+            _Adders[5].SumOutput += (s, t) => { _Trits[5] = t; };
+
+            _Adders[6].CarryOutput += _Adders[7].InputCarry;
+            _Adders[6].SumOutput += (s, t) => { _Trits[6] = t; };
+
+            _Adders[7].CarryOutput += _Adders[8].InputCarry;
+            _Adders[7].SumOutput += (s, t) => { _Trits[7] = t; };
+
+            _Adders[8].CarryOutput += (s, carry) =>
             {
                 CarryOutState = carry;
 
@@ -51,9 +60,9 @@ namespace Ternary.Components.Adders
                 }
             };
 
-            _Adders[5].SumOutput += (s, sum) =>
+            _Adders[8].SumOutput += (s, sum) =>
             {
-                _Trits[5] = sum;
+                _Trits[8] = sum;
 
                 if (!locker)
                 {
@@ -79,7 +88,7 @@ namespace Ternary.Components.Adders
             }
 
             locker = false;
-            _Adders[5].BInput(this, tryte.T5);
+            _Adders[8].BInput(this, tryte.T8);
             locker = true;
         }
 

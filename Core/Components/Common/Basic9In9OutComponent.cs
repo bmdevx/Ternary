@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ternary.Components
 {
-    public abstract class Basic6In6OutComponent : IMultiIOComponent
+    public abstract class Basic9In9OutComponent : IMultiIOComponent
     {
         public ComponentTriggeredEvent[] Outputs { get; }
         public ComponentTriggeredEvent[] Inputs { get; }
@@ -19,7 +19,7 @@ namespace Ternary.Components
         internal virtual string DebuggerInfo => $"{BusValue.DebuggerInfo} - {ToString()}";
         public string ComponentName { get; internal set; }
 
-        public Basic6In6OutComponent(IEnumerable<Trit> inputStates = null)
+        public Basic9In9OutComponent(IEnumerable<Trit> inputStates = null)
         {
             Outputs = new ComponentTriggeredEvent[Tryte.NUMBER_OF_TRITS];
             Inputs = new ComponentTriggeredEvent[Tryte.NUMBER_OF_TRITS];

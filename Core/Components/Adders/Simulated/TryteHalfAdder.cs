@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ternary.Components.Adders.Simulated
 {
-    public class TryteHalfAdder : Basic12In6OutComponent
+    public class TryteHalfAdder : Basic18In9OutComponent
     {
         public ComponentTriggeredEvent[] CarryOuts { get; }
         

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ternary.Components.Buses
 {
-    public abstract class MonadicBaseBus : Basic6In6OutComponent, IBusComponent
+    public abstract class MonadicBaseBus : Basic9In9OutComponent, IBusComponent
     {
         public event ComponentBusTriggeredEvent BusOutput;
 

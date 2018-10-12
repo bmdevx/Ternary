@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Ternary.Components.Buses.Dyadic
 {
-    public abstract class DyadicBaseBus : Basic12In6OutComponent, IBusComponentOutput
+    public abstract class DyadicBaseBus : Basic18In9OutComponent, IBusComponentOutput
     {
         public event ComponentBusTriggeredEvent BusOutput;
         
