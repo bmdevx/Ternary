@@ -18,14 +18,19 @@ namespace Simulator
             ALU alu = new ALU();
             alu.BusOutput += (s, t) =>
             {
-                Console.WriteLine($"{t.ToString()}");
+                Console.WriteLine($"{t.ToString()} \tSigned:{alu.SignedState}");
             };
+
+            //alu.SignedOutput += (s, t) =>
+            //{
+            //    Console.WriteLine($"Signed State: {t.ToString()}");
+            //};
 
             while (true)
             {
                 Action<Tryte> DisplayPrev = (t) =>
                 {
-                    Console.SetCursorPosition(15, Console.CursorTop - 1);
+                    Console.SetCursorPosition(18, Console.CursorTop - 1);
                     Console.WriteLine($" {t}");
                 };
 

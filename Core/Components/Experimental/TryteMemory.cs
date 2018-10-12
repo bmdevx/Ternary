@@ -12,7 +12,7 @@ namespace Ternary.Components.Experimental
         public Trit ReadWriteState => _CurrentRegister.ReadWriteState;
         public Tryte Address { get; private set; }
         
-        private TryteRegister[,] _Registers = new TryteRegister[27,27];
+        private TryteRegister[,,] _Registers = new TryteRegister[27,27,27];
         private TryteRegister _CurrentRegister;
 
         
@@ -22,15 +22,18 @@ namespace Ternary.Components.Experimental
             {
                 for (int j = 0; j < 27; j++)
                 {
-                    TryteRegister register = new TryteRegister();
+                    for (int k = 0; k < 27; k++)
+                    {
+                        TryteRegister register = new TryteRegister();
 
-                    register.BusOutput += BusOutput;
+                        register.BusOutput += BusOutput;
 
-                    _Registers[i, j] = register;
+                        _Registers[i, j, k] = register; 
+                    }
                 }
             }
             
-            _CurrentRegister = _Registers[0, 0];
+            _CurrentRegister = _Registers[0, 0, 0];
         }
 
 
@@ -49,8 +52,9 @@ namespace Ternary.Components.Experimental
             Address = tryte;
 
             _CurrentRegister = _Registers[
-                Address.UpperTribbleValue + 13,
-                Address.LowerTribbleValue + 13];
+                Address.LowerTribbleValue + 13,
+                Address.MiddleTribbleValue + 13,
+                Address.UpperTribbleValue + 13];
         }
 
         public void BusInput(object sender, Tryte tryte)
@@ -58,6 +62,4 @@ namespace Ternary.Components.Experimental
             _CurrentRegister.BusInput(sender, tryte);
         }
     }
-
-
 }

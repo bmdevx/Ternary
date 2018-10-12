@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Ternary.Components.Adders;
 using Ternary.Components.Buses.Dyadic;
@@ -7,6 +8,7 @@ using Ternary.Components.Buses.Monadic;
 using Ternary.Components.Buses.Muxers;
 using Ternary.Components.Gates.Dyadic;
 using Ternary.Components.Gates.Monadic;
+using Ternary.Components.Muxers;
 using Ternary.Reflection;
 
 namespace Ternary.Components
@@ -72,9 +74,10 @@ namespace Ternary.Components
 
         private ShiftDownGate shiftDownGateA = new ShiftDownGate(inputState: Trit.Neg);
         private ShiftDownGate shiftDownGateB = new ShiftDownGate(inputState: Trit.Neg);
+        
+        private Muxer[] muxers = Enumerable.Range(0, 8).Select(c => new Muxer(inputStateC: Trit.Pos, inputStateA: Trit.Neg)).ToArray();
 
-
-
+        
         public ALU()
         {
             inverterBusA.BusOutput += muxerBusA.BInput;
@@ -105,8 +108,27 @@ namespace Ternary.Components
             muxerBus2.BusOutput += inverterBusOutput.BusInput;
 
             inverterBusOutput.BusOutput += muxerBusF.CInput;
+            
+            for (int i = 0; i < muxers.Length - 1; i++)
+            {
+                muxers[i].Output += muxers[i + 1].BInput;
+            }
 
-            muxerBusF.BusOutput += InvokeOutput;
+            muxers[7].Output += InvokeSignedOutput;
+
+            muxerBusF.BusOutput += (s, tryte) =>
+            {
+                for (int i = 0; i < muxers.Length; i++)
+                {
+                    muxers[i].InputSelect(s, tryte[i + 1]);
+                }
+
+                muxers[0].BInput(s, tryte[0]);
+
+                InvokeOutput(s, tryte);
+            };
+
+
 
 #if DEBUG
             ComponentTools.SetComponentNames(this);

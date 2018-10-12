@@ -29,24 +29,21 @@ namespace Ternary.Components.Muxers
         {
             AInputState = trit;
 
-            if (SelectState == Trit.Neg)
-                InvokeOutput(sender ?? this, trit);
+            OnSelectInvoked(sender ?? this, SelectState);
         }
 
         public void BInput(object sender, Trit trit)
         {
             BInputState = trit;
 
-            if (SelectState == Trit.Neu)
-                InvokeOutput(sender ?? this, trit);
+            OnSelectInvoked(sender ?? this, SelectState);
         }
 
         public void CInput(object sender, Trit trit)
         {
             CInputState = trit;
 
-            if (SelectState == Trit.Pos)
-                InvokeOutput(sender ?? this, trit);
+            OnSelectInvoked(sender ?? this, SelectState);
         }
 
 
