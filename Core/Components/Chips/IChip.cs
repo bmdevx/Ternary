@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using Ternary.Tools;
 
 namespace Ternary.Components.Chips
 {
@@ -69,8 +70,7 @@ namespace Ternary.Components.Chips
 
         public override string ToString()
         {
-            return String.Join(" | ", Enumerable.Range(0, NUMBER_OF_PINS)
-                .Select(i => $"{i}: {PinStates[i].ToSymbol()}"));
+            return String.Join(" | ", Create.NewTryteSizedArray(i => $"{i}: {PinStates[i].ToSymbol()}"));
         }
     }
 }

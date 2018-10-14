@@ -10,6 +10,7 @@ using Ternary.Components.Gates.Dyadic;
 using Ternary.Components.Gates.Monadic;
 using Ternary.Components.Muxers;
 using Ternary.Reflection;
+using Ternary.Tools;
 
 namespace Ternary.Components
 {
@@ -35,19 +36,19 @@ namespace Ternary.Components
         public Trit SignedState { get; protected set; }
 
         /// <summary>
-        /// + = A Input is Inverted
+        /// + = A Input is Inverted, - = Not Inverted
         /// </summary>
         public Trit AInversionControlState { get; protected set; }
         /// <summary>
-        /// + = B Input is Inverted
+        /// + = B Input is Inverted, - = Not Inverted
         /// </summary>
         public Trit BInversionControlState { get; protected set; }
         /// <summary>
-        /// + = A Input is set to 0
+        /// + = A Input is set to 0, - = Not Negated
         /// </summary>
         public Trit ANegationControlState { get; protected set; }
         /// <summary>
-        /// + = B Input is set to 0
+        /// + = B Input is set to 0, - = Not Negated
         /// </summary>
         public Trit BNegationControlState { get; protected set; }
         /// <summary>
@@ -75,7 +76,9 @@ namespace Ternary.Components
         private ShiftDownGate shiftDownGateA = new ShiftDownGate(inputState: Trit.Neg);
         private ShiftDownGate shiftDownGateB = new ShiftDownGate(inputState: Trit.Neg);
         
-        private Muxer[] muxers = Enumerable.Range(0, 8).Select(c => new Muxer(inputStateC: Trit.Pos, inputStateA: Trit.Neg)).ToArray();
+        private Muxer[] muxers = Enumerable.Range(0, Tryte.NUMBER_OF_TRITS - 1)
+            .Select(i => new Muxer(inputStateC: Trit.Pos, inputStateA: Trit.Neg))
+            .ToArray();
 
         
         public ALU()
@@ -138,12 +141,18 @@ namespace Ternary.Components
 
         public void AInversionInput(object sender, Trit trit)
         {
+            if (trit == Trit.Neu)
+                throw new Exception("Inversion Input can not be Neu");
+
             AInversionControlState = trit;
             shiftDownGateA.Input(this, trit);
         }
 
         public void BInversionInput(object sender, Trit trit)
         {
+            if (trit == Trit.Neu)
+                throw new Exception("Inversion Input can not be Neu");
+
             BInversionControlState = trit;
             shiftDownGateB.Input(this, trit);
         }
@@ -151,12 +160,18 @@ namespace Ternary.Components
 
         public void ANegationInput(object sender, Trit trit)
         {
+            if (trit == Trit.Neu)
+                throw new Exception("Negation Input can not be Neu");
+
             ANegationControlState = trit;
             maxGateA.AInput(this, trit);
         }
 
         public void BNegationInput(object sender, Trit trit)
         {
+            if (trit == Trit.Neu)
+                throw new Exception("Negation Input can not be Neu");
+            
             BNegationControlState = trit;
             maxGateB.AInput(this, trit);
         }

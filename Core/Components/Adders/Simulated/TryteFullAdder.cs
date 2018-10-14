@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ternary.Tools;
 
 namespace Ternary.Components.Adders.Simulated
 {
@@ -55,8 +56,8 @@ namespace Ternary.Components.Adders.Simulated
 
         public override string ToString()
         {
-            return String.Join(" | ", Enumerable.Range(0, Tryte.NUMBER_OF_TRITS)
-                .Select(i => $"{i} {AInputStates[i].ToSymbol()}:{BInputStates[i].ToSymbol()}:{CarryInputStates[i].ToSymbol()}>{OutputStates[i].ToSymbol()}:{CarryOutStates[i].ToSymbol()}"));
+            return String.Join(" | ",
+                Create.NewTryteSizedArray(i => $"{i} {AInputStates[i].ToSymbol()}:{BInputStates[i].ToSymbol()}:{CarryInputStates[i].ToSymbol()}>{OutputStates[i].ToSymbol()}:{CarryOutStates[i].ToSymbol()}"));
         }
     }
 }

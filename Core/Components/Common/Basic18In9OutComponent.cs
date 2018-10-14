@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Ternary.Tools;
 
 namespace Ternary.Components
 {
@@ -138,8 +139,7 @@ namespace Ternary.Components
 
         public override string ToString()
         {
-            return String.Join(" | ", Enumerable.Range(0, Tryte.NUMBER_OF_TRITS)
-                .Select(i => $"{i} {AInputStates[i].ToSymbol()}:{BInputStates[i].ToSymbol()}>{OutputStates[i].ToSymbol()}"));
+            return String.Join(" | ", Create.NewTryteSizedArray(i => $"{i} {AInputStates[i].ToSymbol()}:{BInputStates[i].ToSymbol()}>{OutputStates[i].ToSymbol()}"));
         }
     }
 }

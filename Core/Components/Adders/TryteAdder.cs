@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using Ternary.Tools;
 
 namespace Ternary.Components.Adders
 {
@@ -11,7 +12,7 @@ namespace Ternary.Components.Adders
         public event ComponentTriggeredEvent CarryOut;
         public event ComponentBusTriggeredEvent BusOutput;
 
-        private FullAdder[] _Adders = Enumerable.Range(0, Tryte.NUMBER_OF_TRITS).Select(i => new FullAdder()).ToArray();
+        private FullAdder[] _Adders = Create.NewTryteSizedArray(i => new FullAdder());
 
         private Trit[] _Trits = new Trit[Tryte.NUMBER_OF_TRITS];
 
