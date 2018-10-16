@@ -24,9 +24,11 @@ namespace Ternary.Components.Experimental
         /// <param name="state">+ = Write, - = Read, 0 = Disabled</param>
         public void ReadWriteEnabled(object sender, Trit state)
         {
+            ReadWriteState = state;
+
             if (state == Trit.Neg)
                 Output?.Invoke(this, Value);
-            else
+            else if (state == Trit.Pos)
                 Value = IncomingValue;
         }
 

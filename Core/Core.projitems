@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\TryteHalfAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TryteAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\ALU.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Bus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleDownBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleUpBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\ForwardBus.cs" />
@@ -49,9 +50,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip8Pin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\IChip.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic9In9OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\MatchGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfNotNeuGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfPosGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteMemory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteRegister.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TernaryLatchGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteRegisterCircuit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\AntiMaxGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\AntiMinGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\DyadicBaseGate.cs" />

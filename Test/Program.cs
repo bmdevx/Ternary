@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Ternary;
 using Ternary.Components.Adders;
 using Ternary.Components.Buses.Monadic;
+using Ternary.Components.Experimental;
 
 namespace Test
 {
@@ -14,10 +15,74 @@ namespace Test
 
         static void Main(string[] args)
         {
-            TryteTest();
+            MemoryTest();
 
             Console.WriteLine("\nPress any key to continue.");
             Console.ReadKey();
+        }
+
+
+
+        static void MemoryTest()
+        {
+            TryteMemory tryteMemory = new TryteMemory();
+
+            tryteMemory.BusOutput += (s, t) =>
+            {
+                Console.WriteLine($"{t.ToString()}");
+            };
+
+
+            while (true)
+            {
+                Console.Write("Location: ");
+                if (!Tryte.TryParse(Console.ReadLine(), out Tryte addr))
+                    break;
+
+                Console.SetCursorPosition(24, Console.CursorTop - 1);
+                Console.WriteLine($" {addr}");
+
+                Console.Write("Action: ");
+                if (!TritEx.TryParse(Console.ReadLine(), out Trit act))
+                    break;
+
+                Console.SetCursorPosition(24, Console.CursorTop - 1);
+                Console.WriteLine($" {(act == Trit.Pos ? "Write" : act == Trit.Neg ? "Read" : "Nothing")}");
+
+                if (act == Trit.Pos)
+                {
+                    Console.Write("Storage Value: ");
+                    if (!Tryte.TryParse(Console.ReadLine(), out Tryte store))
+                        break;
+
+                    Console.SetCursorPosition(24, Console.CursorTop - 1);
+                    Console.WriteLine($" {store}");
+                    
+                    tryteMemory.AddressInput(null, addr);
+                    tryteMemory.BusInput(null, store);
+                    tryteMemory.ReadWriteEnabled(null, act);
+                    tryteMemory.ReadWriteEnabled(null, Trit.Neu);
+                }
+                else
+                {
+                    tryteMemory.AddressInput(null, addr);
+                    tryteMemory.ReadWriteEnabled(null, act);
+                    tryteMemory.ReadWriteEnabled(null, Trit.Neu);
+                }
+
+                Console.WriteLine();
+            }
+
+
+
+            //tryteMemory.AddressInput(null, 1);
+
+            //tryteMemory.ReadWriteEnabled(null, Trit.Pos);
+
+            //tryteMemory.BusInput(null, 5);
+
+            //tryteMemory.ReadWriteEnabled(null, Trit.Neg);
+            
         }
 
 
