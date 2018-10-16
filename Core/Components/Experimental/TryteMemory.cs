@@ -33,6 +33,7 @@ namespace Ternary.Components.Experimental
         private Bus _DataBus = new Bus();
         private Wire _ReadWriteEnableWire = new Wire();
 
+
         public TryteMemory()
         {
             for (int x = 0; x < TRIBBLE_SIZE; x++)
@@ -80,15 +81,11 @@ namespace Ternary.Components.Experimental
                 }
             }
 
-            //_XRails[0].Output += (s, t) =>
-            //{
-            //    Console.WriteLine($"X rail 0: {t.ToSymbol()}");
-            //};
-
 #if DEBUG
             ComponentTools.SetComponentNames(this);
 #endif
         }
+
 
         /// <summary>
         /// Enables the Read or Write State.
@@ -101,28 +98,34 @@ namespace Ternary.Components.Experimental
             _ReadWriteEnableWire.Input(this, state);
         }
 
-
+        /// <summary>
+        /// Sets the Address that will be written / read from
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="addr">Address to select</param>
         public void AddressInput(object sender, Tryte addr)
         {
+            Address = new Tryte(addr);
+
             for (int i = 0; i < TRIBBLE_SIZE; i++)
             {
                 MatchGate mg = _XRailMatch[i];
 
-                mg.InputA(this, addr.LowerTribble[0]);
-                mg.InputB(this, addr.LowerTribble[1]);
-                mg.InputC(this, addr.LowerTribble[2]);
+                mg.InputA(this, addr.T0);
+                mg.InputB(this, addr.T1);
+                mg.InputC(this, addr.T2);
 
                 mg = _YRailMatch[i];
 
-                mg.InputA(this, addr.MiddleTribble[0]);
-                mg.InputB(this, addr.MiddleTribble[1]);
-                mg.InputC(this, addr.MiddleTribble[2]);
+                mg.InputA(this, addr.T3);
+                mg.InputB(this, addr.T4);
+                mg.InputC(this, addr.T5);
 
                 mg = _ZRailMatch[i];
 
-                mg.InputA(this, addr.UpperTribble[0]);
-                mg.InputB(this, addr.UpperTribble[1]);
-                mg.InputC(this, addr.UpperTribble[2]);
+                mg.InputA(this, addr.T6);
+                mg.InputB(this, addr.T7);
+                mg.InputC(this, addr.T8);
             }
 
             //_XRails[Address.LowerTribbleValue + 13].Input(this, Trit.Neu);
@@ -136,6 +139,11 @@ namespace Ternary.Components.Experimental
             //_ZRails[Address.UpperTribbleValue + 13].Input(this, Trit.Pos);
         }
 
+        /// <summary>
+        /// Sets the Value that will be written to a Register
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="tryte">Value to be written</param>
         public void BusInput(object sender, Tryte tryte)
         {
             _DataBus.BusInput(this, tryte);

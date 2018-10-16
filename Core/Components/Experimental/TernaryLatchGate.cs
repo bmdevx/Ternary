@@ -31,7 +31,10 @@ namespace Ternary.Components.Experimental
             else if (state == Trit.Pos)
                 Value = IncomingValue;
         }
-
+        /// <summary>
+        /// Sets the Value for the Gate
+        /// </summary>
+        /// <param name="trit">Value for the Gate</param>
         public void Input(object sender, Trit trit)
         {
             IncomingValue = trit;
