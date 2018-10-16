@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Ternary;
 using Ternary.Components.Adders;
 using Ternary.Components.Buses.Monadic;
@@ -27,12 +28,19 @@ namespace Test
         {
             TryteMemory tryteMemory = new TryteMemory();
 
-            tryteMemory.BusOutput += (s, t) =>
+            Func<Tryte, string> t2s = (tryte) =>
             {
-                Console.WriteLine($"{t.ToString()}");
+                return String.Join("", tryte.LowerTribble.Select(t => t.ToSymbol())) + ":" +
+                    String.Join("", tryte.MiddleTribble.Select(t => t.ToSymbol())) + ":" +
+                    String.Join("", tryte.UpperTribble.Select(t => t.ToSymbol()));
             };
 
-
+            tryteMemory.BusOutput += (s, t) =>
+            {
+                Console.WriteLine($"   Address     Value");
+                Console.WriteLine($"[{t2s(tryteMemory.Address)}]: {t.ToString()}");
+            };
+            
             while (true)
             {
                 Console.Write("Location: ");
@@ -47,7 +55,7 @@ namespace Test
                     break;
 
                 Console.SetCursorPosition(24, Console.CursorTop - 1);
-                Console.WriteLine($" {(act == Trit.Pos ? "Write" : act == Trit.Neg ? "Read" : "Nothing")}");
+                Console.WriteLine($" {(act == Trit.Pos ? "Write" : act == Trit.Neg ? "Read" : "Disable")}");
 
                 if (act == Trit.Pos)
                 {
@@ -63,7 +71,7 @@ namespace Test
                     tryteMemory.ReadWriteEnabled(null, act);
                     tryteMemory.ReadWriteEnabled(null, Trit.Neu);
                 }
-                else
+                else if (act == Trit.Neg)
                 {
                     tryteMemory.AddressInput(null, addr);
                     tryteMemory.ReadWriteEnabled(null, act);
