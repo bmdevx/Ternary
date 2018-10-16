@@ -50,35 +50,35 @@ namespace Ternary.Components.Experimental
                 }
             }
 
-            //int c = 0;
-            //for (int i = -1; i < 2; i++)
-            //{
-            //    for (int j = -1; j < 2; j++)
-            //    {
-            //        for (int k = -1; k < 2; k++)
-            //        {
-            //            Muxer muxer = new Muxer();
-            //            MatchGate matchGate = new MatchGate((Trit)i, (Trit)j, (Trit)k);
-            //            matchGate.Output += muxer.InputSelect;
-            //            muxer.Output += _XRails[c].Input;
-            //            _XRailMatch[c] = matchGate;
+            int c = 0;
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    for (int k = -1; k < 2; k++)
+                    {
+                        Muxer muxer = new Muxer(inputStateA: Trit.Neg, inputStateC: Trit.Pos);
+                        MatchGate matchGate = new MatchGate((Trit)i, (Trit)j, (Trit)k);
+                        matchGate.Output += muxer.InputSelect;
+                        muxer.Output += _XRails[c].Input;
+                        _XRailMatch[c] = matchGate;
 
-            //            muxer = new Muxer();
-            //            matchGate = new MatchGate((Trit)i, (Trit)j, (Trit)k);
-            //            matchGate.Output += muxer.InputSelect;
-            //            muxer.Output += _YRails[c].Input;
-            //            _YRailMatch[c] = matchGate;
-                        
-            //            muxer = new Muxer();
-            //            matchGate = new MatchGate((Trit)i, (Trit)j, (Trit)k);
-            //            matchGate.Output += muxer.InputSelect;
-            //            muxer.Output += _ZRails[c].Input;
-            //            _ZRailMatch[c] = matchGate;
+                        muxer = new Muxer(inputStateA: Trit.Neg, inputStateC: Trit.Pos);
+                        matchGate = new MatchGate((Trit)i, (Trit)j, (Trit)k);
+                        matchGate.Output += muxer.InputSelect;
+                        muxer.Output += _YRails[c].Input;
+                        _YRailMatch[c] = matchGate;
 
-            //            c++;
-            //        }
-            //    }
-            //}
+                        muxer = new Muxer(inputStateA: Trit.Neg, inputStateC: Trit.Pos);
+                        matchGate = new MatchGate((Trit)i, (Trit)j, (Trit)k);
+                        matchGate.Output += muxer.InputSelect;
+                        muxer.Output += _ZRails[c].Input;
+                        _ZRailMatch[c] = matchGate;
+
+                        c++;
+                    }
+                }
+            }
 
             //_XRails[0].Output += (s, t) =>
             //{
@@ -104,36 +104,36 @@ namespace Ternary.Components.Experimental
 
         public void AddressInput(object sender, Tryte addr)
         {
-            //for (int i = 0; i < TRIBBLE_SIZE; i++)
-            //{
-            //    MatchGate mg = _XRailMatch[i];
+            for (int i = 0; i < TRIBBLE_SIZE; i++)
+            {
+                MatchGate mg = _XRailMatch[i];
 
-            //    mg.InputA(this, addr.LowerTribble[0]);
-            //    mg.InputB(this, addr.LowerTribble[1]);
-            //    mg.InputC(this, addr.LowerTribble[2]);
+                mg.InputA(this, addr.LowerTribble[0]);
+                mg.InputB(this, addr.LowerTribble[1]);
+                mg.InputC(this, addr.LowerTribble[2]);
 
-            //    mg = _YRailMatch[i];
+                mg = _YRailMatch[i];
 
-            //    mg.InputA(this, addr.MiddleTribble[0]);
-            //    mg.InputB(this, addr.MiddleTribble[1]);
-            //    mg.InputC(this, addr.MiddleTribble[2]);
+                mg.InputA(this, addr.MiddleTribble[0]);
+                mg.InputB(this, addr.MiddleTribble[1]);
+                mg.InputC(this, addr.MiddleTribble[2]);
 
-            //    mg = _ZRailMatch[i];
+                mg = _ZRailMatch[i];
 
-            //    mg.InputA(this, addr.UpperTribble[0]);
-            //    mg.InputB(this, addr.UpperTribble[1]);
-            //    mg.InputC(this, addr.UpperTribble[2]);
-            //}
+                mg.InputA(this, addr.UpperTribble[0]);
+                mg.InputB(this, addr.UpperTribble[1]);
+                mg.InputC(this, addr.UpperTribble[2]);
+            }
 
-            _XRails[Address.LowerTribbleValue + 13].Input(this, Trit.Neu);
-            _YRails[Address.MiddleTribbleValue + 13].Input(this, Trit.Neu);
-            _ZRails[Address.UpperTribbleValue + 13].Input(this, Trit.Neu);
+            //_XRails[Address.LowerTribbleValue + 13].Input(this, Trit.Neu);
+            //_YRails[Address.MiddleTribbleValue + 13].Input(this, Trit.Neu);
+            //_ZRails[Address.UpperTribbleValue + 13].Input(this, Trit.Neu);
 
-            Address = addr;
+            //Address = addr;
 
-            _XRails[Address.LowerTribbleValue + 13].Input(this, Trit.Pos);
-            _YRails[Address.MiddleTribbleValue + 13].Input(this, Trit.Pos);
-            _ZRails[Address.UpperTribbleValue + 13].Input(this, Trit.Pos);
+            //_XRails[Address.LowerTribbleValue + 13].Input(this, Trit.Pos);
+            //_YRails[Address.MiddleTribbleValue + 13].Input(this, Trit.Pos);
+            //_ZRails[Address.UpperTribbleValue + 13].Input(this, Trit.Pos);
         }
 
         public void BusInput(object sender, Tryte tryte)
