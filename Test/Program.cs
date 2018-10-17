@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using Ternary;
 using Ternary.Components.Adders;
@@ -11,7 +10,11 @@ namespace Test
     class Program
     {
         static TryteAdder tryteAdder = new TryteAdder(), tryteAdderForDiff = new TryteAdder();
-        static InverterBus inverterBus = new InverterBus();
+        static InverterBus<Tryte> tryteInverterBus = new InverterBus<Tryte>();
+
+        static TrortAdder trortAdder = new TrortAdder(), trortAdderForDiff = new TrortAdder();
+        static InverterBus<Trort> trortInverterBus = new InverterBus<Trort>();
+
 
 
         static void Main(string[] args)
@@ -31,31 +34,30 @@ namespace Test
             Func<Tryte, string> t2s = (tryte) =>
             {
                 return String.Join("", tryte.LowerTribble.Select(t => t.ToSymbol())) + ":" +
-                    String.Join("", tryte.MiddleTribble.Select(t => t.ToSymbol())) + ":" +
                     String.Join("", tryte.UpperTribble.Select(t => t.ToSymbol()));
             };
 
             tryteMemory.BusOutput += (s, t) =>
             {
-                Console.WriteLine($"   Address     Value");
+                Console.WriteLine($" Address   Value");
                 Console.WriteLine($"[{t2s(tryteMemory.Address)}]: {t.ToString()}");
             };
             
             while (true)
             {
-                Console.Write("Location: ");
+                Console.Write("Address: ");
                 if (!Tryte.TryParse(Console.ReadLine(), out Tryte addr))
                     break;
 
-                Console.SetCursorPosition(24, Console.CursorTop - 1);
-                Console.WriteLine($" {addr}");
+                Console.SetCursorPosition(9, Console.CursorTop - 1);
+                Console.WriteLine($"      [{addr.ToString("s")}] {addr}");
 
                 Console.Write("Action: ");
                 if (!TritEx.TryParse(Console.ReadLine(), out Trit act))
                     break;
 
-                Console.SetCursorPosition(24, Console.CursorTop - 1);
-                Console.WriteLine($" {(act == Trit.Pos ? "Write" : act == Trit.Neg ? "Read" : "Disable")}");
+                Console.SetCursorPosition(8, Console.CursorTop - 1);
+                Console.WriteLine($"       {act.ToSymbol()}        {(act == Trit.Pos ? "Write" : act == Trit.Neg ? "Read" : "Disable")}");
 
                 if (act == Trit.Pos)
                 {
@@ -63,8 +65,8 @@ namespace Test
                     if (!Tryte.TryParse(Console.ReadLine(), out Tryte store))
                         break;
 
-                    Console.SetCursorPosition(24, Console.CursorTop - 1);
-                    Console.WriteLine($" {store}");
+                    Console.SetCursorPosition(15, Console.CursorTop - 1);
+                    Console.WriteLine($"[{store.ToString("S")}] {store}");
                     
                     tryteMemory.AddressInput(null, addr);
                     tryteMemory.BusInput(null, store);
@@ -80,16 +82,6 @@ namespace Test
 
                 Console.WriteLine();
             }
-
-
-
-            //tryteMemory.AddressInput(null, 1);
-
-            //tryteMemory.ReadWriteEnabled(null, Trit.Pos);
-
-            //tryteMemory.BusInput(null, 5);
-
-            //tryteMemory.ReadWriteEnabled(null, Trit.Neg);
             
         }
 
@@ -152,7 +144,7 @@ namespace Test
                 Console.WriteLine($"Diff Carry: {carry.ToSymbol()}");
             };
 
-            inverterBus.BusOutput += tryteAdderForDiff.BBusInput;
+            tryteInverterBus.BusOutput += tryteAdderForDiff.BBusInput;
 
 
 
@@ -162,13 +154,64 @@ namespace Test
                 if (!Tryte.TryParse(Console.ReadLine(), out Tryte t1))
                     break;
 
-                DisplayPrev(t1);
+                DisplayPrev(t1, 9);
 
                 Console.Write("Tryte 2: ");
                 if (!Tryte.TryParse(Console.ReadLine(), out Tryte t2))
                     break;
 
-                DisplayPrev(t2);
+                DisplayPrev(t2, 9);
+
+                Console.WriteLine();
+
+                Sum(t1, t2);
+                Diff(t1, t2);
+                //Multi(t1, t2);
+                //Div(t1, t2);
+                //Mod(t1, t2);
+                //Greater(t1, t2);
+                //Lesser(t1, t2);
+
+                Console.WriteLine();
+            }
+        }
+
+        static void TrortTest()
+        {
+            trortAdder.BusOutput += (s, sum) => {
+                Console.WriteLine($"Sum: [{sum.ToString("s")}] {sum}");
+            };
+
+            trortAdder.CarryOut += (s, carry) => {
+                Console.WriteLine($"Sum Carry: {carry.ToSymbol()}");
+            };
+
+
+            trortAdderForDiff.BusOutput += (s, sum) => {
+                Console.WriteLine($"Diff: [{sum.ToString("s")}] {sum}");
+            };
+
+            trortAdderForDiff.CarryOut += (s, carry) => {
+                Console.WriteLine($"Diff Carry: {carry.ToSymbol()}");
+            };
+
+            trortInverterBus.BusOutput += trortAdderForDiff.BBusInput;
+
+
+
+            while (true)
+            {
+                Console.Write("Trort A: ");
+                if (!Trort.TryParse(Console.ReadLine(), out Trort t1))
+                    break;
+
+                DisplayPrev(t1, 9);
+
+                Console.Write("Trort B: ");
+                if (!Trort.TryParse(Console.ReadLine(), out Trort t2))
+                    break;
+
+                DisplayPrev(t2, 9);
 
                 Console.WriteLine();
 
@@ -185,11 +228,16 @@ namespace Test
         }
 
 
-
-        static void DisplayPrev(Tryte t)
+        static void DisplayPrev(Tryte t, int offset)
         {
-            Console.SetCursorPosition(15, Console.CursorTop - 1);
-            Console.WriteLine($" {t}");
+            Console.SetCursorPosition(offset, Console.CursorTop - 1);
+            Console.WriteLine($"{t.ToString("s")} {t}");
+        }
+
+        static void DisplayPrev(Trort t, int offset)
+        {
+            Console.SetCursorPosition(offset, Console.CursorTop - 1);
+            Console.WriteLine($"{t.ToString("s")} {t}");
         }
 
 
@@ -205,7 +253,7 @@ namespace Test
         static void Diff(Tryte t1, Tryte t2)
         {
             tryteAdderForDiff.ABusInput(null, t1);
-            inverterBus.BusInput(null, t2);
+            tryteInverterBus.BusInput(null, t2);
 
             //Tryte diff = t1 - t2;
             //Console.WriteLine($"Diff: [{diff.ToString("s")}] {diff}");
@@ -237,6 +285,25 @@ namespace Test
         static void Lesser(Tryte t1, Tryte t2)
         {
             Console.WriteLine($"Lesser: {t1 < t2}");
+        }
+
+        
+        static void Sum(Trort t1, Trort t2)
+        {
+            trortAdder.ABusInput(null, t1);
+            trortAdder.BBusInput(null, t2);
+
+            //Tryte sum = t1 + t2;
+            //Console.WriteLine($"Sum: [{sum.ToString("s")}] {sum}");
+        }
+
+        static void Diff(Trort t1, Trort t2)
+        {
+            trortAdderForDiff.ABusInput(null, t1);
+            trortInverterBus.BusInput(null, t2);
+
+            //Tryte diff = t1 - t2;
+            //Console.WriteLine($"Diff: [{diff.ToString("s")}] {diff}");
         }
     }
 }

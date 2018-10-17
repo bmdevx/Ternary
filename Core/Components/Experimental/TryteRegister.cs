@@ -6,11 +6,11 @@ using Ternary.Tools;
 
 namespace Ternary.Components.Experimental
 {
-    public class TryteRegister : IBusComponent
+    public class TryteRegister : IBusComponent<Tryte>
     {
         public string ComponentName { get; internal set; }
 
-        public event ComponentBusTriggeredEvent BusOutput;
+        public event ComponentBusTriggeredEvent<Tryte> BusOutput;
 
 
         public Trit ReadWriteState { get; private set; }
@@ -30,12 +30,9 @@ namespace Ternary.Components.Experimental
             _TernaryLatchGates[2].Output += (s, t) => { _Trits[2] = t; };
             _TernaryLatchGates[3].Output += (s, t) => { _Trits[3] = t; };
             _TernaryLatchGates[4].Output += (s, t) => { _Trits[4] = t; };
-            _TernaryLatchGates[5].Output += (s, t) => { _Trits[5] = t; };
-            _TernaryLatchGates[6].Output += (s, t) => { _Trits[6] = t; };
-            _TernaryLatchGates[7].Output += (s, t) => { _Trits[7] = t; };
-            _TernaryLatchGates[8].Output += (s, t) =>
+            _TernaryLatchGates[Tryte.NUMBER_OF_TRITS - 1].Output += (s, t) =>
             {
-                _Trits[8] = t;
+                _Trits[Tryte.NUMBER_OF_TRITS - 1] = t;
                 BusOutput?.Invoke(this, Value);
             };
         }

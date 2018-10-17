@@ -11,7 +11,7 @@ namespace Ternary.Components.Experimental
 
         public event ComponentTriggeredEvent Output;
 
-        public OutIfNotNeuGate(MatchGate matchGate, IComponentOutput componentOutput)
+        public OutIfNotNeuGate(AddressMatchGate matchGate, IComponentOutput componentOutput)
         {
             Muxer muxer = new Muxer();
 

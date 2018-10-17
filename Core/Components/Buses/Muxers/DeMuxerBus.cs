@@ -5,21 +5,21 @@ using System.Text;
 
 namespace Ternary.Components.Buses.Muxers
 {
-    public class DeMuxerBus : MuxerBusBase, IBusComponentInput
+    public class DeMuxerBus<T> : MuxerBusBase, IBusComponentInput<T> where T : ITernaryDataType, new()
     {
-        public event ComponentBusTriggeredEvent AOutput;
-        public event ComponentBusTriggeredEvent BOutput;
-        public event ComponentBusTriggeredEvent COutput;
+        public event ComponentBusTriggeredEvent<T> AOutput;
+        public event ComponentBusTriggeredEvent<T> BOutput;
+        public event ComponentBusTriggeredEvent<T> COutput;
 
-        public Tryte InputState { get; protected set; }
-        public Tryte AOutputState { get; protected set; }
-        public Tryte BOutputState { get; protected set; }
-        public Tryte COutputState { get; protected set; }
+        public T InputState { get; protected set; }
+        public T AOutputState { get; protected set; }
+        public T BOutputState { get; protected set; }
+        public T COutputState { get; protected set; }
 
 
-        public DeMuxerBus(Trit selectState = Trit.Neu, Tryte inputState = new Tryte()) : base(selectState)
+        public DeMuxerBus(Trit selectState = Trit.Neu) : base(selectState)
         {
-            InputState = inputState;
+            //InputState = inputState;
         }
 
 
@@ -28,7 +28,7 @@ namespace Ternary.Components.Buses.Muxers
             BusInput(this, InputState);
         }
 
-        public void BusInput(object sender, Tryte input)
+        public void BusInput(object sender, T input)
         {
             InputState = input;
 

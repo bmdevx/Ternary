@@ -4,24 +4,23 @@ using System.Text;
 
 namespace Ternary.Components.Experimental
 {
-    public class RegisterCircuit : IBusComponentOutput
+    public class RegisterCircuit : IBusComponentOutput<Tryte>
     {
         public string ComponentName { get; internal set; }
 
-        public event ComponentBusTriggeredEvent BusOutput;
+        public event ComponentBusTriggeredEvent<Tryte> BusOutput;
 
         private TryteRegister register;
         private OutIfPosGate outIfPosGate;
-        private Trit enableState;
 
 
-        public RegisterCircuit(IBusComponentOutput dataIn, IComponentOutput rwState, IComponentOutput railX, IComponentOutput railY, IComponentOutput railZ)
+        public RegisterCircuit(IBusComponentOutput<Tryte> dataIn, IComponentOutput rwState, IComponentOutput railX, IComponentOutput railY)
         {
-            MatchGate addr = new MatchGate(Trit.Pos, Trit.Pos, Trit.Pos);
+            AddressMatchGate addr = new AddressMatchGate(Trit.Pos, Trit.Pos, Trit.Pos);
 
             railX.Output += addr.InputA;
             railY.Output += addr.InputB;
-            railZ.Output += addr.InputC;
+            addr.InputC(null, Trit.Pos);
 
             register = new TryteRegister();
 

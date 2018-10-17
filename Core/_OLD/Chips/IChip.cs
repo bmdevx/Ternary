@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using Ternary.Tools;
 
-namespace Ternary.Components.Chips
+namespace Ternary.Old
 {
     [DebuggerDisplay("{DebuggerInfo}")]
     public abstract class IChip : IMultiIOComponent

@@ -4,31 +4,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Ternary
 {
     [DebuggerDisplay("{DebuggerInfo}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Tryte : ITernaryDataType, IComparable<Tryte>, IEquatable<Tryte>
+    public struct Trort : ITernaryDataType, IComparable<Trort>, IEquatable<Trort>
     {
-        public const int NUMBER_OF_TRITS = 6;
+        public const int NUMBER_OF_TRITS = 12;
         int ITernaryDataType.NUMBER_OF_TRITS => NUMBER_OF_TRITS;
 
-        public const int MAX_INT_VALUE = 364;
-        public const int MIN_INT_VALUE = -364;
+        public const int MAX_INT_VALUE = 265720;
+        public const int MIN_INT_VALUE = -265720;
 
-        public static readonly Tryte MAX_VALUE = new Tryte(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
-        public static readonly Tryte MIN_VALUE = new Tryte(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);
+        public static readonly Trort MAX_VALUE =
+            new Trort(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
+        public static readonly Trort MIN_VALUE =
+            new Trort(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);
         
         public string DebuggerInfo => $"{ToString()} ({ToString("s")})";
 
-        public Trit[] Trits => new Trit[] { T0, T1, T2, T3, T4, T5 };
+        public Trit[] Trits => new Trit[] { T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11 };
 
-        public Trit[] LowerTribble => new Trit[] { T0, T1, T2 };
-        public Trit[] UpperTribble => new Trit[] { T3, T4, T5 };
+        public Tryte LowerTryte => new Tryte(T0, T1, T2, T3, T4, T5);
+        public Tryte UpperTryte => new Tryte(T6, T7, T8, T9, T10, T11);
 
-        public int LowerTribbleValue => ToInt(new Trit[] { T0, T1, T2 });
-        public int UpperTribbleValue => ToInt(new Trit[] { T3, T4, T5 });
+        public int LowerTryteValue => ToInt(new Trit[] { T0, T1, T2, T3, T4, T5 });
+        public int UpperTryteValue => ToInt(new Trit[] { T6, T7, T8, T9, T10, T11 });
 
 
         public Trit T0;
@@ -37,10 +40,18 @@ namespace Ternary
         public Trit T3;
         public Trit T4;
         public Trit T5;
+        public Trit T6;
+        public Trit T7;
+        public Trit T8;
+        public Trit T9;
+        public Trit T10;
+        public Trit T11;
 
 
-        public Tryte(Trit t0 = Trit.Neu, Trit t1 = Trit.Neu, Trit t2 = Trit.Neu,
-            Trit t3 = Trit.Neu, Trit t4 = Trit.Neu, Trit t5 = Trit.Neu)
+        public Trort(Trit t0 = Trit.Neu, Trit t1 = Trit.Neu, Trit t2 = Trit.Neu,
+            Trit t3 = Trit.Neu, Trit t4 = Trit.Neu, Trit t5 = Trit.Neu,
+            Trit t6 = Trit.Neu, Trit t7 = Trit.Neu, Trit t8 = Trit.Neu,
+            Trit t9 = Trit.Neu, Trit t10 = Trit.Neu, Trit t11 = Trit.Neu)
         {
             T0 = t0;
             T1 = t1;
@@ -48,11 +59,17 @@ namespace Ternary
             T3 = t3;
             T4 = t4;
             T5 = t5;
+            T6 = t6;
+            T7 = t7;
+            T8 = t8;
+            T9 = t9;
+            T10 = t10;
+            T11 = t11;
         }
 
-        public Tryte(IEnumerable<Trit> trits)
+        public Trort(IEnumerable<Trit> trits)
         {
-            this = new Tryte();
+            this = new Trort();
 
             int i = 0;
             foreach (Trit t in trits)
@@ -65,13 +82,19 @@ namespace Ternary
                     case 3: T3 = t; break;
                     case 4: T4 = t; break;
                     case 5: T5 = t; break;
+                    case 6: T6 = t; break;
+                    case 7: T7 = t; break;
+                    case 8: T8 = t; break;
+                    case 9: T9 = t; break;
+                    case 10: T10 = t; break;
+                    case 11: T11 = t; break;
                 }
 
                 i++;
             }
         }
 
-        public Tryte(int value)
+        public Trort(int value)
         {
             if (value >= MAX_INT_VALUE)
                 this = MAX_VALUE;
@@ -79,7 +102,7 @@ namespace Ternary
                 this = MIN_VALUE;
             else
             {
-                Trit[] trits = new Trit[Tryte.NUMBER_OF_TRITS];
+                Trit[] trits = new Trit[Trort.NUMBER_OF_TRITS];
                 for (int i = 0; value != 0 && i < NUMBER_OF_TRITS; i++)
                 {
                     switch (value % 3)
@@ -100,6 +123,12 @@ namespace Ternary
                 T3 = trits[3];
                 T4 = trits[4];
                 T5 = trits[5];
+                T6 = trits[6];
+                T7 = trits[7];
+                T8 = trits[8];
+                T9 = trits[9];
+                T10 = trits[10];
+                T11 = trits[11];
             }
         }
 
@@ -112,6 +141,12 @@ namespace Ternary
             yield return T3;
             yield return T4;
             yield return T5;
+            yield return T6;
+            yield return T7;
+            yield return T8;
+            yield return T9;
+            yield return T10;
+            yield return T11;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -122,10 +157,10 @@ namespace Ternary
 
         public int CompareTo(object obj)
         {
-            return (obj is Tryte tryte) ? CompareTo(tryte) : -1;
+            return (obj is Trort trort) ? CompareTo(trort) : -1;
         }
 
-        public int CompareTo(Tryte other)
+        public int CompareTo(Trort other)
         {
             for (int i = NUMBER_OF_TRITS - 1; i > -1; i--)
             {
@@ -139,10 +174,10 @@ namespace Ternary
 
         public override bool Equals(object obj)
         {
-            return (obj is Tryte tryte) ? Equals(tryte) : false;
+            return (obj is Trort trort) ? Equals(trort) : false;
         }
 
-        public bool Equals(Tryte other)
+        public bool Equals(Trort other)
         {
             return this.SequenceEqual(other);
         }
@@ -157,6 +192,12 @@ namespace Ternary
             hashCode = hashCode * -1521134295 + T3.GetHashCode();
             hashCode = hashCode * -1521134295 + T4.GetHashCode();
             hashCode = hashCode * -1521134295 + T5.GetHashCode();
+            hashCode = hashCode * -1521134295 + T6.GetHashCode();
+            hashCode = hashCode * -1521134295 + T7.GetHashCode();
+            hashCode = hashCode * -1521134295 + T8.GetHashCode();
+            hashCode = hashCode * -1521134295 + T9.GetHashCode();
+            hashCode = hashCode * -1521134295 + T10.GetHashCode();
+            hashCode = hashCode * -1521134295 + T11.GetHashCode();
             return hashCode;
         }
 
@@ -190,6 +231,12 @@ namespace Ternary
                     case 3: return T3;
                     case 4: return T4;
                     case 5: return T5;
+                    case 6: return T6;
+                    case 7: return T7;
+                    case 8: return T8;
+                    case 9: return T9;
+                    case 10: return T10;
+                    case 11: return T11;
                 }
 
                 throw new IndexOutOfRangeException();
@@ -205,6 +252,12 @@ namespace Ternary
                     case 3: T3 = value; break;
                     case 4: T4 = value; break;
                     case 5: T5 = value; break;
+                    case 6: T6 = value; break;
+                    case 7: T7 = value; break;
+                    case 8: T8 = value; break;
+                    case 9: T9 = value; break;
+                    case 10: T10 = value; break;
+                    case 11: T11 = value; break;
                     default: throw new IndexOutOfRangeException();
                 }
             }
@@ -230,38 +283,38 @@ namespace Ternary
             return s;
         }
 
-        public char ToChar()
-        {
-            int val = ToInt();
-            return (char)(val < 0 ? val + MAX_INT_VALUE : val);
-        }
 
-
-        private Tryte Invert()
+        private Trort Invert()
         {
-            return new Tryte(
+            return new Trort(
                 T0.Invert(),
                 T1.Invert(),
                 T2.Invert(),
                 T3.Invert(),
                 T4.Invert(),
-                T5.Invert());
+                T5.Invert(),
+                T6.Invert(),
+                T7.Invert(),
+                T8.Invert(),
+                T9.Invert(),
+                T10.Invert(),
+                T11.Invert());
         }
 
 
-        public static Tryte Parse(string value)
+        public static Trort Parse(string value)
         {
             if (value == null)
                 throw new ArgumentNullException();
-            else if (TryParse(value, out Tryte tryte))
-                return tryte;
+            else if (TryParse(value, out Trort trort))
+                return trort;
             else
                 throw new FormatException("Invallid Tryte Format");
         }
 
-        public static bool TryParse(string value, out Tryte tryte)
+        public static bool TryParse(string value, out Trort trort)
         {
-            tryte = new Tryte();
+            trort = new Trort();
 
             if (value == null)
                 return false;
@@ -271,42 +324,43 @@ namespace Ternary
                 if (s < MIN_INT_VALUE || s > MAX_INT_VALUE)
                     return false;
 
-                tryte = new Tryte(s);
+                trort = new Trort(s);
             }
             else
             {
                 for (int i = 0; i < NUMBER_OF_TRITS && i < value.Length; i++)
                 {
                     if (TritEx.TryParse(value[i], out Trit trit))
-                        tryte[i] = trit;
+                        trort[i] = trit;
                     else
                         return false;
-                } 
+                }
             }
 
             return true;
         }
-        
+
         ITernaryDataType ITernaryDataType.CreateFromTrits(IEnumerable<Trit> trits)
         {
-            return new Tryte(trits);
+            return new Trort(trits);
         }
+
 
         #region Overloads
 
-        public static implicit operator Tryte(int value)
+        public static implicit operator Trort(int value)
         {
-            return new Tryte(value);
+            return new Trort(value);
         }
 
 
-        public static Tryte operator +(Tryte t1, Tryte t2)
+        public static Trort operator +(Trort t1, Trort t2)
         {
-            Tryte tryte = new Tryte();
+            Trort trort = new Trort();
             Trit carry = Trit.Neu;
             for (int i = 0; i < NUMBER_OF_TRITS; i++)
             {
-                tryte[i] = t1[i].Add(t2[i], ref carry);
+                trort[i] = t1[i].Add(t2[i], ref carry);
 
                 while (carry != Trit.Neu)
                 {
@@ -314,7 +368,7 @@ namespace Ternary
                         break;
 
                     Trit tc = Trit.Neu;
-                    tryte[i] = carry.Add(t1[i], ref tc).Add(t2[i], ref carry);
+                    trort[i] = carry.Add(t1[i], ref tc).Add(t2[i], ref carry);
 
                     if (carry == Trit.Neu)
                         carry = tc;
@@ -323,39 +377,39 @@ namespace Ternary
                 }
             }
 
-            return tryte;
+            return trort;
         }
 
-        public static Tryte operator +(Tryte tryte, int val)
+        public static Trort operator +(Trort trort, int val)
         {
-            return tryte.ToInt() + new Tryte(val);
+            return trort.ToInt() + new Trort(val);
         }
 
-        public static int operator +(int val, Tryte tryte)
+        public static int operator +(int val, Trort trort)
         {
-            return val + tryte.ToInt();
+            return val + trort.ToInt();
         }
 
 
-        public static Tryte operator -(Tryte t1, Tryte t2)
+        public static Trort operator -(Trort t1, Trort t2)
         {
             return t1 + t2.Invert();
         }
 
-        public static Tryte operator -(Tryte tryte, int val)
+        public static Trort operator -(Trort trort, int val)
         {
-            return tryte - new Tryte(val);
+            return trort - new Trort(val);
         }
 
-        public static int operator -(int val, Tryte tryte)
+        public static int operator -(int val, Trort trort)
         {
-            return val - tryte.ToInt();
+            return val - trort.ToInt();
         }
 
 
-        public static Tryte operator *(Tryte t1, Tryte t2)
+        public static Trort operator *(Trort t1, Trort t2)
         {
-            Tryte tryte = new Tryte();
+            Trort trort = new Trort();
 
             int stop = t2.ToInt();
             bool neg = false;
@@ -368,15 +422,15 @@ namespace Ternary
 
             for (int i = 0; i < stop; i++)
             {
-                tryte += t1;
+                trort += t1;
             }
 
-            return neg ? -tryte : tryte;
+            return neg ? -trort : trort;
         }
 
-        public static Tryte operator /(Tryte t1, Tryte t2)
+        public static Trort operator /(Trort t1, Trort t2)
         {
-            Tryte tmp = t1, val = new Tryte();
+            Trort tmp = t1, val = new Trort();
             
             if (t1 < 0)
             {
@@ -392,9 +446,9 @@ namespace Ternary
             return val;
         }
 
-        public static Tryte operator %(Tryte t1, Tryte t2)
+        public static Trort operator %(Trort t1, Trort t2)
         {
-            Tryte tmp = t1;
+            Trort tmp = t1;
 
             if (t1 < 0)
             {
@@ -409,38 +463,38 @@ namespace Ternary
         }
 
 
-        public static Tryte operator ++(Tryte tryte)
+        public static Trort operator ++(Trort trort)
         {
-            return tryte + new Tryte(Trit.Pos);
+            return trort + new Trort(Trit.Pos);
         }
 
-        public static Tryte operator --(Tryte tryte)
+        public static Trort operator --(Trort trort)
         {
-            return tryte + new Tryte(Trit.Neg);
+            return trort + new Trort(Trit.Neg);
         }
 
-        public static Tryte operator -(Tryte tryte)
+        public static Trort operator -(Trort trort)
         {
-            return tryte.Invert();
+            return trort.Invert();
         }
 
-        public static Tryte operator ~(Tryte tryte)
+        public static Trort operator ~(Trort trort)
         {
-            return tryte.Invert();
+            return trort.Invert();
         }
 
 
-        public static bool operator ==(Tryte t1, Tryte t2)
+        public static bool operator ==(Trort t1, Trort t2)
         {
             return t1.Equals(t2);
         }
 
-        public static bool operator !=(Tryte t1, Tryte t2)
+        public static bool operator !=(Trort t1, Trort t2)
         {
             return !t1.Equals(t2);
         }
 
-        public static bool operator >(Tryte t1, Tryte t2)
+        public static bool operator >(Trort t1, Trort t2)
         {
             for (int i = 5; i > -1; i--)
             {
@@ -453,7 +507,7 @@ namespace Ternary
             return false;
         }
 
-        public static bool operator <(Tryte t1, Tryte t2)
+        public static bool operator <(Trort t1, Trort t2)
         {
             for (int i = 5; i > -1; i--)
             {
@@ -466,23 +520,23 @@ namespace Ternary
             return false;
         }
 
-        public static bool operator >=(Tryte t1, Tryte t2)
+        public static bool operator >=(Trort t1, Trort t2)
         {
             return t1 == t2 || t1 > t2;
         }
 
-        public static bool operator <=(Tryte t1, Tryte t2)
+        public static bool operator <=(Trort t1, Trort t2)
         {
             return t1 == t2 || t1 < t2;
         }
         #endregion
     }
 
-    public static class TryteEx
+    public static class TrortEx
     {
-        public static Tryte ToTryte(this IEnumerable<Trit> trits)
+        public static Trort ToTrort(this IEnumerable<Trit> trits)
         {
-            return new Tryte(trits);
+            return new Trort(trits);
         }
     }
 }

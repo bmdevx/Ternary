@@ -1,54 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Ternary.Tools;
 
 namespace Ternary.Components.Buses
 {
-    public abstract class MonadicBaseBus : Basic9In9OutComponent, IBusComponent
+    public abstract class MonadicBaseBus<T> : IBusComponent<T> where T : ITernaryDataType
     {
-        public event ComponentBusTriggeredEvent BusOutput;
+        public string ComponentName { get; internal set; }
 
+        public event ComponentBusTriggeredEvent<T> BusOutput;
+        
 
-        public MonadicBaseBus(IEnumerable<Trit> inputStates = null) :
-            base(inputStates) { }
-
-
-        protected override void OnInputInvoked(object sender, Trit trit, int pin)
+        public void BusInput(object sender, T data)
         {
-            InvokeOutput(pin, Execute(sender, InputStates[pin]), this);
+            OnBusInputInvoked(sender, data);
+        }
+
+        protected virtual void OnBusInputInvoked(object sender, T data)
+        {
+            ExecuteInvokeBus((T)data.CreateFromTrits(data.Select(d => Execute(this, d))));
         }
 
 
-        public void BusInput(object sender, Tryte tryte)
+        protected void ExecuteInvokeBus(T data)
         {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
-            {
-                InputStates[i] = tryte[i];
-            }
-
-            OnBusInputInvoked(sender, tryte);
-        }
-
-        protected virtual void OnBusInputInvoked(object sender, Tryte tryte)
-        {
-            ExecuteInvokeBus();
-        }
-
-
-        protected void ExecuteInvokeBus()
-        {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
-            {
-                OutputStates[i] = Execute(this, InputStates[i]);
-                InvokeOutput(i, OutputStates[i], this);
-            }
-
-            InvokeBusOutput(BusValue, this);
+            InvokeBusOutput(data);
         }
         
-        protected void InvokeBusOutput(Tryte tryte, object sender = null)
+        protected void InvokeBusOutput(T data, object sender = null)
         {
-            BusOutput?.Invoke(sender ?? this, tryte);
+            BusOutput?.Invoke(sender ?? this, data);
         }
 
 

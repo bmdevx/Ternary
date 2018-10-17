@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ternary;
 using Ternary.Components;
-using Ternary.Components.Adders;
 
 namespace Simulator
 {
@@ -15,23 +8,18 @@ namespace Simulator
     {
         static void Main(string[] args)
         {
-            ALU alu = new ALU();
+            TryteALU alu = new TryteALU ();
             alu.BusOutput += (s, t) =>
             {
-                Console.WriteLine($"{t.ToString()} \tSigned:{alu.SignedState}");
+                Console.WriteLine($"[{t.ToString("s")}] {t}");
             };
-
-            //alu.SignedOutput += (s, t) =>
-            //{
-            //    Console.WriteLine($"Signed State: {t.ToString()}");
-            //};
-
+            
             while (true)
             {
-                Action<Tryte> DisplayPrev = (t) =>
+                Action<Tryte, int> DisplayPrevTryte = (t, offset) =>
                 {
-                    Console.SetCursorPosition(18, Console.CursorTop - 1);
-                    Console.WriteLine($" {t}");
+                    Console.SetCursorPosition(offset, Console.CursorTop - 1);
+                    Console.WriteLine($"{t.ToString("s")} {t}");
                 };
 
 
@@ -43,13 +31,13 @@ namespace Simulator
                 if (!Tryte.TryParse(Console.ReadLine(), out Tryte ta))
                     break;
 
-                DisplayPrev(ta);
+                DisplayPrevTryte(ta, 9);
 
                 Console.Write("Tryte B: ");
                 if (!Tryte.TryParse(Console.ReadLine(), out Tryte tb))
                     break;
 
-                DisplayPrev(tb);
+                DisplayPrevTryte(tb, 9);
 
 
                 Console.WriteLine();

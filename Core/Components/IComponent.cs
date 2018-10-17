@@ -1,5 +1,14 @@
-﻿namespace Ternary.Components
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Ternary.Components
 {
+    public interface IComponentBase
+    {
+        string ComponentName { get; }
+    }
+
+
     #region Trit
     public delegate void ComponentTriggeredEvent(object sender, Trit trit);
 
@@ -8,9 +17,8 @@
         void Input(object sender, Trit trit);
     }
 
-    public interface IComponentOutput
+    public interface IComponentOutput : IComponentBase
     {
-        string ComponentName { get; }
         event ComponentTriggeredEvent Output;
     }
 
@@ -22,43 +30,40 @@
         ComponentTriggeredEvent[] Inputs { get; }
     }
 
-    public interface IMultiOutComponent
+    public interface IMultiOutComponent : IComponentBase
     {
-        string ComponentName { get; }
         ComponentTriggeredEvent[] Outputs { get; }
     }
 
     public interface IMultiIOComponent : IMultiInComponent, IMultiOutComponent { }
     #endregion
 
-    #region Tryte
-    public delegate void ComponentBusTriggeredEvent(object sender, Tryte tryte);
+    #region Bus
+    public delegate void ComponentBusTriggeredEvent<T>(object sender, T tryte) where T : ITernaryDataType;
 
-    public interface IBusComponentInput
+    public interface IBusComponentInput<T> where T : ITernaryDataType
     {
-        void BusInput(object sender, Tryte tryte);
+        void BusInput(object sender, T data);
     }
 
-    public interface IBusComponentOutput
+    public interface IBusComponentOutput<T> : IComponentBase where T : ITernaryDataType
     {
-        string ComponentName { get; }
-        event ComponentBusTriggeredEvent BusOutput;
+        event ComponentBusTriggeredEvent<T> BusOutput;
     }
 
-    public interface IBusComponent : IBusComponentInput, IBusComponentOutput { }
+    public interface IBusComponent<T> : IBusComponentInput<T>, IBusComponentOutput<T> where T : ITernaryDataType { }
 
 
-    public interface IMultiBusInComponent
+    public interface IMultiBusInComponent<T> where T : ITernaryDataType
     {
-        ComponentBusTriggeredEvent[] BusInputs { get; }
+        ComponentBusTriggeredEvent<T>[] BusInputs { get; }
     }
 
-    public interface IMultiBusOutComponent
+    public interface IMultiBusOutComponent<T> : IComponentBase where T : ITernaryDataType
     {
-        string ComponentName { get; }
-        ComponentBusTriggeredEvent[] BusOutputs { get; }
+        ComponentBusTriggeredEvent<T>[] BusOutputs { get; }
     }
 
-    public interface IMultiBusIOComponent : IMultiBusInComponent, IMultiBusOutComponent { }
+    public interface IMultiBusIOComponent<T> : IMultiBusInComponent<T>, IMultiBusOutComponent<T> where T : ITernaryDataType { }
     #endregion
 }

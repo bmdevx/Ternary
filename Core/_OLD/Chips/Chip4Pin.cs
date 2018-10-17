@@ -1,4 +1,4 @@
-﻿namespace Ternary.Components.Chips
+﻿namespace Ternary.Old
 {
     public class Chip4Pin : IChip
     {

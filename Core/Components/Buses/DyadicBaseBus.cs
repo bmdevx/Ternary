@@ -6,72 +6,56 @@ using System.Text;
 
 namespace Ternary.Components.Buses.Dyadic
 {
-    public abstract class DyadicBaseBus : Basic18In9OutComponent, IBusComponentOutput
+    public abstract class DyadicBaseBus<T> : IBusComponentOutput<T> where T : ITernaryDataType, new()
     {
-        public event ComponentBusTriggeredEvent BusOutput;
+        public string ComponentName { get; internal set; }
+
+        public event ComponentBusTriggeredEvent<T> BusOutput;
+
+        private T _A, _B;
         
 
-        public DyadicBaseBus(IEnumerable<Trit> aInputStates = null, IEnumerable<Trit> bInputStates = null) :
-            base(aInputStates, bInputStates) { }
-
-
-        protected override void OnAInputInvoked(object sender, Trit trit, int pin)
+        public void ABusInput(object sender, T data)
         {
-            InvokeOutput(pin, Execute(AInputStates[pin], BInputStates[pin]), this);
+            _A = data;
+
+            OnABusInputInvoked(sender, data);
         }
 
-        protected override void OnBInputInvoked(object sender, Trit trit, int pin)
+        protected virtual void OnABusInputInvoked(object sender, T data)
         {
-            InvokeOutput(pin, Execute(AInputStates[pin], BInputStates[pin]), sender ?? this);
+            ExecuteInvokeBus(_A, _B);
         }
 
 
-        public void ABusInput(object sender, Tryte tryte)
+        public void BBusInput(object sender, T data)
         {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
+            _B = data;
+
+            OnBBusInputInvoked(sender, data);
+        }
+
+        protected virtual void OnBBusInputInvoked(object sender, T data)
+        {
+            ExecuteInvokeBus(_A, _B);
+        }
+
+
+        protected void ExecuteInvokeBus(T aData, T bData)
+        {
+            T oData = new T();
+
+            for (int i = 0; i < oData.NUMBER_OF_TRITS; i++)
             {
-                AInputStates[i] = tryte[i];
+                oData[i] = Execute(aData[i], bData[i]);
             }
 
-            OnABusInputInvoked(sender, tryte);
-        }
-
-        protected virtual void OnABusInputInvoked(object sender, Tryte tryte)
-        {
-            ExecuteInvokeBus();
-        }
-
-
-        public void BBusInput(object sender, Tryte tryte)
-        {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
-            {
-                BInputStates[i] = tryte[i];
-            }
-
-            OnBBusInputInvoked(sender, tryte);
-        }
-
-        protected virtual void OnBBusInputInvoked(object sender, Tryte tryte)
-        {
-            ExecuteInvokeBus();
-        }
-
-
-        protected void ExecuteInvokeBus()
-        {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
-            {
-                OutputStates[i] = Execute(AInputStates[i], BInputStates[i]);
-                InvokeOutput(i, OutputStates[i], this);
-            }
-
-            InvokeBusOutput(BusValue, this);
+            InvokeBusOutput(oData, this);
         }
         
-        protected void InvokeBusOutput(Tryte tryte, object sender = null)
+        protected void InvokeBusOutput(T data, object sender = null)
         {
-            BusOutput?.Invoke(sender ?? this, tryte);
+            BusOutput?.Invoke(sender ?? this, data);
         }
 
 

@@ -12,11 +12,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\FullAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\HalfAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\IAdder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\TryteFullAdder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\Simulated\TryteHalfAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TrortAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TryteAdder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\ALU.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Bus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\TryteALU.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\DataBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\DyadicBaseBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\MonadicBaseBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleDownBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\CycleUpBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Monadic\ForwardBus.cs" />
@@ -27,12 +28,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\DeMuxerBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\MuxerBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Muxers\MuxerBusBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic18In9OutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic2DataIn1DataOutComponent.cs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic1In1OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic2In1OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\AntiMaxBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\AntiMinBus.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\DyadicBaseBus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)_OLD\DyadicBaseBusOld.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\ConsensusBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\ConverseImplicationBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\ConverseNonimplicationBus.cs" />
@@ -44,13 +45,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\SumBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\XnorBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\XorBus.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\MonadicBaseBus.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip4Pin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip6Pin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\Chip8Pin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Chips\IChip.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\Basic9In9OutComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\MatchGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)_OLD\MonadicBaseBusOld.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\BasicDataInDataOutComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\AddressMatchGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfNotNeuGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfPosGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteMemory.cs" />
@@ -80,12 +77,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Monadic\ShiftDownGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Monadic\ShiftUpGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\IComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Common\MultiIn1OutComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\DeMuxer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\Muxer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Muxers\MuxerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Trort.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Wire.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflection\ComponentTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITernaryDataType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Tools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Trit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tryte.cs" />
@@ -93,5 +91,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\" />
     <Folder Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\" />
+    <Folder Include="$(MSBuildThisFileDirectory)_OLD\" />
   </ItemGroup>
 </Project>

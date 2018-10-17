@@ -5,50 +5,49 @@ using System.Text;
 
 namespace Ternary.Components.Buses.Muxers
 {
-    public class MuxerBus : MuxerBusBase, IBusComponentOutput
+    public class MuxerBus<T> : MuxerBusBase, IBusComponentOutput<T> where T : ITernaryDataType, new()
     {
-        public event ComponentBusTriggeredEvent BusOutput;
+        public event ComponentBusTriggeredEvent<T> BusOutput;
         
-        public Tryte OutputState { get; protected set; }
+        public T OutputState { get; protected set; }
         
-        public Tryte AInputState { get; protected set; }
-        public Tryte BInputState { get; protected set; }
-        public Tryte CInputState { get; protected set; }
+        public T AInputState { get; protected set; }
+        public T BInputState { get; protected set; }
+        public T CInputState { get; protected set; }
 
         public string ComponentName { get; internal set; }
 
 
-        public MuxerBus(Trit selectState = Trit.Neu, Tryte inputStateA = new Tryte(),
-            Tryte inputStateB = new Tryte(), Tryte inputStateC = new Tryte()) : base(selectState)
+        public MuxerBus(Trit selectState = Trit.Neu) : base(selectState)
         {
-            AInputState = inputStateA;
-            BInputState = inputStateB;
-            CInputState = inputStateC;
+            //AInputState = inputStateA;
+            //BInputState = inputStateB;
+            //CInputState = inputStateC;
         }
 
 
-        public void AInput(object sender, Tryte tryte)
+        public void AInput(object sender, T data)
         {
-            AInputState = tryte;
+            AInputState = data;
 
             if (SelectState == Trit.Neg)
-                InvokeOutput(sender ?? this, tryte);
+                InvokeOutput(sender ?? this, data);
         }
 
-        public void BInput(object sender, Tryte tryte)
+        public void BInput(object sender, T data)
         {
-            BInputState = tryte;
+            BInputState = data;
 
             if (SelectState == Trit.Neu)
-                InvokeOutput(sender ?? this, tryte);
+                InvokeOutput(sender ?? this, data);
         }
 
-        public void CInput(object sender, Tryte tryte)
+        public void CInput(object sender, T data)
         {
-            CInputState = tryte;
+            CInputState = data;
 
             if (SelectState == Trit.Pos)
-                InvokeOutput(sender ?? this, tryte);
+                InvokeOutput(sender ?? this, data);
         }
 
         
@@ -62,7 +61,7 @@ namespace Ternary.Components.Buses.Muxers
             }
         }
 
-        protected void InvokeOutput(object sender, Tryte output)
+        protected void InvokeOutput(object sender, T output)
         {
             OutputState = output;
             BusOutput?.Invoke(sender, output);

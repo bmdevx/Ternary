@@ -5,30 +5,31 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace Ternary
+namespace Ternary.Old
 {
     [DebuggerDisplay("{DebuggerInfo}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Tryte : ITernaryDataType, IComparable<Tryte>, IEquatable<Tryte>
+    public struct Tryte : IEnumerable<Trit>, IComparable, IComparable<Tryte>, IEquatable<Tryte>, IFormattable//, IConvertible
     {
-        public const int NUMBER_OF_TRITS = 6;
-        int ITernaryDataType.NUMBER_OF_TRITS => NUMBER_OF_TRITS;
+        public const int NUMBER_OF_TRITS = 9;
 
-        public const int MAX_INT_VALUE = 364;
-        public const int MIN_INT_VALUE = -364;
+        public const int MAX_INT_VALUE = 9841;
+        public const int MIN_INT_VALUE = -9841;
 
-        public static readonly Tryte MAX_VALUE = new Tryte(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
-        public static readonly Tryte MIN_VALUE = new Tryte(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);
+        public static readonly Tryte MAX_VALUE = new Tryte(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
+        public static readonly Tryte MIN_VALUE = new Tryte(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);
         
-        public string DebuggerInfo => $"{ToString()} ({ToString("s")})";
+        internal string DebuggerInfo => $"{ToString()} ({ToString("s")})";
 
-        public Trit[] Trits => new Trit[] { T0, T1, T2, T3, T4, T5 };
+        public Trit[] Trits => new Trit[] { T0, T1, T2, T3, T4, T5, T6, T7, T8 };
 
         public Trit[] LowerTribble => new Trit[] { T0, T1, T2 };
-        public Trit[] UpperTribble => new Trit[] { T3, T4, T5 };
+        public Trit[] MiddleTribble => new Trit[] { T3, T4, T5 };
+        public Trit[] UpperTribble => new Trit[] { T6, T7, T8 };
 
         public int LowerTribbleValue => ToInt(new Trit[] { T0, T1, T2 });
-        public int UpperTribbleValue => ToInt(new Trit[] { T3, T4, T5 });
+        public int MiddleTribbleValue => ToInt(new Trit[] { T3, T4, T5 });
+        public int UpperTribbleValue => ToInt(new Trit[] { T6, T7, T8 });
 
 
         public Trit T0;
@@ -37,10 +38,14 @@ namespace Ternary
         public Trit T3;
         public Trit T4;
         public Trit T5;
+        public Trit T6;
+        public Trit T7;
+        public Trit T8;
 
 
         public Tryte(Trit t0 = Trit.Neu, Trit t1 = Trit.Neu, Trit t2 = Trit.Neu,
-            Trit t3 = Trit.Neu, Trit t4 = Trit.Neu, Trit t5 = Trit.Neu)
+            Trit t3 = Trit.Neu, Trit t4 = Trit.Neu, Trit t5 = Trit.Neu,
+            Trit t6 = Trit.Neu, Trit t7 = Trit.Neu, Trit t8 = Trit.Neu)
         {
             T0 = t0;
             T1 = t1;
@@ -48,6 +53,9 @@ namespace Ternary
             T3 = t3;
             T4 = t4;
             T5 = t5;
+            T6 = t6;
+            T7 = t7;
+            T8 = t8;
         }
 
         public Tryte(IEnumerable<Trit> trits)
@@ -65,6 +73,9 @@ namespace Ternary
                     case 3: T3 = t; break;
                     case 4: T4 = t; break;
                     case 5: T5 = t; break;
+                    case 6: T6 = t; break;
+                    case 7: T7 = t; break;
+                    case 8: T8 = t; break;
                 }
 
                 i++;
@@ -100,6 +111,9 @@ namespace Ternary
                 T3 = trits[3];
                 T4 = trits[4];
                 T5 = trits[5];
+                T6= trits[6];
+                T7 = trits[7];
+                T8 = trits[8];
             }
         }
 
@@ -112,6 +126,9 @@ namespace Ternary
             yield return T3;
             yield return T4;
             yield return T5;
+            yield return T6;
+            yield return T7;
+            yield return T8;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -157,6 +174,9 @@ namespace Ternary
             hashCode = hashCode * -1521134295 + T3.GetHashCode();
             hashCode = hashCode * -1521134295 + T4.GetHashCode();
             hashCode = hashCode * -1521134295 + T5.GetHashCode();
+            hashCode = hashCode * -1521134295 + T6.GetHashCode();
+            hashCode = hashCode * -1521134295 + T7.GetHashCode();
+            hashCode = hashCode * -1521134295 + T8.GetHashCode();
             return hashCode;
         }
 
@@ -190,6 +210,9 @@ namespace Ternary
                     case 3: return T3;
                     case 4: return T4;
                     case 5: return T5;
+                    case 6: return T6;
+                    case 7: return T7;
+                    case 8: return T8;
                 }
 
                 throw new IndexOutOfRangeException();
@@ -205,6 +228,9 @@ namespace Ternary
                     case 3: T3 = value; break;
                     case 4: T4 = value; break;
                     case 5: T5 = value; break;
+                    case 6: T6 = value; break;
+                    case 7: T7 = value; break;
+                    case 8: T8 = value; break;
                     default: throw new IndexOutOfRangeException();
                 }
             }
@@ -245,7 +271,10 @@ namespace Ternary
                 T2.Invert(),
                 T3.Invert(),
                 T4.Invert(),
-                T5.Invert());
+                T5.Invert(),
+                T6.Invert(),
+                T7.Invert(),
+                T8.Invert());
         }
 
 
@@ -253,10 +282,18 @@ namespace Ternary
         {
             if (value == null)
                 throw new ArgumentNullException();
-            else if (TryParse(value, out Tryte tryte))
-                return tryte;
-            else
-                throw new FormatException("Invallid Tryte Format");
+
+            Trit[] trits = new Trit[NUMBER_OF_TRITS];
+
+            for (int i = 0; i < NUMBER_OF_TRITS && i < value.Length; i++)
+            {
+                if (TritEx.TryParse(value[i], out Trit trit))
+                    trits[i] = trit;
+                else
+                    throw new FormatException();
+            }
+
+            return new Tryte(trits);
         }
 
         public static bool TryParse(string value, out Tryte tryte)
@@ -266,7 +303,7 @@ namespace Ternary
             if (value == null)
                 return false;
 
-            if (value.Any(c => c > 49 && c < 58) && Int32.TryParse(value, out Int32 s))
+            if (Int32.TryParse(value, out Int32 s))
             {
                 if (s < MIN_INT_VALUE || s > MAX_INT_VALUE)
                     return false;
@@ -286,11 +323,7 @@ namespace Ternary
 
             return true;
         }
-        
-        ITernaryDataType ITernaryDataType.CreateFromTrits(IEnumerable<Trit> trits)
-        {
-            return new Tryte(trits);
-        }
+
 
         #region Overloads
 

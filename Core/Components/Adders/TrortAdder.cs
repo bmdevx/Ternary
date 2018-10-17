@@ -5,19 +5,19 @@ using Ternary.Tools;
 namespace Ternary.Components.Adders
 {
     [DebuggerDisplay("{BusValue}")]
-    public class TryteAdder : IBusComponentOutput<Tryte>
+    public class TrortAdder : IBusComponentOutput<Trort>
     {
         public string ComponentName { get; internal set; }
 
         public event ComponentTriggeredEvent CarryOut;
-        public event ComponentBusTriggeredEvent<Tryte> BusOutput;
+        public event ComponentBusTriggeredEvent<Trort> BusOutput;
 
-        private FullAdder[] _Adders = Create.NewTryteSizedArray(i => new FullAdder());
+        private FullAdder[] _Adders = Create.NewTrortSizedArray(i => new FullAdder());
 
-        private Trit[] _Trits = new Trit[Tryte.NUMBER_OF_TRITS];
+        private Trit[] _Trits = new Trit[Trort.NUMBER_OF_TRITS];
 
 
-        public Tryte BusValue => new Tryte(_Trits);
+        public Trort BusValue => new Trort(_Trits);
 
         public Trit CarryOutState { get; protected set; }
 
@@ -25,7 +25,7 @@ namespace Ternary.Components.Adders
         private bool locker = true; 
 
 
-        public TryteAdder()
+        public TrortAdder()
         {
             _Adders[0].CarryOutput += _Adders[1].InputCarry;
             _Adders[0].SumOutput += (s, t) => { _Trits[0] = t; };
@@ -42,7 +42,25 @@ namespace Ternary.Components.Adders
             _Adders[4].CarryOutput += _Adders[5].InputCarry;
             _Adders[4].SumOutput += (s, t) => { _Trits[4] = t; };
 
-            _Adders[Tryte.NUMBER_OF_TRITS - 1].CarryOutput += (s, carry) =>
+            _Adders[5].CarryOutput += _Adders[6].InputCarry;
+            _Adders[5].SumOutput += (s, t) => { _Trits[5] = t; };
+
+            _Adders[6].CarryOutput += _Adders[7].InputCarry;
+            _Adders[6].SumOutput += (s, t) => { _Trits[6] = t; };
+
+            _Adders[7].CarryOutput += _Adders[8].InputCarry;
+            _Adders[7].SumOutput += (s, t) => { _Trits[7] = t; };
+
+            _Adders[8].CarryOutput += _Adders[9].InputCarry;
+            _Adders[8].SumOutput += (s, t) => { _Trits[8] = t; };
+
+            _Adders[9].CarryOutput += _Adders[10].InputCarry;
+            _Adders[9].SumOutput += (s, t) => { _Trits[9] = t; };
+
+            _Adders[10].CarryOutput += _Adders[11].InputCarry;
+            _Adders[10].SumOutput += (s, t) => { _Trits[10] = t; };
+
+            _Adders[Trort.NUMBER_OF_TRITS - 1].CarryOutput += (s, carry) =>
             {
                 CarryOutState = carry;
 
@@ -52,9 +70,9 @@ namespace Ternary.Components.Adders
                 }
             };
 
-            _Adders[Tryte.NUMBER_OF_TRITS - 1].SumOutput += (s, sum) =>
+            _Adders[Trort.NUMBER_OF_TRITS - 1].SumOutput += (s, sum) =>
             {
-                _Trits[Tryte.NUMBER_OF_TRITS - 1] = sum;
+                _Trits[Trort.NUMBER_OF_TRITS - 1] = sum;
 
                 if (!locker)
                 {
@@ -64,23 +82,23 @@ namespace Ternary.Components.Adders
         }
 
 
-        public void ABusInput(object sender, Tryte tryte)
+        public void ABusInput(object sender, Trort tryte)
         {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS; i++)
+            for (int i = 0; i < Trort.NUMBER_OF_TRITS; i++)
             {
                 _Adders[i].AInput(this, tryte[i]);
             }
         }
 
-        public void BBusInput(object sender, Tryte tryte)
+        public void BBusInput(object sender, Trort tryte)
         {
-            for (int i = 0; i < Tryte.NUMBER_OF_TRITS - 1; i++)
+            for (int i = 0; i < Trort.NUMBER_OF_TRITS - 1; i++)
             {
                 _Adders[i].BInput(this, tryte[i]);
             }
 
             locker = false;
-            _Adders[Tryte.NUMBER_OF_TRITS - 1].BInput(this, tryte.T5);
+            _Adders[Trort.NUMBER_OF_TRITS - 1].BInput(this, tryte[Trort.NUMBER_OF_TRITS - 1]);
             locker = true;
         }
 

@@ -1,12 +1,12 @@
-﻿namespace Ternary.Components.Chips
+﻿namespace Ternary.Old
 {
-    public class Chip6Pin : IChip
+    public class Chip8Pin : IChip
     {
-        public override int NUMBER_OF_PINS => 6;
+        public override int NUMBER_OF_PINS => 8;
 
 
-        public Chip6Pin(Trit ps0 = Trit.Neu, Trit ps1 = Trit.Neu, Trit ps2 = Trit.Neu, Trit ps3 = Trit.Neu,
-            Trit ps4 = Trit.Neu, Trit ps5 = Trit.Neu)
+        public Chip8Pin(Trit ps0 = Trit.Neu, Trit ps1 = Trit.Neu, Trit ps2 = Trit.Neu, Trit ps3 = Trit.Neu,
+            Trit ps4 = Trit.Neu, Trit ps5 = Trit.Neu, Trit ps6 = Trit.Neu, Trit ps7 = Trit.Neu)
         {
             PinStates[0] = ps0;
             PinStates[1] = ps1;
@@ -14,6 +14,8 @@
             PinStates[3] = ps3;
             PinStates[4] = ps4;
             PinStates[5] = ps5;
+            PinStates[6] = ps6;
+            PinStates[7] = ps7;
 
             Inputs[0] += Pin0Invoked;
             Inputs[1] += Pin1Invoked;
@@ -21,6 +23,8 @@
             Inputs[3] += Pin3Invoked;
             Inputs[4] += Pin4Invoked;
             Inputs[5] += Pin5Invoked;
+            Inputs[6] += Pin6Invoked;
+            Inputs[7] += Pin7Invoked;
         }
 
 
@@ -71,5 +75,21 @@
         }
 
         protected virtual void OnPin5Invoked(object sender, Trit trit) { }
+
+        protected void Pin6Invoked(object sender, Trit trit)
+        {
+            PinStates[6] = trit;
+            OnPin6Invoked(sender, trit);
+        }
+
+        protected virtual void OnPin6Invoked(object sender, Trit trit) { }
+
+        protected void Pin7Invoked(object sender, Trit trit)
+        {
+            PinStates[7] = trit;
+            OnPin7Invoked(sender, trit);
+        }
+
+        protected virtual void OnPin7Invoked(object sender, Trit trit) { }
     }
 }

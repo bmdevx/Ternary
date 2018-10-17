@@ -98,8 +98,7 @@ namespace Ternary.Reflection
 
         private static bool IsComponentType(Type type)
         {
-            return typeof(IComponentOutput).IsAssignableFrom(type) || typeof(IMultiOutComponent).IsAssignableFrom(type) ||
-                    typeof(IBusComponentOutput).IsAssignableFrom(type) || typeof(IMultiBusOutComponent).IsAssignableFrom(type);
+            return typeof(IComponentBase).IsAssignableFrom(type);
         }
 
         private static bool GetArrayElementType(FieldInfo field, out Type elementType)
