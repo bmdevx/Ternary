@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ternary.Components.Experimental
 {
-    public class TryteRegisterCircuit : IBusComponentOutput<Tryte>
+    public class TrortAddrTryteRegisterCircuit : IBusComponentOutput<Tryte>
     {
         public string ComponentName { get; internal set; }
 
@@ -14,12 +14,15 @@ namespace Ternary.Components.Experimental
         private OutIfPosGate outIfPosGate;
 
 
-        public TryteRegisterCircuit(IBusComponentOutput<Tryte> dataIn, IComponentOutput rwState, IComponentOutput railX, IComponentOutput railY)
+        public TrortAddrTryteRegisterCircuit(IBusComponentOutput<Tryte> dataIn, IComponentOutput rwState,
+            IComponentOutput railX, IComponentOutput railY, IComponentOutput railZ, IComponentOutput railT)
         {
-            TritMatchGate addr = new TritMatchGate(Trit.Pos, Trit.Pos);
+            TritMatchGate4 addr = new TritMatchGate4(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
 
             railX.Output += addr.InputA;
             railY.Output += addr.InputB;
+            railZ.Output += addr.InputC;
+            railT.Output += addr.InputD;
 
             register = new TryteRegister();
 

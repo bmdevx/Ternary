@@ -15,7 +15,7 @@ namespace Ternary.Tools
 
             return array;
         }
-        
+
         public static T[] NewTryteSizedArray<T>(Func<int, T> create)
         {
             T[] array = new T[Tryte.NUMBER_OF_TRITS];

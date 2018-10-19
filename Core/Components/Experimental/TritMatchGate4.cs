@@ -5,32 +5,33 @@ using Ternary.Components.Muxers;
 namespace Ternary.Components.Experimental
 {
     //output + or 0 depending on if all components have a + input
-    public class AddressMatchGate : IComponentOutput
+    public class TritMatchGate4 : IComponentOutput
     {
         public string ComponentName { get; internal set; }
 
         public event ComponentTriggeredEvent Output;
 
-        private EqualityGate egatea, egateb, egatec, egateComp;
-        private ConsensusGate cgate1, cgate2;
+        private EqualityGate egatea, egateb, egatec, egated;
+        private ConsensusGate cgate1, cgate2, cgate3;
         private DeMuxer deMuxer;
         private ShiftDownGate shiftDownGate;
 
 
-        public AddressMatchGate(Trit i0, Trit i1, Trit t2)
+        public TritMatchGate4(Trit t0, Trit t1, Trit t2, Trit t3)
         {
-            egatea = new EqualityGate(inputStateB: i0);
-            egateb = new EqualityGate(inputStateB: i1);
-            egatec = new EqualityGate(inputStateB: t2);
+            egatea = new EqualityGate(inputStateB: t0) { ComponentName = nameof(egatea) };
+            egateb = new EqualityGate(inputStateB: t1) { ComponentName = nameof(egateb) };
+            egatec = new EqualityGate(inputStateB: t2) { ComponentName = nameof(egatec) };
+            egated = new EqualityGate(inputStateB: t3) { ComponentName = nameof(egated) };
 
-            egateComp = new EqualityGate(egatec, null, inputStateB: Trit.Pos);
+            cgate1 = new ConsensusGate(egatea, egateb) { ComponentName = nameof(cgate1) };
+            cgate2 = new ConsensusGate(egatec, egated) { ComponentName = nameof(cgate2) };
 
-            cgate1 = new ConsensusGate(egatea, egateb);
-            cgate2 = new ConsensusGate(cgate1, egateComp);
+            cgate3 = new ConsensusGate(cgate1, cgate2) { ComponentName = nameof(cgate3) };
 
             deMuxer = new DeMuxer(inputState: Trit.Pos);
 
-            cgate2.Output += deMuxer.InputSelect;
+            cgate3.Output += deMuxer.InputSelect;
 
             shiftDownGate = new ShiftDownGate();
 
@@ -54,6 +55,11 @@ namespace Ternary.Components.Experimental
         public void InputC(object sender, Trit trit)
         {
             egatec.AInput(this, trit);
+        }
+
+        public void InputD(object sender, Trit trit)
+        {
+            egated.AInput(this, trit);
         }
     }
 }

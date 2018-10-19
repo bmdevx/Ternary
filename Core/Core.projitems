@@ -14,6 +14,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\IAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TrortAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TryteAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegisterCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegister.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortAddrTryteRegisterCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortAddrTryteMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\TrortALU.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\TryteALU.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\DataBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\DyadicBaseBus.cs" />
@@ -47,7 +54,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\XorBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)_OLD\MonadicBaseBusOld.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\BasicDataInDataOutComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\AddressMatchGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfNotNeuGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfPosGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteMemory.cs" />

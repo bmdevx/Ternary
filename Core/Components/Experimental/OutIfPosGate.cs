@@ -8,12 +8,12 @@ namespace Ternary.Components.Experimental
 
         public event ComponentTriggeredEvent Output;
 
-        public OutIfPosGate(AddressMatchGate matchGate, IComponentOutput componentOutput)
+        public OutIfPosGate(IComponentOutput evalComponent, IComponentOutput outComponent)
         {
             Muxer muxer = new Muxer();
 
-            componentOutput.Output += muxer.CInput;
-            matchGate.Output += muxer.InputSelect;
+            outComponent.Output += muxer.CInput;
+            evalComponent.Output += muxer.InputSelect;
 
             muxer.Output += (s, t) => Output?.Invoke(this, t);
         }

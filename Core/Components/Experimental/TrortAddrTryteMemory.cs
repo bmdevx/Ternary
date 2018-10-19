@@ -7,41 +7,54 @@ using Ternary.Components.Gates.Dyadic;
 using Ternary.Components.Gates.Monadic;
 using Ternary.Components.Muxers;
 using Ternary.Reflection;
+using Ternary.Tools;
 
 namespace Ternary.Components.Experimental
 {
-    public class TryteMemory : IBusComponent<Tryte>
+    public class TrortAddrTryteMemory : IBusComponent<Tryte>
     {
         private const int TRIBBLE_SIZE = 27;
+        private const int FOUR_TRIT_SIZE = 81;
 
         public string ComponentName { get; internal set; }
         public event ComponentBusTriggeredEvent<Tryte> BusOutput;
 
         public Trit ReadWriteState { get; private set; }
-        public Tryte Address { get; private set; }
+        public Trort Address { get; private set; }
 
-        private TryteRegisterCircuit[,] _Addresses = new TryteRegisterCircuit[TRIBBLE_SIZE, TRIBBLE_SIZE];
+        private TrortAddrTryteRegisterCircuit[,,,] _Addresses = new TrortAddrTryteRegisterCircuit[TRIBBLE_SIZE, TRIBBLE_SIZE, TRIBBLE_SIZE, TRIBBLE_SIZE];
 
-        private Wire[] _XRails = Enumerable.Range(0, TRIBBLE_SIZE).Select(c => new Wire()).ToArray();
-        private Wire[] _YRails = Enumerable.Range(0, TRIBBLE_SIZE).Select(c => new Wire()).ToArray();
+        private Wire[] _XRails = Enumerable.Range(0, FOUR_TRIT_SIZE).Select(c => new Wire()).ToArray();
+        private Wire[] _YRails = Enumerable.Range(0, FOUR_TRIT_SIZE).Select(c => new Wire()).ToArray();
+        private Wire[] _ZRails = Enumerable.Range(0, FOUR_TRIT_SIZE).Select(c => new Wire()).ToArray();
+        private Wire[] _TRails = Enumerable.Range(0, FOUR_TRIT_SIZE).Select(c => new Wire()).ToArray();
 
         private TritMatchGate3[] _XRailMatch = new TritMatchGate3[TRIBBLE_SIZE];
         private TritMatchGate3[] _YRailMatch = new TritMatchGate3[TRIBBLE_SIZE];
+        private TritMatchGate3[] _ZRailMatch = new TritMatchGate3[TRIBBLE_SIZE];
+        private TritMatchGate3[] _TRailMatch = new TritMatchGate3[TRIBBLE_SIZE];
 
         private DataBus<Tryte> _DataBus = new DataBus<Tryte>();
         private Wire _ReadWriteEnableWire = new Wire();
 
-        public TryteMemory()
+        public TrortAddrTryteMemory()
         {
             for (int x = 0; x < TRIBBLE_SIZE; x++)
             {
                 for (int y = 0; y < TRIBBLE_SIZE; y++)
                 {
-                    TryteRegisterCircuit regComp = new TryteRegisterCircuit(_DataBus, _ReadWriteEnableWire, _XRails[x], _YRails[y]);
+                    for (int z = 0; z < TRIBBLE_SIZE; z++)
+                    {
+                        for (int t = 0; t < TRIBBLE_SIZE; t++)
+                        {
+                            TrortAddrTryteRegisterCircuit regComp =
+                                new TrortAddrTryteRegisterCircuit(_DataBus, _ReadWriteEnableWire, _XRails[x], _YRails[y], _ZRails[z], _TRails[t]);
 
-                    regComp.BusOutput += (s, t) => BusOutput?.Invoke(this, t);
+                            regComp.BusOutput += (s, val) => BusOutput?.Invoke(this, val);
 
-                    _Addresses[x, y] = regComp;
+                            _Addresses[x, y, z, t] = regComp;
+                        }
+                    }
                 }
             }
 
@@ -63,6 +76,18 @@ namespace Ternary.Components.Experimental
                         matchGate.Output += muxer.InputSelect;
                         muxer.Output += _YRails[c].Input;
                         _YRailMatch[c] = matchGate;
+
+                        muxer = new Muxer(inputStateA: Trit.Neg, inputStateC: Trit.Pos);
+                        matchGate = new TritMatchGate3((Trit)i, (Trit)j, (Trit)k);
+                        matchGate.Output += muxer.InputSelect;
+                        muxer.Output += _ZRails[c].Input;
+                        _ZRailMatch[c] = matchGate;
+
+                        muxer = new Muxer(inputStateA: Trit.Neg, inputStateC: Trit.Pos);
+                        matchGate = new TritMatchGate3((Trit)i, (Trit)j, (Trit)k);
+                        matchGate.Output += muxer.InputSelect;
+                        muxer.Output += _TRails[c].Input;
+                        _TRailMatch[c] = matchGate;
 
                         c++;
                     }
@@ -91,9 +116,9 @@ namespace Ternary.Components.Experimental
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="addr">Address to select</param>
-        public void AddressInput(object sender, Tryte addr)
+        public void AddressInput(object sender, Trort addr)
         {
-            Address = new Tryte(addr);
+            Address = new Trort(addr);
 
             for (int i = 0; i < TRIBBLE_SIZE; i++)
             {
@@ -108,15 +133,19 @@ namespace Ternary.Components.Experimental
                 mg.InputA(this, addr.T3);
                 mg.InputB(this, addr.T4);
                 mg.InputC(this, addr.T5);
+
+                mg = _ZRailMatch[i];
+
+                mg.InputA(this, addr.T6);
+                mg.InputB(this, addr.T7);
+                mg.InputC(this, addr.T8);
+
+                mg = _TRailMatch[i];
+
+                mg.InputA(this, addr.T9);
+                mg.InputB(this, addr.T10);
+                mg.InputC(this, addr.T11);
             }
-
-            //_XRails[Address.LowerTribbleValue + 13].Input(this, Trit.Neu);
-            //_YRails[Address.MiddleTribbleValue + 13].Input(this, Trit.Neu);
-
-            //Address = addr;
-
-            //_XRails[Address.LowerTribbleValue + 13].Input(this, Trit.Pos);
-            //_YRails[Address.MiddleTribbleValue + 13].Input(this, Trit.Pos);
         }
 
         /// <summary>

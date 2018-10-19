@@ -1,6 +1,6 @@
 ﻿namespace Ternary.Components.Gates.Dyadic
 {
-    //Consensus
+    //Equality
     public class EqualityGate : DyadicBaseGate
     {
         public EqualityGate(IComponentOutput componentA, IComponentOutput componentB, Trit inputStateA = Trit.Neu, Trit inputStateB = Trit.Neu) :

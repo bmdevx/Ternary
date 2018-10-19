@@ -16,6 +16,7 @@ namespace Ternary
 
         public const int MAX_INT_VALUE = 364;
         public const int MIN_INT_VALUE = -364;
+        public const int TOTAL_VALUE = 729;
 
         public static readonly Tryte MAX_VALUE = new Tryte(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
         public static readonly Tryte MIN_VALUE = new Tryte(Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg, Trit.Neg);

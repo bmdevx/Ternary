@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Ternary
 {
@@ -17,6 +16,7 @@ namespace Ternary
 
         public const int MAX_INT_VALUE = 265720;
         public const int MIN_INT_VALUE = -265720;
+        public const int TOTAL_VALUE = 531441;
 
         public static readonly Trort MAX_VALUE =
             new Trort(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
