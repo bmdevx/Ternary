@@ -485,5 +485,10 @@ namespace Ternary
         {
             return new Tryte(trits);
         }
+
+        public static Tryte ToTryte(this char @char)
+        {
+            return new Tryte(@char - Tryte.MAX_INT_VALUE);
+        }
     }
 }

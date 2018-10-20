@@ -14,12 +14,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\IAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TrortAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TryteAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\IO\TernaryFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\IO\TernaryFolder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\System\TernaryString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate4.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegisterCircuit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegister.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortAddrTryteRegisterCircuit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortAddrTryteMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\IO\TStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\TrortALU.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\TryteALU.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\DataBus.cs" />

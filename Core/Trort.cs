@@ -132,6 +132,21 @@ namespace Ternary
             }
         }
 
+        public Trort(Tryte lower, Tryte upper)
+        {
+            T0 = lower.T0;
+            T1 = lower.T1;
+            T2 = lower.T2;
+            T3 = lower.T3;
+            T4 = lower.T4;
+            T5 = lower.T5;
+            T6 = upper.T0;
+            T7 = upper.T1;
+            T8 = upper.T2;
+            T9 = upper.T3;
+            T10 = upper.T4;
+            T11 = upper.T5;
+        }
 
         public IEnumerator<Trit> GetEnumerator()
         {
