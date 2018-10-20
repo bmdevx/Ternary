@@ -11,6 +11,9 @@ using Ternary.Tools;
 
 namespace Ternary.Components.Experimental
 {
+    /// <summary>
+    /// Tryte Memory with Trort Number of Addresses
+    /// </summary>
     public class TrortAddrTryteMemory : IBusComponent<Tryte>
     {
         private const int TRIBBLE_SIZE = 27;

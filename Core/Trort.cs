@@ -30,8 +30,18 @@ namespace Ternary
         public Tryte LowerTryte => new Tryte(T0, T1, T2, T3, T4, T5);
         public Tryte UpperTryte => new Tryte(T6, T7, T8, T9, T10, T11);
 
-        public int LowerTryteValue => ToInt(new Trit[] { T0, T1, T2, T3, T4, T5 });
-        public int UpperTryteValue => ToInt(new Trit[] { T6, T7, T8, T9, T10, T11 });
+        public int LowerTryteValue => ToIntParams(T0, T1, T2, T3, T4, T5);
+        public int UpperTryteValue => ToIntParams(T6, T7, T8, T9, T10, T11);
+
+        public Trit[] Tribble0 => new Trit[] { T0, T1, T2 };
+        public Trit[] Tribble1 => new Trit[] { T3, T4, T5 };
+        public Trit[] Tribble2 => new Trit[] { T6, T7, T8 };
+        public Trit[] Tribble3 => new Trit[] { T9, T10, T11 };
+
+        public int Tribble0Value => ToIntParams(T0, T1, T2);
+        public int Tribble1Value => ToIntParams(T3, T4, T5);
+        public int Tribble2Value => ToIntParams(T6, T7, T8);
+        public int Tribble3Value => ToIntParams(T9, T10, T11);
 
 
         public Trit T0;
@@ -298,6 +308,10 @@ namespace Ternary
             return s;
         }
 
+        private static int ToIntParams(params Trit[] trits)
+        {
+            return ToInt(trits);
+        }
 
         private Trort Invert()
         {

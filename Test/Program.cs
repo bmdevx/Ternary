@@ -88,7 +88,7 @@ namespace Test
 
         static void TrortMemoryTest()
         {
-            TrortAddrTryteMemory trortAddrMemory = new TrortAddrTryteMemory();
+            STrortAddrTryteMemory trortAddrMemory = new STrortAddrTryteMemory();
 
             Func<Trort, string> t2s = (tryte) =>
             {

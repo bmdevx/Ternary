@@ -28,8 +28,8 @@ namespace Ternary
         public Trit[] LowerTribble => new Trit[] { T0, T1, T2 };
         public Trit[] UpperTribble => new Trit[] { T3, T4, T5 };
 
-        public int LowerTribbleValue => ToInt(new Trit[] { T0, T1, T2 });
-        public int UpperTribbleValue => ToInt(new Trit[] { T3, T4, T5 });
+        public int LowerTribbleValue => ToIntParams(T0, T1, T2);
+        public int UpperTribbleValue => ToIntParams(T3, T4, T5);
 
 
         public Trit T0;
@@ -229,6 +229,11 @@ namespace Ternary
             }
 
             return s;
+        }
+
+        private static int ToIntParams(params Trit[] trits)
+        {
+            return ToInt(trits);
         }
 
         public char ToChar()
