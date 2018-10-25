@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate4.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\STrortAddrTryteMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortALUExp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegisterCircuit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegister.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortAddrTryteRegisterCircuit.cs" />

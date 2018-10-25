@@ -14,11 +14,38 @@ using Ternary.Tools;
 
 namespace Ternary.Components
 {
-    //Notes: The negation and inversion signals should always be -1 or 1, never 0
+    //Control States ex:
+    //012345
+    //+00000: A
+    //-00000: B
+    //000000: A & B
+    //+00000: A + B 
+    //++0000: A + 1
+    //+-0000: B + 1
+    //-+0000: A - B
+    //--0000: B - A
+    //-00000: (A - B) - 1
+    //00+000: MAX A & B
+    //00-000: MIN A & B
 
-    //TODO: Combine Inversion and Negation: + Inverted, 0 = Not Inverted, - = Negated
-    
-    public class TrortALU : IBusComponentOutput<Trort>
+    //or possibly
+
+    //012345
+    //+-0000: A
+    //++0000: B
+    //+00000: A + B 
+    //+-+000: A + 1
+    //+++000: B + 1
+    //+--000: A - 1
+    //++-000: B - 1
+    //-+0000: A - B
+    //--0000: B - A
+    //-0-000: (A - B) - 1
+    //00+000: MAX A & B
+    //00-000: MIN A & B
+    //000000: A & B
+
+    public class TrortALUExp : IBusComponentOutput<Trort>
     {
         public event ComponentBusTriggeredEvent<Trort> BusOutput;
         public event ComponentTriggeredEvent OverflowOutput;
@@ -81,7 +108,7 @@ namespace Ternary.Components
 
 
 
-        public TrortALU()
+        public TrortALUExp()
         {
             inverterBusA.BusOutput += muxerBusA.BInput;
             inverterBusB.BusOutput += muxerBusB.BInput;
@@ -138,7 +165,7 @@ namespace Ternary.Components
 #endif
         }
 
-
+        [Obsolete]
         public void AInversionInput(object sender, Trit trit)
         {
             if (trit == Trit.Neu)
@@ -148,6 +175,7 @@ namespace Ternary.Components
             shiftDownGateA.Input(this, trit);
         }
 
+        [Obsolete]
         public void BInversionInput(object sender, Trit trit)
         {
             if (trit == Trit.Neu)
@@ -158,6 +186,7 @@ namespace Ternary.Components
         }
 
 
+        [Obsolete]
         public void ANegationInput(object sender, Trit trit)
         {
             if (trit == Trit.Neu)
@@ -167,6 +196,7 @@ namespace Ternary.Components
             maxGateA.AInput(this, trit);
         }
 
+        [Obsolete]
         public void BNegationInput(object sender, Trit trit)
         {
             if (trit == Trit.Neu)
@@ -177,10 +207,18 @@ namespace Ternary.Components
         }
 
 
+        [Obsolete]
         public void FowleanControlInput(object sender, Trit trit)
         {
             FowleanControlState = trit;
             muxerBus2.InputSelect(this, trit);
+        }
+
+
+
+        public void Control(object sender, Tryte control)
+        {
+
         }
 
 

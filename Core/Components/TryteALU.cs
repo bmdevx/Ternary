@@ -16,7 +16,8 @@ namespace Ternary.Components
 {
     //Notes: The negation and inversion signals should always be -1 or 1, never 0
 
-
+    //TODO: Combine Inversion and Negation: + Inverted, 0 = Not Inverted, - = Negated
+    
     public class TryteALU : IBusComponentOutput<Tryte>
     {
         public event ComponentBusTriggeredEvent<Tryte> BusOutput;
@@ -75,10 +76,8 @@ namespace Ternary.Components
 
         private ShiftDownGate shiftDownGateA = new ShiftDownGate(inputState: Trit.Neg);
         private ShiftDownGate shiftDownGateB = new ShiftDownGate(inputState: Trit.Neg);
-        
-        private Muxer[] muxers = Enumerable.Range(0, Tryte.NUMBER_OF_TRITS - 1)
-            .Select(i => new Muxer(inputStateC: Trit.Pos, inputStateA: Trit.Neg))
-            .ToArray();
+
+        private Muxer[] muxers = Create.NewTryteSizedArray(c => new Muxer(inputStateC: Trit.Pos, inputStateA: Trit.Neg));
 
         
         public TryteALU()
