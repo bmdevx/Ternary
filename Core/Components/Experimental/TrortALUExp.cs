@@ -16,34 +16,31 @@ namespace Ternary.Components
 {
     //Control States ex:
     //012345
-    //+00000: A
-    //-00000: B
-    //000000: A & B
-    //+00000: A + B 
-    //++0000: A + 1
-    //+-0000: B + 1
-    //-+0000: A - B
-    //--0000: B - A
-    //-00000: (A - B) - 1
-    //00+000: MAX A & B
-    //00-000: MIN A & B
+    //A, B, Op1, Op2, X, +-1
+    //+0+000: A
+    //0++000: B
+    //+++000: A + B 
+    //+++00+: (A + B) + 1
+    //+0+00+: A + 1
+    //0++00+: B + 1
+    //+0+00-: A - 1
+    //0++00-: B - 1
+    //+-+000: A - B
+    //-++000: B - A
+    //+-+00-: (A - B) - 1
+    //-++00-: (B - A) - 1
+    //++++00: MAX A & B
+    //+++-00: MIN A & B
+    //++0000: A & B
+    //++-+00: A XOR B
+    //++-000: A OR B
+    //++--00: A NOR B
 
-    //or possibly
-
-    //012345
-    //+-0000: A
-    //++0000: B
-    //+00000: A + B 
-    //+-+000: A + 1
-    //+++000: B + 1
-    //+--000: A - 1
-    //++-000: B - 1
-    //-+0000: A - B
-    //--0000: B - A
-    //-0-000: (A - B) - 1
-    //00+000: MAX A & B
-    //00-000: MIN A & B
-    //000000: A & B
+    //      __OPS__
+    //  1: +   0   -
+    //  + MAX ADD MIN
+    //2:0     AND
+    //  - XOR OR  NOR
 
     public class TrortALUExp : IBusComponentOutput<Trort>
     {
@@ -63,6 +60,7 @@ namespace Ternary.Components
         /// </summary>
         public Trit SignedState { get; protected set; }
 
+        #region old
         /// <summary>
         /// + = A Input is Inverted, - = Not Inverted
         /// </summary>
@@ -83,12 +81,14 @@ namespace Ternary.Components
         /// + = MaxBus, 0 = Addition, - = Minbus
         /// </summary>
         public Trit FowleanControlState { get; protected set; }
+        #endregion
 
         private TrortAdder adder = new TrortAdder();
 
         private MaxBus<Trort> maxBus = new MaxBus<Trort>();
         private MinBus<Trort> minBus = new MinBus<Trort>();
-        
+
+        #region old
         private MuxerBus<Trort> muxerBusA = new MuxerBus<Trort>(Trit.Neg);
         private MuxerBus<Trort> muxerBusB = new MuxerBus<Trort>(Trit.Neg);
         private MuxerBus<Trort> muxerBus2 = new MuxerBus<Trort>(Trit.Neg);
@@ -105,11 +105,16 @@ namespace Ternary.Components
         private ShiftDownGate shiftDownGateB = new ShiftDownGate(inputState: Trit.Neg);
 
         private Muxer[] muxers = Create.NewTrortSizedArray(c => new Muxer(inputStateC: Trit.Pos, inputStateA: Trit.Neg));
+        #endregion old
 
 
+        DeMuxer dmA, dmB, dmOp, dm3, dm4, dmAS;
 
+
+        
         public TrortALUExp()
         {
+            #region old
             inverterBusA.BusOutput += muxerBusA.BInput;
             inverterBusB.BusOutput += muxerBusB.BInput;
 
@@ -157,6 +162,19 @@ namespace Ternary.Components
 
                 InvokeOutput(s, trort);
             };
+            #endregion
+
+
+            dmA = new DeMuxer(Trit.Neu, Trit.Pos);
+            dmB = new DeMuxer(Trit.Neu, Trit.Pos);
+            dmOp = new DeMuxer(Trit.Neu, Trit.Pos);
+            dm3 = new DeMuxer(Trit.Neu, Trit.Pos);
+            dm4 = new DeMuxer(Trit.Neu, Trit.Pos);
+            dmAS = new DeMuxer(Trit.Neu, Trit.Pos);
+
+
+
+
 
 
 
@@ -218,7 +236,9 @@ namespace Ternary.Components
 
         public void Control(object sender, Tryte control)
         {
-
+            dmA.InputSelect(this, control[0]);
+            dmB.InputSelect(this, control[1]);
+            dmOp.InputSelect(this, control[2]);
         }
 
 
