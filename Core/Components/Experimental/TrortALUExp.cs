@@ -108,7 +108,7 @@ namespace Ternary.Components
         #endregion old
 
 
-        DeMuxer dmA, dmB, dmOp, dm3, dm4, dmAS;
+        DeMuxer dmA, dmB, dmOp1, dmOp2, dm4, dmAS;
 
 
         
@@ -167,8 +167,8 @@ namespace Ternary.Components
 
             dmA = new DeMuxer(Trit.Neu, Trit.Pos);
             dmB = new DeMuxer(Trit.Neu, Trit.Pos);
-            dmOp = new DeMuxer(Trit.Neu, Trit.Pos);
-            dm3 = new DeMuxer(Trit.Neu, Trit.Pos);
+            dmOp1 = new DeMuxer(Trit.Neu, Trit.Pos);
+            dmOp2 = new DeMuxer(Trit.Neu, Trit.Pos);
             dm4 = new DeMuxer(Trit.Neu, Trit.Pos);
             dmAS = new DeMuxer(Trit.Neu, Trit.Pos);
 
@@ -238,7 +238,10 @@ namespace Ternary.Components
         {
             dmA.InputSelect(this, control[0]);
             dmB.InputSelect(this, control[1]);
-            dmOp.InputSelect(this, control[2]);
+            dmOp1.InputSelect(this, control[2]);
+            dmOp2.InputSelect(this, control[3]);
+            dm4.InputSelect(this, control[4]);
+            dmAS.InputSelect(this, control[5]);
         }
 
 
