@@ -9,7 +9,7 @@ using Ternary.Components.Muxers;
 using Ternary.Reflection;
 using Ternary.Tools;
 
-namespace Ternary.Components.Experimental
+namespace Ternary.Components.Storage
 {
     /// <summary>
     /// Faster Simulated Tryte Memory with Trort Number of Addresses

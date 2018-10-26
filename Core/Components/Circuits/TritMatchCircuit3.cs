@@ -2,31 +2,35 @@
 using Ternary.Components.Gates.Monadic;
 using Ternary.Components.Muxers;
 
-namespace Ternary.Components.Experimental
+namespace Ternary.Components.Circuits
 {
     //output + or 0 depending on if all components have a + input
-    public class TritMatchGate : IComponentOutput
+    public class TritMatchCircuit3 : IComponentOutput
     {
         public string ComponentName { get; internal set; }
 
         public event ComponentTriggeredEvent Output;
 
-        private EqualityGate egatea, egateb;
-        private ConsensusGate cgate1;
+        private EqualityGate egatea, egateb, egatec, egateComp;
+        private ConsensusGate cgate1, cgate2;
         private DeMuxer deMuxer;
         private ShiftDownGate shiftDownGate;
 
 
-        public TritMatchGate(Trit i0, Trit i1)
+        public TritMatchCircuit3(Trit i0, Trit i1, Trit t2)
         {
             egatea = new EqualityGate(inputStateB: i0);
             egateb = new EqualityGate(inputStateB: i1);
+            egatec = new EqualityGate(inputStateB: t2);
+
+            egateComp = new EqualityGate(egatec, null, inputStateB: Trit.Pos);
 
             cgate1 = new ConsensusGate(egatea, egateb);
+            cgate2 = new ConsensusGate(cgate1, egateComp);
 
             deMuxer = new DeMuxer(inputState: Trit.Pos);
 
-            cgate1.Output += deMuxer.InputSelect;
+            cgate2.Output += deMuxer.InputSelect;
 
             shiftDownGate = new ShiftDownGate();
 
@@ -45,6 +49,11 @@ namespace Ternary.Components.Experimental
         public void InputB(object sender, Trit trit)
         {
             egateb.AInput(this, trit);
+        }
+
+        public void InputC(object sender, Trit trit)
+        {
+            egatec.AInput(this, trit);
         }
     }
 }

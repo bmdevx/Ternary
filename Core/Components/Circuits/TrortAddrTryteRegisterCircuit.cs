@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Ternary.Components.Storage;
 
-namespace Ternary.Components.Experimental
+namespace Ternary.Components.Circuits
 {
     public class TrortAddrTryteRegisterCircuit : IBusComponentOutput<Tryte>
     {
@@ -11,13 +9,13 @@ namespace Ternary.Components.Experimental
         public event ComponentBusTriggeredEvent<Tryte> BusOutput;
 
         private TryteRegister register;
-        private OutIfPosGate outIfPosGate;
+        private OutIfPosCircuit outIfPosGate;
 
 
         public TrortAddrTryteRegisterCircuit(IBusComponentOutput<Tryte> dataIn, IComponentOutput rwState,
             IComponentOutput railX, IComponentOutput railY, IComponentOutput railZ, IComponentOutput railT)
         {
-            TritMatchGate4 addr = new TritMatchGate4(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
+            TritMatchCircuit4 addr = new TritMatchCircuit4(Trit.Pos, Trit.Pos, Trit.Pos, Trit.Pos);
 
             railX.Output += addr.InputA;
             railY.Output += addr.InputB;
@@ -26,7 +24,7 @@ namespace Ternary.Components.Experimental
 
             register = new TryteRegister();
 
-            outIfPosGate = new OutIfPosGate(addr, rwState);
+            outIfPosGate = new OutIfPosCircuit(addr, rwState);
 
             outIfPosGate.Output += register.ReadWriteEnabled;
 

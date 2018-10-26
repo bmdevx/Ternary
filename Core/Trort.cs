@@ -141,6 +141,23 @@ namespace Ternary
                 T11 = trits[11];
             }
         }
+        
+        public Trort(Tryte lower, Trit t6 = Trit.Neu, Trit t7 = Trit.Neu, Trit t8 = Trit.Neu,
+            Trit t9 = Trit.Neu, Trit t10 = Trit.Neu, Trit t11 = Trit.Neu)
+        {
+            T0 = lower.T0;
+            T1 = lower.T1;
+            T2 = lower.T2;
+            T3 = lower.T3;
+            T4 = lower.T4;
+            T5 = lower.T5;
+            T6 = t6;
+            T7 = t7;
+            T8 = t8;
+            T9 = t9;
+            T10 = t10;
+            T11 = t11;
+        }
 
         public Trort(Tryte lower, Tryte upper)
         {

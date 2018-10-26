@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ternary.Components.Experimental
+﻿namespace Ternary.Components.Storage
 {
     public class TernaryLatchGate : IComponent
     {

@@ -1,14 +1,14 @@
 ﻿using Ternary.Components.Muxers;
 
-namespace Ternary.Components.Experimental
+namespace Ternary.Components.Circuits
 {
-    public class OutIfPosGate : IComponentOutput
+    public class OutIfPosCircuit : IComponentOutput
     {
         public string ComponentName { get; internal set; }
 
         public event ComponentTriggeredEvent Output;
 
-        public OutIfPosGate(IComponentOutput evalComponent, IComponentOutput outComponent)
+        public OutIfPosCircuit(IComponentOutput evalComponent, IComponentOutput outComponent)
         {
             Muxer muxer = new Muxer();
 

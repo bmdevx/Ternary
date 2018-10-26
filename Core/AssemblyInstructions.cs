@@ -5,7 +5,7 @@ using System.Text;
 namespace Ternary
 {
     //IIII RRRR MMMM
-    public enum Assembly
+    public enum AInstruction
     {
         INST = 0, //Instruction
         MOV = 1,

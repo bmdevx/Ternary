@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ternary.Components.Muxers;
+﻿using Ternary.Components.Muxers;
 
-namespace Ternary.Components.Experimental
+namespace Ternary.Components.Circuits
 {
-    public class OutIfNotNeuGate : IComponentOutput
+    public class OutIfNotNeuCircuit : IComponentOutput
     {
         public string ComponentName { get; internal set; }
 
         public event ComponentTriggeredEvent Output;
 
-        public OutIfNotNeuGate(TritMatchGate3 matchGate, IComponentOutput componentOutput)
+        public OutIfNotNeuCircuit(TritMatchCircuit3 matchGate, IComponentOutput componentOutput)
         {
             Muxer muxer = new Muxer();
 

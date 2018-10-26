@@ -9,23 +9,26 @@
     <Import_RootNamespace>Ternary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Assembly.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInstructions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\FullAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\HalfAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\IAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TrortAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\TryteAdder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\ControlUnit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\Decoder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\GPRegisters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\IO\TernaryFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\IO\TernaryFolder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\System\TernaryString.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate4.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\STrortAddrTryteMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\TritMatchCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\TritMatchCircuit4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Storage\STrortAddrTryteMemory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortALUExp.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegisterCircuit.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortRegister.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortAddrTryteRegisterCircuit.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TrortAddrTryteMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\TrortRegisterCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Storage\TrortRegister.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\TrortAddrTryteRegisterCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Storage\TrortAddrTryteMemory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\IO\TStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\TrortALU.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\TryteALU.cs" />
@@ -61,13 +64,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\XorBus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)_OLD\MonadicBaseBusOld.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Common\BasicDataInDataOutComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TritMatchGate3.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfNotNeuGate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\OutIfPosGate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteMemory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteRegister.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TernaryLatchGate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Experimental\TryteRegisterCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\TritMatchCircuit3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\OutIfNotNeuCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\OutIfPosCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Storage\TryteMemory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Storage\TryteRegister.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Storage\TernaryLatchGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Circuits\TryteRegisterCircuit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\AntiMaxGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\AntiMinGate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Gates\DyadicBaseGate.cs" />
@@ -105,6 +108,8 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Components\Buses\Dyadic\" />
     <Folder Include="$(MSBuildThisFileDirectory)Components\Gates\Dyadic\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Components\Circuits\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Components\Storage\" />
     <Folder Include="$(MSBuildThisFileDirectory)_OLD\" />
   </ItemGroup>
 </Project>

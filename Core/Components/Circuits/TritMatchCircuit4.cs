@@ -2,10 +2,10 @@
 using Ternary.Components.Gates.Monadic;
 using Ternary.Components.Muxers;
 
-namespace Ternary.Components.Experimental
+namespace Ternary.Components.Circuits
 {
     //output + or 0 depending on if all components have a + input
-    public class TritMatchGate4 : IComponentOutput
+    public class TritMatchCircuit4 : IComponentOutput
     {
         public string ComponentName { get; internal set; }
 
@@ -17,7 +17,7 @@ namespace Ternary.Components.Experimental
         private ShiftDownGate shiftDownGate;
 
 
-        public TritMatchGate4(Trit t0, Trit t1, Trit t2, Trit t3)
+        public TritMatchCircuit4(Trit t0, Trit t1, Trit t2, Trit t3)
         {
             egatea = new EqualityGate(inputStateB: t0) { ComponentName = nameof(egatea) };
             egateb = new EqualityGate(inputStateB: t1) { ComponentName = nameof(egateb) };
