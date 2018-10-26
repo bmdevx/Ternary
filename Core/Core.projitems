@@ -9,6 +9,7 @@
     <Import_RootNamespace>Ternary</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Assembly.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\FullAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\HalfAdder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Adders\IAdder.cs" />

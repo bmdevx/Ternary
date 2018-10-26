@@ -16,31 +16,14 @@ namespace Ternary.Components
 {
     //Control States ex:
     //012345
-    //A, B, Op1, Op2, X, +-1
-    //+0+000: A
-    //0++000: B
-    //+++000: A + B 
-    //+++00+: (A + B) + 1
-    //+0+00+: A + 1
-    //0++00+: B + 1
-    //+0+00-: A - 1
-    //0++00-: B - 1
-    //+-+000: A - B
-    //-++000: B - A
-    //+-+00-: (A - B) - 1
-    //-++00-: (B - A) - 1
-    //++++00: MAX A & B
-    //+++-00: MIN A & B
-    //++0000: A & B
-    //++-+00: A XOR B
-    //++-000: A OR B
-    //++--00: A NOR B
-
-    //      __OPS__
-    //  1: +   0   -
-    //  + MAX ADD MIN
-    //2:0     AND
-    //  - XOR OR  NOR
+    //A, B, Op1, X, X, X
+    //+00000: A
+    //0+0000: B
+    //++0000: A + B 
+    //+-0000: A - B
+    //-+0000: B - A
+    //+++000: MAX
+    //++-000: MIN
 
     public class TrortALUExp : IBusComponentOutput<Trort>
     {
@@ -108,7 +91,7 @@ namespace Ternary.Components
         #endregion old
 
 
-        DeMuxer dmA, dmB, dmOp1, dmOp2, dm4, dmAS;
+        DeMuxer dmA, dmB, dmOp, dm3, dm4, dm5;
 
 
         
@@ -167,10 +150,10 @@ namespace Ternary.Components
 
             dmA = new DeMuxer(Trit.Neu, Trit.Pos);
             dmB = new DeMuxer(Trit.Neu, Trit.Pos);
-            dmOp1 = new DeMuxer(Trit.Neu, Trit.Pos);
-            dmOp2 = new DeMuxer(Trit.Neu, Trit.Pos);
+            dmOp = new DeMuxer(Trit.Neu, Trit.Pos);
+            dm3 = new DeMuxer(Trit.Neu, Trit.Pos);
             dm4 = new DeMuxer(Trit.Neu, Trit.Pos);
-            dmAS = new DeMuxer(Trit.Neu, Trit.Pos);
+            dm5 = new DeMuxer(Trit.Neu, Trit.Pos);
 
 
 
@@ -238,10 +221,10 @@ namespace Ternary.Components
         {
             dmA.InputSelect(this, control[0]);
             dmB.InputSelect(this, control[1]);
-            dmOp1.InputSelect(this, control[2]);
-            dmOp2.InputSelect(this, control[3]);
+            dmOp.InputSelect(this, control[2]);
+            dm3.InputSelect(this, control[3]);
             dm4.InputSelect(this, control[4]);
-            dmAS.InputSelect(this, control[5]);
+            dm5.InputSelect(this, control[5]);
         }
 
 
